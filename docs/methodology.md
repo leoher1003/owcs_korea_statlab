@@ -1,111 +1,114 @@
 # Methodology
 
-## Overview
+## Scope
 
-The OWCS Korea Stat Lab uses an AI-assisted data pipeline to transform publicly available broadcast result screens into structured player and match statistics.
+This release covers **2026 OWCS Korea Stage 2** and is based primarily on map-level result screens and competition metadata available from public broadcasts.
 
-The pipeline is designed around the following process:
+The analytical unit for raw player statistics is a **player-map appearance**.
 
-**Broadcast Result Screens → AI-Assisted Extraction → Automated Validation → Review → Structured Dataset → Statistical Processing → Stat Lab**
+## Player Identity and Roles
 
-AI is used as an extraction tool rather than as a source of truth. Extracted data must pass deterministic validation checks before it is included in the processed dataset.
+`player_id` is the primary player aggregation key.
 
-## Data Source
+Three role concepts are intentionally kept separate:
 
-Player statistics are collected from in-game result screens shown during OWCS Korea broadcasts.
+- **map_position** — position shown for the player on that specific result screen
+- **roster_position** — canonical primary roster position
+- **detailed_position** — analytical role used for position-level comparison
 
-These result screens provide player-level statistics for individual maps, including:
+Canonical roster metadata is used to validate player identity, but it does not overwrite the observed map-level position.
+
+## Accumulated Statistics
+
+Player totals are aggregated from validated player-map records.
+
+Core fields:
 
 - Eliminations
 - Deaths
 - Assists
 - Damage
 - Healing
-- Mitigation
+- Mitigated damage
+- Playtime
 
-Additional match information such as teams, maps, map types, match results, map duration, and hero bans is also recorded where available.
+## Per-10 Statistics
 
-The current version of the project focuses on the 2026 OWCS Korea Stage 2 competition.
+For a statistic \(x\):
 
-## AI-Assisted Data Extraction
+```text
+Per10(x) = x / total_playtime_seconds × 600
+```
 
-Result screen screenshots are processed individually using an AI-assisted visual extraction pipeline.
+Per-10 normalizes counting statistics to ten minutes of observed playtime.
 
-The extraction model converts information visible in each screenshot into structured player-level records.
+It does **not** adjust for hero, map, opponent, composition, pace, or team strategy.
 
-AI-generated output is treated as an intermediate extraction result and is not assumed to be perfectly accurate.
+## Minimum Playtime
 
-Each record also retains its source information so that statistics can be traced back to the corresponding result screen when necessary.
+A player is percentile/ranking eligible when:
 
-## Automated Validation
+```text
+total_playtime_minutes >= 30
+```
 
-Extracted data is passed through deterministic validation checks before being accepted into the processed dataset.
+The threshold is intended to reduce extreme low-playtime comparisons. It does not make small samples statistically equivalent or remove sampling uncertainty.
 
-Validation checks include:
+## Percentiles
 
-- expected player count
-- duplicate player IDs
-- unknown player IDs
-- canonical roster matching
-- numeric field validation
-- playtime validation
-- categorical field validation
-- consistency checks within each result screen
+Percentiles are calculated among eligible players within the same `detailed_position`.
 
-Player identity is validated against a canonical roster. Team and position information are assigned using this reference data rather than relying solely on AI-generated labels.
+They should be interpreted as:
 
-Records that fail required validation checks are excluded from the clean dataset. Records containing potential inconsistencies can be flagged for additional review.
+> Where does this observed statistic fall relative to other eligible players in the same detailed position during this Stage 2 dataset?
 
-## Statistical Processing
+They should **not** be interpreted as:
 
-Validated map-level records are used to generate accumulated and rate-based player statistics.
+> How good is this player overall?
 
-### Accumulated Statistics
+## Confounding and Interpretation
 
-Player statistics are aggregated across maps using Player ID as the primary identifier.
+Overwatch scoreboard statistics are highly context dependent.
 
-This produces season-level totals for statistics such as eliminations, deaths, assists, damage, healing, and mitigation.
+Examples include:
 
-### Per-10-Minute Statistics
+- Hero selection
+- Team composition
+- Map and mode
+- Opponent quality/style
+- Team strategy and tempo
+- Role responsibilities
+- Fight length and game state
 
-Per-10-minute statistics normalize player performance by total playtime.
+The current dataset does not contain sufficient hero-level or event-level context to adjust for these factors. Therefore, player rankings, Per-10 values, plots, and percentiles are **descriptive and context-unadjusted**.
 
-The calculation is:
+A high damage, healing, or elimination rate is not by itself evidence of greater player impact.
 
-**Per10 = (Accumulated Stat / Total Playtime in Seconds) × 600**
+## Hero Bans
 
-Accumulated statistics and Per-10 statistics are generated from the same validated underlying dataset to maintain consistency between the two views.
+Hero-ban records are stored at the banning-team level and can be explored by team and match/map context.
 
-Players must record at least **30 minutes of total playtime** to be included in Per-10-minute rankings.
+Observed relationships between bans and results should be treated as descriptive associations. The current dataset is not designed to establish that a particular ban caused a match outcome.
 
-## Player Roles
+## Best / Worst Map Records
 
-Players are categorized into detailed competitive roles:
+Team map summaries use a minimum of **3 map appearances** before a map is eligible for best/worst-map labeling.
 
-- Tank
-- Main DPS
-- Flex DPS
-- Main Support
-- Flex Support
+When records are tied, more map appearances are preferred; remaining ties can be resolved deterministically for display.
 
-While there are flexible players who can play multiple roles, these role classifications are used for position-based comparisons and percentile calculations within the Stat Lab.
+## POTM
 
-## Percentile Rankings
+Player of the Match records are stored separately and joined by player identity where needed. POTM is an award record, not a modeled performance metric.
 
-Player percentile values are calculated relative to other eligible players within the same role.
+## What This Methodology Does Not Claim
 
-This allows players to be compared against others performing similar competitive roles rather than against the entire player population.
+This project does not currently provide:
 
-Percentiles are descriptive measures of a player's statistical position within the dataset and should not be interpreted as a complete measure of player impact.
+- Hero-adjusted player ratings
+- Causal estimates
+- Event-level player impact
+- Teamfight-level value
+- Ultimate-efficiency models
+- Context-adjusted impact ratings
 
-## Data Traceability
-
-Source information is retained during the extraction process so that individual records can be traced back to the original broadcast result screen.
-
-This provides a way to investigate questionable values and review potential extraction errors.
-
-## Scope
-
-The current methodology is designed specifically for the 2026 OWCS Korea Stage 2 dataset.
-
-The underlying pipeline is designed to support future expansion to additional competitions, stages, and regions while maintaining a consistent data structure and validation process.
+Those would require substantially more granular data and/or stronger modeling assumptions.

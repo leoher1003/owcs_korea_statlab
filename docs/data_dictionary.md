@@ -1,244 +1,135 @@
 # Data Dictionary
+This document describes the eight public CSV files for **2026 OWCS Korea Stage 2**.
 
-This document describes the datasets and primary variables used in the **2026 OWCS Korea Stage 2 Stat Lab**.
+## General Conventions
 
-The dataset is organized around team and player reference information, match-level information, map-level player statistics, and derived season statistics.
+- `player_id` is the primary player identity / aggregation key.
+- `team_id` is the canonical team identifier.
+- `match_id` is the map-level join key used by match, player-map, and hero-ban data.
+- `map_position` is observed at the map/result-screen level and is intentionally separate from canonical roster position.
+- Per-10 ranking eligibility is represented explicitly in `eligible_30min`.
 
----
+## `teams.csv`
 
-## Dataset Structure
-
-The Stage 2 dataset contains the following components:
-
-| Dataset | Description |
-|---|---|
-| `TEAM INFO` | Team rosters and player role classifications. |
-| `MATCH INFO` | Match- and map-level information, including results and hero bans. |
-| `MATCH_W1` – `MATCH_W6` | Map-level player statistics organized by competition week. |
-| `TOTAL STATISTICS` | Accumulated player statistics across Stage 2. |
-| `Per10 STATISTICS` | Player statistics normalized by playtime. |
-| `POTM` | Player of the Match records. |
-
----
-
-## TEAM INFO
-
-`TEAM INFO` serves as the primary roster reference used throughout the dataset.
+**Rows:** 9
 
 | Field | Description |
 |---|---|
-| Team Name | Full team name. |
-| Shortened | Abbreviated team identifier used throughout the dataset. |
-| Player Name | Player's competitive display name. |
-| Player Position | General competitive role: Tank, DPS, or Support. |
-| Detailed | Detailed role classification used for role-based comparisons. |
+| `team_id` | Canonical team identifier used for joins. |
+| `team_name` | Display name of the team. |
 
-### Detailed Roles
+## `players.csv`
 
-The Stat Lab uses the following role classifications:
-
-- Tank
-- Main DPS
-- Flex DPS
-- Main Support
-- Flex Support
-
-These classifications are used for position-based comparisons and percentile calculations.
-
-Some players may compete across multiple roles or have flexible hero pools. The detailed role classification should therefore be interpreted as an analytical grouping used by the Stat Lab rather than a complete description of a player's capabilities.
-
----
-
-## MATCH INFO
-
-`MATCH INFO` contains the match- and map-level structure of the competition.
+**Rows:** 60
 
 | Field | Description |
 |---|---|
-| WEEK | Competition week. |
-| DAY | Competition day within the week. |
-| MATCH | Match number within the competition day. |
-| Set # | Map/set number within the match. |
-| DATE | Date on which the match was played. |
-| PHASE | Competition phase. |
-| TEAM 1 | First team in the match record. |
-| TEAM 2 | Second team in the match record. |
-| MAP | Map played during the set. |
-| MAP TYPE | Game mode associated with the map. |
-| TIME | Recorded duration of the map, where available. |
-| WINNER | Winner of the individual map. |
-| TEAM 1 BAN | Hero banned by Team 1. |
-| TEAM 2 BAN | Hero banned by Team 2. |
-| MATCH_ID | Identifier used to associate map-level records across the dataset. |
-| TEAM 1 SCORE | Recorded map score or objective result for Team 1. |
-| TEAM 2 SCORE | Recorded map score or objective result for Team 2. |
+| `player_id` | Canonical player identifier and aggregation key. |
+| `team_id` | Canonical team identifier. |
+| `roster_position` | Player's canonical primary roster position. |
+| `detailed_position` | Analytical position used for within-position comparisons. |
 
-### MATCH_ID
+## `matches.csv`
 
-`MATCH_ID` provides a consistent identifier for linking map-level information with player statistics.
-
-A single match series may therefore contain multiple `MATCH_ID` values corresponding to its individual maps/sets.
-
----
-
-## MATCH_W1 – MATCH_W6
-
-These datasets contain the underlying player-level statistics recorded for individual maps.
-
-Each row represents the performance of one player on one map.
+**Rows:** 188
 
 | Field | Description |
 |---|---|
-| Team | Team represented by the player. |
-| Player | Player's competitive display name. |
-| Position | Role played by the player in the corresponding record. |
-| Map | Map on which the statistics were recorded. |
-| Map Type | Game mode associated with the map. |
-| Elim | Eliminations recorded by the player. |
-| Death | Deaths recorded by the player. |
-| Assists | Assists recorded by the player. |
-| Damage | Damage recorded by the player. |
-| Heal | Healing recorded by the player. |
-| Mitigated | Damage mitigation recorded by the player. |
-| Playtime | Player playtime recorded for the map. |
-| Playtime (Seconds) | Player playtime represented in seconds for statistical processing. |
-| MATCH_ID | Identifier linking the player record to the corresponding map in `MATCH INFO`. |
+| `week` | Competition week. |
+| `day` | Competition day within the week/phase source. |
+| `match` | Match label/number from the source dataset. |
+| `set_number` | Map/set number within the match. |
+| `date` | Match date. |
+| `phase` | Tournament phase. |
+| `team_1` | Canonical identifier for team 1. |
+| `team_2` | Canonical identifier for team 2. |
+| `map` | Map name. |
+| `map_type` | Game mode / map type. |
+| `map_duration` | Observed map duration. |
+| `winner` | Canonical identifier of the map winner. |
+| `match_id` | Unique map-level identifier used for joins. |
+| `team_1_score` | Team 1 map/match score field from match metadata. |
+| `team_2_score` | Team 2 map/match score field from match metadata. |
 
-The Stage 2 dataset contains **10 player records per map**, representing five players from each participating team.
+## `player_map_stats.csv`
 
-### Player Position
-
-`Position` represents the role associated with the player for that particular record.
-
-A player's map-level position may differ from their primary roster classification when the player competes in a different role.
-
-This allows player identity to remain consistent while preserving the role actually associated with an individual appearance.
-
----
-
-## TOTAL STATISTICS
-
-`TOTAL STATISTICS` contains accumulated player statistics calculated from the underlying map-level records.
+**Rows:** 1,880
 
 | Field | Description |
 |---|---|
-| TEAM | Player's team. |
-| PLAYER | Player's competitive display name. |
-| POSITION | Player role used in the accumulated statistics dataset. |
-| TOTAL ELIMS | Total eliminations across included maps. |
-| TOTAL DEATHS | Total deaths across included maps. |
-| TOTAL ASSISTS | Total assists across included maps. |
-| TOTAL DAMAGE | Total damage across included maps. |
-| TOTAL HEAL | Total healing across included maps. |
-| TOTAL MITIGATED | Total damage mitigation across included maps. |
-| TOTAL E/D | Elimination-to-death ratio. |
-| TOTAL PLAYTIME | Total recorded playtime in seconds. |
+| `match_id` | Map-level identifier joining to matches.csv. |
+| `week` | Competition week. |
+| `team_id` | Canonical team identifier. |
+| `player_id` | Canonical player identifier. |
+| `map_position` | Position shown for the player on this specific result screen. |
+| `map` | Map name. |
+| `map_type` | Game mode / map type. |
+| `eliminations` | Map-level eliminations. |
+| `deaths` | Map-level deaths. |
+| `assists` | Map-level assists. |
+| `damage` | Map-level damage. |
+| `healing` | Map-level healing. |
+| `mitigated` | Map-level mitigated damage. |
+| `playtime` | Human-readable map playtime. |
+| `playtime_seconds` | Map playtime converted to seconds. |
 
-Player statistics are aggregated using player identity across the Stage 2 dataset.
+## `player_total_stats.csv`
 
-### Elimination-to-Death Ratio
-
-The elimination-to-death ratio is calculated as:
-
-**E/D = Total Eliminations / Total Deaths**
-
-This statistic describes the relationship between a player's recorded eliminations and deaths and should not be interpreted independently as an overall measure of player impact.
-
----
-
-## Per10 STATISTICS
-
-`Per10 STATISTICS` contains player statistics normalized by total playtime.
+**Rows:** 60
 
 | Field | Description |
 |---|---|
-| Team | Player's team. |
-| Player | Player's competitive display name. |
-| Position | Player role used for statistical comparison. |
-| Playtime_Min | Total recorded playtime expressed in minutes. |
-| Elim / 10 | Eliminations per 10 minutes. |
-| Death / 10 | Deaths per 10 minutes. |
-| Assists / 10 | Assists per 10 minutes. |
-| Damage / 10 | Damage per 10 minutes. |
-| Heal / 10 | Healing per 10 minutes. |
-| Mitigated / 10 | Damage mitigation per 10 minutes. |
+| `team_id` | Canonical team identifier. |
+| `player_id` | Canonical player identifier. |
+| `roster_position` | Canonical primary roster position. |
+| `detailed_position` | Analytical detailed position. |
+| `total_eliminations` | Accumulated eliminations. |
+| `total_deaths` | Accumulated deaths. |
+| `total_assists` | Accumulated assists. |
+| `total_damage` | Accumulated damage. |
+| `total_healing` | Accumulated healing. |
+| `total_mitigated` | Accumulated mitigated damage. |
+| `elim_death_ratio` | Accumulated elimination/death ratio. |
+| `playtime_seconds` | Accumulated playtime in seconds. |
+| `playtime_minutes` | Accumulated playtime in minutes. |
 
-Per-10-minute statistics are calculated using:
+## `player_per10_stats.csv`
 
-**Per10 = (Accumulated Stat / Total Playtime in Seconds) × 600**
-
-The workbook may contain Per-10 values for players with limited playtime. However, players must record at least **30 minutes of total playtime** to be included in Per-10 rankings and related visualizations in the Stat Lab.
-
-This eligibility threshold is intended to reduce the influence of extremely small playtime samples when comparing players.
-
----
-
-## POTM
-
-`POTM` contains Player of the Match records.
+**Rows:** 60
 
 | Field | Description |
 |---|---|
-| Date | Date of the match. |
-| Match | Teams participating in the match. |
-| POTM | Player selected as Player of the Match. |
-| Position | General role of the selected player. |
+| `team_id` | Canonical team identifier. |
+| `player_id` | Canonical player identifier. |
+| `roster_position` | Canonical primary roster position. |
+| `detailed_position` | Analytical detailed position. |
+| `playtime_minutes` | Accumulated playtime in minutes. |
+| `eliminations_per10` | Eliminations per 10 minutes. |
+| `deaths_per10` | Deaths per 10 minutes. |
+| `assists_per10` | Assists per 10 minutes. |
+| `damage_per10` | Damage per 10 minutes. |
+| `healing_per10` | Healing per 10 minutes. |
+| `mitigated_per10` | Mitigated damage per 10 minutes. |
+| `eligible_30min` | Whether the player meets the 30-minute comparison threshold. |
 
-POTM records are used as an additional descriptive component of player profiles and accomplishments.
+## `hero_bans.csv`
 
----
+**Rows:** 376
 
-## Derived Statistics
+| Field | Description |
+|---|---|
+| `match_id` | Map-level identifier joining to matches.csv. |
+| `banning_team_id` | Canonical identifier of the team making the ban. |
+| `banned_hero` | Hero banned by that team. |
 
-Several statistics displayed in the Stat Lab are derived from the underlying Stage 2 dataset rather than directly recorded from broadcast result screens.
+## `potm.csv`
 
-These include:
+**Rows:** 51
 
-- accumulated player statistics
-- Per-10-minute statistics
-- elimination-to-death ratio
-- role-based percentile rankings
-- player and team summary statistics
-- match and hero-ban summaries
+| Field | Description |
+|---|---|
+| `date` | Award date. |
+| `match` | Match label/number associated with the award. |
+| `player_id` | Canonical player identifier receiving POTM. |
+| `position` | Position associated with the POTM record. |
 
----
-
-## Percentile Rankings
-
-Percentiles compare eligible players with other players in the same detailed role.
-
-A higher percentile indicates that a player's recorded value for a particular statistic is higher than that of a larger proportion of eligible players within the comparison group.
-
-Percentiles are descriptive measures of statistical position within the dataset. They should not be interpreted as an overall player rating or as a complete measure of player impact.
-
----
-
-## Multi-Role Players
-
-Player identity is maintained independently from individual map-level role information.
-
-If a player competes in a different role during a particular map, the map-level record can retain that role without creating a separate player identity.
-
-This distinction allows the dataset to preserve both:
-
-- a consistent player identity across the competition
-- the role associated with individual appearances
-
-Role-based analyses should therefore account for the context in which a player's statistics were recorded.
-
----
-
-## Data Scope
-
-This data dictionary applies to the **2026 OWCS Korea Stage 2** dataset.
-
-The current dataset primarily supports analysis of:
-
-- player scoreboard statistics
-- team and match results
-- map-level results
-- player playtime
-- Player of the Match records
-- hero bans
-
-More granular gameplay information such as teamfight events, hero swaps, ultimate usage, compositions, and spatial events is outside the scope of the current dataset.
