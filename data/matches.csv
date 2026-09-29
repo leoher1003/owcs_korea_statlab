@@ -1,0 +1,189 @@
+﻿week,day,match,set_number,date,phase,team_1,team_2,map,map_type,map_duration,winner,match_id,team_1_score,team_2_score
+1,1,1,1,2026-06-05,Round Robin,O2,ROZE,Ilios,Control,00:09:39,O2,260605_O2_ROZE_S1,2,0
+1,1,1,2,2026-06-05,Round Robin,O2,ROZE,Suravasa,Flashpoint,00:15:00,O2,260605_O2_ROZE_S2,3,2
+1,1,1,3,2026-06-05,Round Robin,O2,ROZE,Runasapi,Push,00:10:40,O2,260605_O2_ROZE_S3,125,72
+1,1,2,1,2026-06-05,Round Robin,FLC,CR,Antarctic Peninsula,Control,00:07:30,CR,260605_FLC_CR_S1,2,0
+1,1,2,2,2026-06-05,Round Robin,FLC,CR,King's Row,Hybrid,00:14:05,CR,260605_FLC_CR_S2,1,2
+1,1,2,3,2026-06-05,Round Robin,FLC,CR,New Queen Street,Push,00:10:19,CR,260605_FLC_CR_S3,105,106
+1,1,3,1,2026-06-05,Round Robin,T1,ZETA,Antarctic Peninsula,Control,00:08:25,T1,260605_T1_ZETA_S1,0,2
+1,1,3,2,2026-06-05,Round Robin,T1,ZETA,Rialto,Escort,00:15:22,ZETA,260605_T1_ZETA_S2,1,2
+1,1,3,3,2026-06-05,Round Robin,T1,ZETA,New Junk City,Flashpoint,00:07:39,T1,260605_T1_ZETA_S3,3,2
+1,1,3,4,2026-06-05,Round Robin,T1,ZETA,King's Row,Hybrid,00:16:20,ZETA,260605_T1_ZETA_S4,3,4
+1,1,3,5,2026-06-05,Round Robin,T1,ZETA,Runasapi,Push,00:10:34,T1,260605_T1_ZETA_S5,73,57
+1,2,1,1,2026-06-06,Round Robin,PF,CB,Antarctic Peninsula,Control,,CB,260606_PF_CB_S1,0,2
+1,2,1,2,2026-06-06,Round Robin,PF,CB,Suravasa,Flashpoint,,CB,260606_PF_CB_S2,2,3
+1,2,1,3,2026-06-06,Round Robin,PF,CB,Runasapi,Push,,CB,260606_PF_CB_S3,0,144
+1,2,2,1,2026-06-06,Round Robin,T1,SB,Oasis,Control,,T1,260606_T1_SB_S1,2,0
+1,2,2,2,2026-06-06,Round Robin,T1,SB,Numbani,Hybrid,,T1,260606_T1_SB_S2,3,1
+1,2,2,3,2026-06-06,Round Robin,T1,SB,New Junk City,Flashpoint,,T1,260606_T1_SB_S3,3,0
+1,2,3,1,2026-06-06,Round Robin,ROZE,FLC,Oasis,Control,,FLC,260606_ROZE_FLC_S1,0,2
+1,2,3,2,2026-06-06,Round Robin,ROZE,FLC,Suravasa,Flashpoint,,FLC,260606_ROZE_FLC_S2,1,3
+1,2,3,3,2026-06-06,Round Robin,ROZE,FLC,Runasapi,Push,,FLC,260606_ROZE_FLC_S3,77,130
+1,3,1,1,2026-06-07,Round Robin,SB,O2,Oasis,Control,,O2,260607_SB_O2_S1,1,2
+1,3,1,2,2026-06-07,Round Robin,SB,O2,Rialto,Escort,,O2,260607_SB_O2_S2,0,2
+1,3,1,3,2026-06-07,Round Robin,SB,O2,Hollywood,Hybrid,,O2,260607_SB_O2_S3,1,2
+1,3,2,1,2026-06-07,Round Robin,ZETA,CB,Oasis,Control,,ZETA,260607_ZETA_CB_S1,2,0
+1,3,2,2,2026-06-07,Round Robin,ZETA,CB,Runasapi,Push,,ZETA,260607_ZETA_CB_S2,144,46
+1,3,2,3,2026-06-07,Round Robin,ZETA,CB,Dorado,Escort,,ZETA,260607_ZETA_CB_S3,2,1
+1,3,3,1,2026-06-07,Round Robin,CR,PF,Ilios,Control,,CR,260607_CR_PF_S1,2,0
+1,3,3,2,2026-06-07,Round Robin,CR,PF,Suravasa,Flashpoint,,CR,260607_CR_PF_S2,3,1
+1,3,3,3,2026-06-07,Round Robin,CR,PF,Runasapi,Push,,CR,260607_CR_PF_S3,141,55
+2,1,1,1,2026-06-12,Round Robin,CB,SB,Ilios,Control,,CB,260612_CB_SB_S1,2,0
+2,1,1,2,2026-06-12,Round Robin,CB,SB,New Junk City,Flashpoint,,CB,260612_CB_SB_S2,3,2
+2,1,1,3,2026-06-12,Round Robin,CB,SB,King's Row,Hybrid,,CB,260612_CB_SB_S3,2,1
+2,1,2,1,2026-06-12,Round Robin,O2,ZETA,Oasis,Control,,ZETA,260612_O2_ZETA_S1,0,2
+2,1,2,2,2026-06-12,Round Robin,O2,ZETA,New Junk City,Flashpoint,,ZETA,260612_O2_ZETA_S2,0,3
+2,1,2,3,2026-06-12,Round Robin,O2,ZETA,Runasapi,Push,,ZETA,260612_O2_ZETA_S3,0,144
+2,1,3,1,2026-06-12,Round Robin,CR,ROZE,Antarctic Peninsula,Control,,CR,260612_CR_ROZE_S1,2,0
+2,1,3,2,2026-06-12,Round Robin,CR,ROZE,Hollywood,Hybrid,,CR,260612_CR_ROZE_S2,1,0
+2,1,3,3,2026-06-12,Round Robin,CR,ROZE,Runasapi,Push,,CR,260612_CR_ROZE_S3,144,46
+2,2,1,1,2026-06-13,Round Robin,PF,FLC,Ilios,Control,,FLC,260613_PF_FLC_S1,0,2
+2,2,1,2,2026-06-13,Round Robin,PF,FLC,Suravasa,Flashpoint,,FLC,260613_PF_FLC_S2,0,3
+2,2,1,3,2026-06-13,Round Robin,PF,FLC,Runasapi,Push,,FLC,260613_PF_FLC_S3,24,144
+2,2,2,1,2026-06-13,Round Robin,T1,O2,Ilios,Control,,T1,260613_T1_O2_S1,2,0
+2,2,2,2,2026-06-13,Round Robin,T1,O2,Circuit Royal,Escort,,T1,260613_T1_O2_S2,1,0
+2,2,2,3,2026-06-13,Round Robin,T1,O2,King's Row,Hybrid,,T1,260613_T1_O2_S3,3,2
+2,2,3,1,2026-06-13,Round Robin,SB,ZETA,Antarctic Peninsula,Control,,ZETA,260613_SB_ZETA_S1,0,2
+2,2,3,2,2026-06-13,Round Robin,SB,ZETA,New Junk City,Flashpoint,,ZETA,260613_SB_ZETA_S2,0,3
+2,2,3,3,2026-06-13,Round Robin,SB,ZETA,King's Row,Hybrid,,ZETA,260613_SB_ZETA_S3,3,4
+2,3,1,1,2026-06-14,Round Robin,ROZE,PF,Oasis,Control,,ROZE,260614_ROZE_PF_S1,2,0
+2,3,1,2,2026-06-14,Round Robin,ROZE,PF,Suravasa,Flashpoint,,ROZE,260614_ROZE_PF_S2,3,1
+2,3,1,3,2026-06-14,Round Robin,ROZE,PF,Runasapi,Push,,ROZE,260614_ROZE_PF_S3,144,0
+2,3,2,1,2026-06-14,Round Robin,CR,CB,Oasis,Control,,CR,260614_CR_CB_S1,2,0
+2,3,2,2,2026-06-14,Round Robin,CR,CB,Runasapi,Push,,CR,260614_CR_CB_S2,144,40
+2,3,2,3,2026-06-14,Round Robin,CR,CB,Suravasa,Flashpoint,,CR,260614_CR_CB_S3,3,1
+2,3,3,1,2026-06-14,Round Robin,FLC,T1,Antarctic Peninsula,Control,,T1,260614_FLC_T1_S1,1,2
+2,3,3,2,2026-06-14,Round Robin,FLC,T1,Hollywood,Hybrid,,FLC,260614_FLC_T1_S2,2,1
+2,3,3,3,2026-06-14,Round Robin,FLC,T1,New Junk City,Flashpoint,,T1,260614_FLC_T1_S3,0,3
+2,3,3,4,2026-06-14,Round Robin,FLC,T1,Rialto,Escort,,FLC,260614_FLC_T1_S4,1,0
+2,3,3,5,2026-06-14,Round Robin,FLC,T1,Runasapi,Push,,FLC,260614_FLC_T1_S5,131,63
+3,1,1,1,2026-06-19,Round Robin,ROZE,CB,Ilios,Control,,ROZE,260619_ROZE_CB_S1,2,1
+3,1,1,2,2026-06-19,Round Robin,ROZE,CB,Circuit Royal,Escort,,CB,260619_ROZE_CB_S2,3,4
+3,1,1,3,2026-06-19,Round Robin,ROZE,CB,Runasapi,Push,,ROZE,260619_ROZE_CB_S3,144,1
+3,1,1,4,2026-06-19,Round Robin,ROZE,CB,Hollywood,Hybrid,,ROZE,260619_ROZE_CB_S4,3,2
+3,1,2,1,2026-06-19,Round Robin,FLC,O2,Ilios,Control,,FLC,260619_FLC_O2_S1,2,0
+3,1,2,2,2026-06-19,Round Robin,FLC,O2,Numbani,Hybrid,,FLC,260619_FLC_O2_S2,3,1
+3,1,2,3,2026-06-19,Round Robin,FLC,O2,Circuit Royal,Escort,,FLC,260619_FLC_O2_S3,3,0
+3,1,3,1,2026-06-19,Round Robin,T1,CR,Ilios,Control,,CR,260619_T1_CR_S1,0,2
+3,1,3,2,2026-06-19,Round Robin,T1,CR,King's Row,Hybrid,,CR,260619_T1_CR_S2,1,2
+3,1,3,3,2026-06-19,Round Robin,T1,CR,New Junk City,Flashpoint,,T1,260619_T1_CR_S3,2,3
+3,1,3,4,2026-06-19,Round Robin,T1,CR,Circuit Royal,Escort,,CR,260619_T1_CR_S4,2,3
+3,2,1,1,2026-06-20,Round Robin,PF,SB,Antarctic Peninsula,Control,,SB,260620_PF_SB_S1,1,2
+3,2,1,2,2026-06-20,Round Robin,PF,SB,New Junk City,Flashpoint,,PF,260620_PF_SB_S2,3,1
+3,2,1,3,2026-06-20,Round Robin,PF,SB,Hollywood,Hybrid,,SB,260620_PF_SB_S3,0,1
+3,2,1,4,2026-06-20,Round Robin,PF,SB,Runasapi,Push,,PF,260620_PF_SB_S4,118,116
+3,2,1,5,2026-06-20,Round Robin,PF,SB,Circuit Royal,Escort,,SB,260620_PF_SB_S5,0,1
+3,2,2,1,2026-06-20,Round Robin,ZETA,ROZE,Ilios,Control,,ROZE,260620_ZETA_ROZE_S1,1,2
+3,2,2,2,2026-06-20,Round Robin,ZETA,ROZE,New Junk City,Flashpoint,,ZETA,260620_ZETA_ROZE_S2,3,1
+3,2,2,3,2026-06-20,Round Robin,ZETA,ROZE,Runasapi,Push,,ROZE,260620_ZETA_ROZE_S3,45,144
+3,2,2,4,2026-06-20,Round Robin,ZETA,ROZE,Dorado,Escort,,ZETA,260620_ZETA_ROZE_S4,3,1
+3,2,2,5,2026-06-20,Round Robin,ZETA,ROZE,King's Row,Hybrid,,ZETA,260620_ZETA_ROZE_S5,5,4
+3,2,3,1,2026-06-20,Round Robin,CB,T1,Oasis,Control,,T1,260620_CB_T1_S1,1,2
+3,2,3,2,2026-06-20,Round Robin,CB,T1,Rialto,Escort,,T1,260620_CB_T1_S2,0,1
+3,2,3,3,2026-06-20,Round Robin,CB,T1,Suravasa,Flashpoint,,T1,260620_CB_T1_S3,0,3
+3,3,1,1,2026-06-21,Round Robin,FLC,SB,Oasis,Control,,FLC,260621_FLC_SB_S1,2,0
+3,3,1,2,2026-06-21,Round Robin,FLC,SB,New Junk City,Flashpoint,,FLC,260621_FLC_SB_S2,3,0
+3,3,1,3,2026-06-21,Round Robin,FLC,SB,Hollywood,Hybrid,,FLC,260621_FLC_SB_S3,3,0
+3,3,2,1,2026-06-21,Round Robin,O2,CR,Oasis,Control,,O2,260621_O2_CR_S1,2,0
+3,3,2,2,2026-06-21,Round Robin,O2,CR,Circuit Royal,Escort,,CR,260621_O2_CR_S2,0,3
+3,3,2,3,2026-06-21,Round Robin,O2,CR,New Junk City,Flashpoint,,CR,260621_O2_CR_S3,0,3
+3,3,2,4,2026-06-21,Round Robin,O2,CR,New Queen Street,Push,,CR,260621_O2_CR_S4,128,56
+3,3,3,1,2026-06-21,Round Robin,ZETA,PF,Ilios,Control,,ZETA,260621_ZETA_PF_S1,2,0
+3,3,3,2,2026-06-21,Round Robin,ZETA,PF,New Junk City,Flashpoint,,ZETA,260621_ZETA_PF_S2,3,0
+3,3,3,3,2026-06-21,Round Robin,ZETA,PF,Runasapi,Push,,ZETA,260621_ZETA_PF_S3,144,52
+4,1,1,1,2026-06-26,Round Robin,CB,O2,Antarctic Peninsula,Control,,O2,260626_CB_O2_S1,1,2
+4,1,1,2,2026-06-26,Round Robin,CB,O2,King's Row,Hybrid,,O2,260626_CB_O2_S2,3,4
+4,1,1,3,2026-06-26,Round Robin,CB,O2,Runasapi,Push,,CB,260626_CB_O2_S3,144,63
+4,1,1,4,2026-06-26,Round Robin,CB,O2,New Junk City,Flashpoint,,O2,260626_CB_O2_S4,0,3
+4,1,2,1,2026-06-26,Round Robin,ZETA,FLC,Oasis,Control,,ZETA,260626_ZETA_FLC_S1,2,0
+4,1,2,2,2026-06-26,Round Robin,ZETA,FLC,New Junk City,Flashpoint,,ZETA,260626_ZETA_FLC_S2,3,0
+4,1,2,3,2026-06-26,Round Robin,ZETA,FLC,Circuit Royal,Escort,,ZETA,260626_ZETA_FLC_S3,2,3
+4,1,3,1,2026-06-26,Round Robin,SB,ROZE,Antarctic Peninsula,Control,,ROZE,260626_SB_ROZE_S1,1,2
+4,1,3,2,2026-06-26,Round Robin,SB,ROZE,Hollywood,Hybrid,,ROZE,260626_SB_ROZE_S2,1,3
+4,1,3,3,2026-06-26,Round Robin,SB,ROZE,Circuit Royal,Escort,,SB,260626_SB_ROZE_S3,2,1
+4,1,3,4,2026-06-26,Round Robin,SB,ROZE,Runasapi,Push,,ROZE,260626_SB_ROZE_S4,97,97
+4,2,1,1,2026-06-27,Round Robin,PF,T1,Oasis,Control,,T1,260627_PF_T1_S1,0,2
+4,2,1,2,2026-06-27,Round Robin,PF,T1,New Junk City,Flashpoint,,T1,260627_PF_T1_S2,1,3
+4,2,1,3,2026-06-27,Round Robin,PF,T1,Runasapi,Push,,T1,260627_PF_T1_S3,10,144
+4,2,2,1,2026-06-27,Round Robin,CB,FLC,Ilios,Control,,FLC,260627_CB_FLC_S1,0,2
+4,2,2,2,2026-06-27,Round Robin,CB,FLC,New Junk City,Flashpoint,,FLC,260627_CB_FLC_S2,0,3
+4,2,2,3,2026-06-27,Round Robin,CB,FLC,Runasapi,Push,,FLC,260627_CB_FLC_S3,0,144
+4,2,3,1,2026-06-27,Round Robin,SB,CR,Oasis,Control,,CR,260627_SB_CR_S1,0,2
+4,2,3,2,2026-06-27,Round Robin,SB,CR,New Junk City,Flashpoint,,CR,260627_SB_CR_S2,1,3
+4,2,3,3,2026-06-27,Round Robin,SB,CR,Circuit Royal,Escort,,CR,260627_SB_CR_S3,1,2
+4,3,1,1,2026-06-28,Round Robin,O2,PF,Antarctic Peninsula,Control,,O2,260628_O2_PF_S1,2,0
+4,3,1,2,2026-06-28,Round Robin,O2,PF,New Junk City,Flashpoint,,O2,260628_O2_PF_S2,3,2
+4,3,1,3,2026-06-28,Round Robin,O2,PF,Runasapi,Push,,PF,260628_O2_PF_S3,35,141
+4,3,1,4,2026-06-28,Round Robin,O2,PF,King's Row,Hybrid,,O2,260628_O2_PF_S4,5,4
+4,3,2,1,2026-06-28,Round Robin,ROZE,T1,Antarctic Peninsula,Control,,T1,260628_ROZE_T1_S1,1,2
+4,3,2,2,2026-06-28,Round Robin,ROZE,T1,Runasapi,Push,,T1,260628_ROZE_T1_S2,103,141
+4,3,2,3,2026-06-28,Round Robin,ROZE,T1,New Junk City,Flashpoint,,T1,260628_ROZE_T1_S3,0,3
+4,3,3,1,2026-06-28,Round Robin,CR,ZETA,Antarctic Peninsula,Control,,CR,260628_CR_ZETA_S1,2,1
+4,3,3,2,2026-06-28,Round Robin,CR,ZETA,Rialto,Escort,,ZETA,260628_CR_ZETA_S2,2,3
+4,3,3,3,2026-06-28,Round Robin,CR,ZETA,King's Row,Hybrid,,CR,260628_CR_ZETA_S3,1,2
+4,3,3,4,2026-06-28,Round Robin,CR,ZETA,Suravasa,Flashpoint,,ZETA,260628_CR_ZETA_S4,0,3
+4,3,3,5,2026-06-28,Round Robin,CR,ZETA,Runasapi,Push,,ZETA,260628_CR_ZETA_S5,51,135
+5,1,1,1,2026-07-03,LCQ,O2,ROZE,Antarctic Peninsula,Control,,ROZE,260703_O2_ROZE_S1,0,2
+5,1,1,2,2026-07-03,LCQ,O2,ROZE,King's Row,Hybrid,,ROZE,260703_O2_ROZE_S2,3,4
+5,1,1,3,2026-07-03,LCQ,O2,ROZE,Circuit Royal,Escort,,ROZE,260703_O2_ROZE_S3,2,3
+5,1,2,1,2026-07-03,2nd RR,CR,FLC,Antarctic Peninsula,Control,,FLC,260703_CR_FLC_S1,0,2
+5,1,2,2,2026-07-03,2nd RR,CR,FLC,Circuit Royal,Escort,,CR,260703_CR_FLC_S2,3,1
+5,1,2,3,2026-07-03,2nd RR,CR,FLC,New Junk City,Flashpoint,,CR,260703_CR_FLC_S3,3,1
+5,1,2,4,2026-07-03,2nd RR,CR,FLC,King's Row,Hybrid,,CR,260703_CR_FLC_S4,2,1
+5,1,3,1,2026-07-03,2nd RR,ZETA,T1,Nepal,Control,,T1,260703_ZETA_T1_S1,1,2
+5,1,3,2,2026-07-03,2nd RR,ZETA,T1,New Junk City,Flashpoint,,T1,260703_ZETA_T1_S2,2,3
+5,1,3,3,2026-07-03,2nd RR,ZETA,T1,Circuit Royal,Escort,,T1,260703_ZETA_T1_S3,2,1
+5,2,1,1,2026-07-04,LCQ,CB,SB,Nepal,Control,,CB,260704_CB_SB_S1,2,0
+5,2,1,2,2026-07-04,LCQ,CB,SB,Aatlis,Flashpoint,,CB,260704_CB_SB_S2,0,0
+5,2,1,3,2026-07-04,LCQ,CB,SB,Neon Junction,Hybrid,,CB,260704_CB_SB_S3,3,1
+5,2,2,1,2026-07-04,2nd RR,CR,T1,Antarctic Peninsula,Control,,T1,260704_CR_T1_S1,0,2
+5,2,2,2,2026-07-04,2nd RR,CR,T1,Circuit Royal,Escort,,CR,260704_CR_T1_S2,3,2
+5,2,2,3,2026-07-04,2nd RR,CR,T1,New Junk City,Flashpoint,,CR,260704_CR_T1_S3,3,2
+5,2,2,4,2026-07-04,2nd RR,CR,T1,Hollywood,Hybrid,,CR,260704_CR_T1_S4,4,3
+5,2,3,1,2026-07-04,2nd RR,ZETA,FLC,Ilios,Control,,FLC,260704_ZETA_FLC_S1,1,2
+5,2,3,2,2026-07-04,2nd RR,ZETA,FLC,King's Row,Hybrid,,ZETA,260704_ZETA_FLC_S2,3,2
+5,2,3,3,2026-07-04,2nd RR,ZETA,FLC,Colosseo,Push,,ZETA,260704_ZETA_FLC_S3,108,108
+5,2,3,4,2026-07-04,2nd RR,ZETA,FLC,Circuit Royal,Escort,,FLC,260704_ZETA_FLC_S4,2,3
+5,2,3,5,2026-07-04,2nd RR,ZETA,FLC,New Junk City,Flashpoint,,ZETA,260704_ZETA_FLC_S5,3,0
+5,3,1,1,2026-07-05,LCQ,O2,CB,Antarctic Peninsula,Control,,O2,260705_O2_CB_S1,2,1
+5,3,1,2,2026-07-05,LCQ,O2,CB,Neon Junction,Hybrid,,CB,260705_O2_CB_S2,1,2
+5,3,1,3,2026-07-05,LCQ,O2,CB,New Junk City,Flashpoint,,O2,260705_O2_CB_S3,3,0
+5,3,1,4,2026-07-05,LCQ,O2,CB,Colosseo,Push,,O2,260705_O2_CB_S4,54,54
+5,3,2,1,2026-07-05,2nd RR,CR,ZETA,Antarctic Peninsula,Control,,ZETA,260705_CR_ZETA_S1,2,1
+5,3,2,2,2026-07-05,2nd RR,CR,ZETA,King's Row,Hybrid,,CR,260705_CR_ZETA_S2,1,2
+5,3,2,3,2026-07-05,2nd RR,CR,ZETA,Colosseo,Push,,CR,260705_CR_ZETA_S3,77,103
+5,3,2,4,2026-07-05,2nd RR,CR,ZETA,New Junk City,Flashpoint,,CR,260705_CR_ZETA_S4,2,3
+5,3,3,1,2026-07-05,2nd RR,T1,FLC,Ilios,Control,,T1,260705_T1_FLC_S1,2,0
+5,3,3,2,2026-07-05,2nd RR,T1,FLC,King's Row,Hybrid,,T1,260705_T1_FLC_S2,3,2
+5,3,3,3,2026-07-05,2nd RR,T1,FLC,Colosseo,Push,,T1,260705_T1_FLC_S3,139,28
+6,1,1,1,2026-07-10,Playoffs,FLC,ROZE,Antarctic Peninsula,Control,,ROZE,260710_FLC_ROZE_S1,1,2
+6,1,1,2,2026-07-10,Playoffs,FLC,ROZE,New Junk City,Flashpoint,,ROZE,260710_FLC_ROZE_S2,0,3
+6,1,1,3,2026-07-10,Playoffs,FLC,ROZE,Circuit Royal,Escort,,FLC,260710_FLC_ROZE_S3,3,2
+6,1,1,4,2026-07-10,Playoffs,FLC,ROZE,Neon Junction,Hybrid,,FLC,260710_FLC_ROZE_S4,2,0
+6,1,1,5,2026-07-10,Playoffs,FLC,ROZE,Colosseo,Push,,ROZE,260710_FLC_ROZE_S5,85,97
+6,1,1,6,2026-07-10,Playoffs,FLC,ROZE,Nepal,Control,,ROZE,260710_FLC_ROZE_S6,0,2
+6,1,2,1,2026-07-10,Playoffs,ZETA,O2,Antarctic Peninsula,Control,,ZETA,260710_ZETA_O2_S1,2,0
+6,1,2,2,2026-07-10,Playoffs,ZETA,O2,Aatlis,Flashpoint,,ZETA,260710_ZETA_O2_S2,3,2
+6,1,2,3,2026-07-10,Playoffs,ZETA,O2,Colosseo,Push,,ZETA,260710_ZETA_O2_S3,133,64
+6,1,2,4,2026-07-10,Playoffs,ZETA,O2,Hollywood,Hybrid,,ZETA,260710_ZETA_O2_S4,3,1
+6,2,1,1,2026-07-11,Playoffs,CR,ROZE,Antarctic Peninsula,Control,,CR,260711_CR_ROZE_S1,2,0
+6,2,1,2,2026-07-11,Playoffs,CR,ROZE,New Junk City,Flashpoint,,CR,260711_CR_ROZE_S2,3,2
+6,2,1,3,2026-07-11,Playoffs,CR,ROZE,Colosseo,Push,,ROZE,260711_CR_ROZE_S3,84,128
+6,2,1,4,2026-07-11,Playoffs,CR,ROZE,Circuit Royal,Escort,,CR,260711_CR_ROZE_S4,3,2
+6,2,1,5,2026-07-11,Playoffs,CR,ROZE,Neon Junction,Hybrid,,CR,260711_CR_ROZE_S5,2,1
+6,2,2,1,2026-07-11,Playoffs,T1,ZETA,Antarctic Peninsula,Control,,ZETA,260711_T1_ZETA_S1,0,2
+6,2,2,2,2026-07-11,Playoffs,T1,ZETA,Circuit Royal,Escort,,ZETA,260711_T1_ZETA_S2,1,2
+6,2,2,3,2026-07-11,Playoffs,T1,ZETA,Aatlis,Flashpoint,,T1,260711_T1_ZETA_S3,3,2
+6,2,2,4,2026-07-11,Playoffs,T1,ZETA,Colosseo,Push,,ZETA,260711_T1_ZETA_S4,93,93
+6,2,2,5,2026-07-11,Playoffs,T1,ZETA,Neon Junction,Hybrid,,ZETA,260711_T1_ZETA_S5,1,2
+6,3,1,1,2026-07-12,Playoffs,ROZE,T1,Ilios,Control,,T1,260712_ROZE_T1_S1,0,2
+6,3,1,2,2026-07-12,Playoffs,ROZE,T1,Circuit Royal,Escort,,T1,260712_ROZE_T1_S2,2,3
+6,3,1,3,2026-07-12,Playoffs,ROZE,T1,New Junk City,Flashpoint,,T1,260712_ROZE_T1_S3,0,3
+6,3,1,4,2026-07-12,Playoffs,ROZE,T1,Colosseo,Push,,ROZE,260712_ROZE_T1_S4,93,82
+6,3,1,5,2026-07-12,Playoffs,ROZE,T1,Neon Junction,Hybrid,,T1,260712_ROZE_T1_S5,0,3
+6,3,2,1,2026-07-12,Playoffs,CR,ZETA,Antarctic Peninsula,Control,,CR,260712_CR_ZETA_S1,2,1
+6,3,2,2,2026-07-12,Playoffs,CR,ZETA,New Junk City,Flashpoint,,ZETA,260712_CR_ZETA_S2,2,3
+6,3,2,3,2026-07-12,Playoffs,CR,ZETA,King's Row,Hybrid,,ZETA,260712_CR_ZETA_S3,1,2
+6,3,2,4,2026-07-12,Playoffs,CR,ZETA,Circuit Royal,Escort,,CR,260712_CR_ZETA_S4,3,2
+6,3,2,5,2026-07-12,Playoffs,CR,ZETA,Colosseo,Push,,ZETA,260712_CR_ZETA_S5,77,103
+6,3,2,6,2026-07-12,Playoffs,CR,ZETA,Neon Junction,Hybrid,,ZETA,260712_CR_ZETA_S6,4,5
