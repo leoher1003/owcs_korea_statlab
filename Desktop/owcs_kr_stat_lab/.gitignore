@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
