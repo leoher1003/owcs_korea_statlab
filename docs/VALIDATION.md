@@ -1,101 +1,100 @@
 # Validation
 
-## Validation Philosophy
+## Validation Principle
 
-AI-assisted extraction is used to reduce manual transcription work. It is **not treated as ground truth**.
+AI-assisted extraction is used to reduce manual transcription work. **AI output is not treated as ground truth.**
 
-The pipeline separates:
+The pipeline separates visual extraction, parsing/normalization, deterministic validation, canonical identity validation, and downstream aggregation.
 
-1. visual extraction,
-2. parsing/normalization,
-3. deterministic validation,
-4. canonical identity validation,
-5. aggregation.
+## Deterministic Validation
 
-A record that fails required validation is excluded from the clean downstream dataset.
+The extraction/cleaning workflow checks the structure and consistency of result-screen records, including:
 
-## Deterministic Checks
-
-The pipeline is designed to check, where applicable:
-
-- exactly 10 player rows per result screen
-- unique player IDs within a result screen
-- player IDs against a canonical roster reference
-- valid numeric fields
-- non-negative core statistics
-- valid playtime formatting
+- expected 10-player result-screen structure
+- duplicate players within a result screen
+- player identity against canonical roster information
+- numeric validity of core statistics
+- non-negative core statistic values
+- playtime validity
 - map/type consistency
 - team consistency
 - source-file traceability
-- duplicate raw rows
-- aggregation consistency between raw, total, and Per-10 outputs
+- exact duplicate raw rows
 
-## Current Dataset QA
+Invalid numeric values are not silently converted to zero.
 
-For the final Stage 2 dataset:
+## Final Dataset QA
 
-- 188 result-screen/map blocks
-- 1,880 player-map rows
-- 10 player rows per map block
+The final Stage 2 dataset contains:
+
+- **188** map/result-screen blocks
+- **1,880** player-map rows
+
+Final QA confirmed:
+
+- 10 player rows per result screen
 - no duplicate player within a result screen
 - no exact duplicate raw player row
 - no missing map block in the final match dataset
-- total and Per-10 outputs were recomputed from the clean source data and checked for consistency
+- no negative/non-numeric core statistic values in the final data
+- no duplicate player rows in the accumulated or Per-10 outputs
+- accumulated totals and Per-10 values matched recomputation from the clean player-map source data
 
-## Known Blind Spot: Plausible Transcription Errors
+## Manual Source-Screen Audit
 
-Structural validation cannot detect every visually plausible error.
+A separate manual audit compared **20 maps** against the corresponding original result screens.
 
-Example:
+That sample contained:
 
-```text
-Source: 12,840 damage
-Extracted: 12,540 damage
-```
+- **20 / 188 maps**
+- **200 player-map records**
+- **9 checked fields per player-map record**
+- **1,800 audited fields**
 
-Both values are numeric, non-negative, and structurally valid. A deterministic rule may therefore accept the incorrect value.
+The checked fields were:
 
-For this reason, validation should not be described as proof that every extracted field is error-free.
+1. Player identity
+2. Map position
+3. Eliminations
+4. Deaths
+5. Assists
+6. Damage
+7. Healing
+8. Mitigation
+9. Playtime
 
-## Random Source-Screen Audit
-
-A random audit is the recommended next validation layer.
-
-Suggested protocol:
-
-1. Randomly sample **30 of 188 maps** without selecting based on warning status.
-2. Compare all 10 player rows against the original broadcast result screen.
-3. Audit player identity, map position, eliminations, deaths, assists, damage, healing, mitigation, and playtime.
-4. Record every field-level discrepancy.
-5. Correct confirmed errors in the source dataset.
-6. Publish both the sample size and observed discrepancy rate.
-
-Recommended reporting format after completion:
+### Result
 
 ```text
-Random audit: 30 / 188 maps (300 player-map records)
-Fields checked: N
-Discrepant fields before correction: X
-Observed field-level discrepancy rate: X / N
-Confirmed discrepancies corrected: X
+Maps audited:                 20
+Player-map records audited:  200
+Fields audited:             1,800
+Observed discrepancies:         0
+Observed sample discrepancy: 0 / 1,800 (0.00%)
 ```
 
-**Do not publish an error rate before the audit is actually completed.**
+No correction was required as a result of this audit.
 
-## Semantic Consistency Checks
+The result means that **no discrepancy was observed in the 1,800 fields manually checked**. It does not establish that the complete 188-map dataset has a 0% error rate.
 
-Semantic checks are useful only when the game statistic has a valid accounting identity.
+No reproducible random seed is claimed for this audit.
 
-For example, simple equality between a team's total eliminations and the opponent's total deaths should **not** be used as a hard validation rule: Overwatch eliminations can credit multiple players for participation in the same kill and therefore do not form a one-to-one accounting identity with opponent deaths.
+## Residual Extraction Risk
 
-Any future semantic validation rule should first be justified against the exact in-game statistic definition.
+Deterministic validation can identify structural inconsistencies, invalid identities, malformed values, and aggregation errors, but it cannot guarantee that every visually extracted numeric value is correct.
 
-## Validation Status Labels
+For example, two different damage values can both be syntactically valid. A plausible transcription error can therefore pass structural validation.
 
-A useful operational interpretation is:
+The manual source-screen audit provides an additional empirical check, but the project remains an unofficial dataset and should be interpreted accordingly.
 
-- **PASS** — required deterministic checks passed
-- **WARNING** — usable record with a condition worth review
-- **FAIL** — excluded from clean downstream processing
+## Semantic Validation
 
-These labels indicate pipeline validation status, not certainty that every visible number is correct.
+A semantic check should only be used when the underlying game statistic has a valid accounting identity.
+
+In particular, team eliminations should **not** be required to equal opponent deaths: Overwatch elimination credit is not a one-to-one accounting identity with opponent deaths.
+
+## Known Corrections During QA
+
+Confirmed issues identified during dataset review were corrected against source/reference information before the final public dataset was produced. These included identity/spelling normalization, metadata corrections, and confirmed statistic-field corrections.
+
+The public files represent the corrected final dataset.

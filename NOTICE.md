@@ -1,25 +1,25 @@
-# Third-Party Content and Data Notice
+# Third-Party Content Notice
 
-## Project Code and Documentation
+## Original Project Code and Documentation
 
-Original source code and original project documentation in this repository are licensed under the MIT License in `LICENSE`.
+Original source code and original documentation created for OWCS Korea Stat Lab are released under the MIT License in [`LICENSE`](LICENSE).
 
-## Overwatch / OWCS Intellectual Property
+## Third-Party Intellectual Property
 
-This repository is an unofficial fan analytics project.
+This is an unofficial fan analytics project.
 
-Overwatch, Overwatch Champions Series (OWCS), Blizzard Entertainment names, competition branding, team marks, logos, broadcast imagery, screenshots, and other third-party visual assets remain the property of their respective owners.
+Overwatch, Overwatch Champions Series (OWCS), Blizzard Entertainment names and branding, team names and marks, logos, broadcast imagery, screenshots, and other third-party assets may be protected by their respective owners.
 
-The MIT License does **not** grant permission to use third-party trademarks, logos, copyrighted broadcast material, or other third-party assets.
+The MIT License for this project's original code and documentation does **not** grant rights to third-party trademarks, logos, copyrighted broadcast material, or other third-party assets included or referenced by the project.
 
-## Dataset
+## Processed Dataset
 
-The processed CSV files are independently structured analytical outputs derived from publicly viewable competition information.
+The repository includes independently structured CSV outputs derived from publicly viewable competition information.
 
-No claim of ownership is made over underlying third-party trademarks, competition branding, broadcast footage, or facts originating from those sources.
+The project does not claim ownership over underlying third-party trademarks, branding, broadcast footage, or other protected source material.
 
-Before redistributing the dataset or using it commercially, users are responsible for determining whether their intended use complies with applicable rights, platform terms, and source-provider conditions.
+Users are responsible for evaluating the rights and terms applicable to their own reuse or redistribution of third-party material.
 
 ## No Affiliation
 
-This project is not affiliated with, endorsed by, or sponsored by Blizzard Entertainment or Overwatch Esports.
+OWCS Korea Stat Lab is not affiliated with, endorsed by, or sponsored by Blizzard Entertainment or Overwatch Esports.

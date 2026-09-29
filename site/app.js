@@ -1787,7 +1787,7 @@ function rankingsPage(){
   ${mode==='per10'?`<div class="ranking-note"><span style="font-size:14px;flex-shrink:0">⚠️</span><span>${t('min_playtime_note')}</span></div>`:''}
  <div class="table-wrap rankings-table"><table><thead><tr>
    <th>${t('col_rank')}</th><th>${t('col_player')}</th><th>${t('col_team')}</th>
-   <th class="sortable" data-rank-sort="Playtime">${t('col_playtime')}${sortMark('Playtime')}</th>
+   <th class="sortable ${state.rankMetric==='Playtime'?'sorted':''}" data-rank-sort="Playtime">${t('col_playtime')}${sortMark('Playtime')}</th>
    ${cols.map(([k,l])=>`<th class="sortable ${state.rankMetric===k?'sorted':''}" data-rank-sort="${k}">${l}${sortMark(k)}</th>`).join('')}
  </tr></thead><tbody>${rows.map((r,i)=>{const pl=r.Player||r.PLAYER;const play=mode==='per10'?r.Playtime_Min:(r['TOTAL PLAYTIME']/60);return`<tr><td class="rank">${i+1}</td><td class="player-link" data-player="${pl}">${pl}</td><td>${r.Team||r.TEAM}</td><td>${fmt(play)} min</td>${cols.map(([k])=>`<td><strong>${fmt(r[k])}</strong></td>`).join('')}</tr>`}).join('')}</tbody></table></div>`;
 }

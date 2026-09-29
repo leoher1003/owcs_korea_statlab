@@ -1,65 +1,56 @@
 # Reproducibility
 
-## What Is Public
+## Public Components
 
-The repository is intended to expose:
+The repository provides:
 
 - processed Stage 2 CSV datasets
 - the static Stat Lab
-- the AI-assisted extraction / validation notebook
-- methodology and validation documentation
+- the public extraction / validation notebook
+- methodology, validation, and data documentation
 
-Raw broadcast screenshots are not included.
+Raw broadcast result-screen images are not redistributed in the repository.
 
-## Environment
+## Website
 
-The website itself requires no build system. A local static server is sufficient:
+The Stat Lab is a static website and can be served locally from the repository root with:
 
 ```bash
 python3 -m http.server 8000 --directory site
 ```
 
-For the extraction notebook, install the Python dependencies imported by the notebook and provide the Gemini credential through:
+Then open:
+
+```text
+http://localhost:8000
+```
+
+## Extraction Pipeline
+
+The public extraction notebook is located under `pipeline/`.
+
+API credentials are supplied through the environment rather than stored in source:
 
 ```bash
 export GEMINI_API_KEY="your_key_here"
 ```
 
-API credentials must never be committed to the repository.
+The notebook is the authoritative public reference for the extraction prompt, model call, parsing logic, normalization, and validation code used in the published workflow.
 
-## Extraction Configuration
+Because hosted AI model availability and behavior can change, the exact model identifier and configuration should be read from the notebook/version being run rather than inferred from this document.
 
-The public notebook should keep the following configuration visible in code:
+## Reproducibility Boundary
 
-- model identifier used for extraction
-- extraction prompt / schema
-- parsing rules
-- canonical roster reference
-- validation rules
-- Per-10 calculation
-- eligibility threshold
+The repository makes the processing workflow and final structured outputs inspectable.
 
-The exact model identifier should be pinned in the notebook rather than described only as "Gemini", because hosted model behavior can change over time.
+Exact end-to-end reproduction of visual extraction also requires access to the same source result screens. Those raw broadcast images are not included here.
 
-## Reproduction Boundary
+Accordingly, this repository provides transparency into the workflow and processed dataset, but it is not a complete archival redistribution of the source broadcast material.
 
-A third party can inspect and rerun the code, but exact end-to-end reproduction also requires access to the same source result screens.
+## Data Outputs
 
-Because raw broadcast screenshots are not redistributed here, the repository provides **workflow reproducibility and processed-data transparency**, not a complete archival copy of all source media.
+The public data layer consists of eight CSV files under `data/`.
 
-## Recommended Run Record
+Their schemas and meanings are documented in [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md).
 
-For future dataset releases, record:
-
-```text
-Tournament / stage:
-Extraction notebook commit:
-Model identifier:
-Extraction date:
-Number of source screens:
-PASS / WARNING / FAIL counts:
-Manual audit sample size:
-Observed audit discrepancy rate:
-```
-
-This makes later releases easier to compare and audit.
+Validation results for the published dataset are documented in [`VALIDATION.md`](VALIDATION.md).

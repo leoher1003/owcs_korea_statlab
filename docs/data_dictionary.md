@@ -1,13 +1,15 @@
 # Data Dictionary
+
 This document describes the eight public CSV files for **2026 OWCS Korea Stage 2**.
 
-## General Conventions
+## Conventions
 
 - `player_id` is the primary player identity / aggregation key.
 - `team_id` is the canonical team identifier.
 - `match_id` is the map-level join key used by match, player-map, and hero-ban data.
-- `map_position` is observed at the map/result-screen level and is intentionally separate from canonical roster position.
-- Per-10 ranking eligibility is represented explicitly in `eligible_30min`.
+- `map_position` records the observed position for that map and is intentionally separate from canonical roster position.
+- `eligible_30min` records whether a player meets the 30-minute comparison threshold.
+- Blank/unused statistical values should not be interpreted as zero unless the source field itself is zero.
 
 ## `teams.csv`
 
@@ -16,7 +18,7 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | Field | Description |
 |---|---|
 | `team_id` | Canonical team identifier used for joins. |
-| `team_name` | Display name of the team. |
+| `team_name` | Team display name. |
 
 ## `players.csv`
 
@@ -24,10 +26,10 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 
 | Field | Description |
 |---|---|
-| `player_id` | Canonical player identifier and aggregation key. |
+| `player_id` | Canonical player identifier and primary player aggregation key. |
 | `team_id` | Canonical team identifier. |
-| `roster_position` | Player's canonical primary roster position. |
-| `detailed_position` | Analytical position used for within-position comparisons. |
+| `roster_position` | Canonical primary roster position. |
+| `detailed_position` | Analytical role used for position-level comparisons. |
 
 ## `matches.csv`
 
@@ -36,20 +38,20 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | Field | Description |
 |---|---|
 | `week` | Competition week. |
-| `day` | Competition day within the week/phase source. |
-| `match` | Match label/number from the source dataset. |
+| `day` | Competition day field. |
+| `match` | Match label/number. |
 | `set_number` | Map/set number within the match. |
 | `date` | Match date. |
 | `phase` | Tournament phase. |
-| `team_1` | Canonical identifier for team 1. |
-| `team_2` | Canonical identifier for team 2. |
+| `team_1` | Canonical team identifier for team 1. |
+| `team_2` | Canonical team identifier for team 2. |
 | `map` | Map name. |
 | `map_type` | Game mode / map type. |
-| `map_duration` | Observed map duration. |
-| `winner` | Canonical identifier of the map winner. |
+| `map_duration` | Recorded map duration. |
+| `winner` | Canonical team identifier of the map winner. |
 | `match_id` | Unique map-level identifier used for joins. |
-| `team_1_score` | Team 1 map/match score field from match metadata. |
-| `team_2_score` | Team 2 map/match score field from match metadata. |
+| `team_1_score` | Recorded score field for team 1. |
+| `team_2_score` | Recorded score field for team 2. |
 
 ## `player_map_stats.csv`
 
@@ -61,7 +63,7 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `week` | Competition week. |
 | `team_id` | Canonical team identifier. |
 | `player_id` | Canonical player identifier. |
-| `map_position` | Position shown for the player on this specific result screen. |
+| `map_position` | Position recorded for this player on this result screen. |
 | `map` | Map name. |
 | `map_type` | Game mode / map type. |
 | `eliminations` | Map-level eliminations. |
@@ -69,9 +71,9 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `assists` | Map-level assists. |
 | `damage` | Map-level damage. |
 | `healing` | Map-level healing. |
-| `mitigated` | Map-level mitigated damage. |
-| `playtime` | Human-readable map playtime. |
-| `playtime_seconds` | Map playtime converted to seconds. |
+| `mitigated` | Map-level mitigation. |
+| `playtime` | Recorded human-readable playtime. |
+| `playtime_seconds` | Playtime converted to seconds. |
 
 ## `player_total_stats.csv`
 
@@ -88,7 +90,7 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `total_assists` | Accumulated assists. |
 | `total_damage` | Accumulated damage. |
 | `total_healing` | Accumulated healing. |
-| `total_mitigated` | Accumulated mitigated damage. |
+| `total_mitigated` | Accumulated mitigation. |
 | `elim_death_ratio` | Accumulated elimination/death ratio. |
 | `playtime_seconds` | Accumulated playtime in seconds. |
 | `playtime_minutes` | Accumulated playtime in minutes. |
@@ -109,8 +111,8 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `assists_per10` | Assists per 10 minutes. |
 | `damage_per10` | Damage per 10 minutes. |
 | `healing_per10` | Healing per 10 minutes. |
-| `mitigated_per10` | Mitigated damage per 10 minutes. |
-| `eligible_30min` | Whether the player meets the 30-minute comparison threshold. |
+| `mitigated_per10` | Mitigation per 10 minutes. |
+| `eligible_30min` | Whether total playtime meets the 30-minute comparison threshold. |
 
 ## `hero_bans.csv`
 
@@ -131,5 +133,5 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `date` | Award date. |
 | `match` | Match label/number associated with the award. |
 | `player_id` | Canonical player identifier receiving POTM. |
-| `position` | Position associated with the POTM record. |
+| `position` | Position recorded with the POTM entry. |
 

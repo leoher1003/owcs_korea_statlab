@@ -5156,3 +5156,21 @@ table{max-width:100%}
   .brand{gap:7px}
   .brand-icon{width:32px;height:32px;border-radius:8px}
 }
+
+/* v1.15 — Teams & Players team-detail back button.
+   Match the existing player-detail Back to Team button exactly. */
+.backbtn{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.055);
+  color:inherit;
+  border-radius:11px;
+  min-height:38px;
+  padding:0 14px;
+  font:inherit;
+  font-size:12px;
+  font-weight:750;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.backbtn:hover{background:rgba(255,255,255,.09)}
