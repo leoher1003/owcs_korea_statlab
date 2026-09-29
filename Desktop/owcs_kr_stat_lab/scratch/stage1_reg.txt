@@ -1,0 +1,650 @@
+{{DISPLAYTITLE:Overwatch Champions Series 2026 - Korea Stage 1 - Regular Season}}
+{{Overwatch Champions Series navbox/2026/Stage 1}}
+{{Tabs static
+|name1=Overview|link1=Overwatch Champions Series/2026/Asia/Stage 1/Korea
+|name2=Regular Season|link2=Overwatch Champions Series/2026/Asia/Stage 1/Korea/Regular Season
+|name3=Open Qualifier|link3=Overwatch Champions Series/2026/Asia/Stage 1/Korea/Open Qualifier
+}}
+{{HiddenDataBox
+|liquipediatier=2
+|publishertier=owcs
+|name=Overwatch Champions Series 2026 - Korea Stage 1 - Regular Season
+|tickername=OWCS Korea Stage 1 - Regular Season
+|series=Overwatch Champions Series
+|sdate=2026-03-20
+|edate=2025-04-10
+}}
+
+''This page is part of the [[Overwatch_Champions_Series/2026/Asia/Stage_1/Korea|Overwatch Champions Series 2026 - Stage 1 Korea]] article.''
+
+==Information==
+===Format===
+*'''Regular Season:''' ''March 20<sup>th</sup> - April 19<sup>th</sup>''
+**Round Robin 
+**All matches are {{Ft|3}}
+**{{Bgcolortext|up|Top 4 teams}} advance to '''Playoffs Seeding Decider Matches'''
+**{{Bgcolortext|stayup|Next 4 teams}} advance to '''Last Chance Qualifier'''
+**{{Bgcolortext|down|Bottom team}} proceed to promotion/relegation for Stage 2
+
+==Standings==
+{{box|start|padding=2em}}
+<section begin="Standings"/>
+{{GroupTableLeague2 
+|title=Standings|width=470px |show_g=true |diff=true
+|pbg1=up |pbg2=up |pbg3=up |pbg4=up |pbg5=stayup |pbg6=stayup |pbg7=stayup |pbg8=stayup |pbg9=down
+|round3bg1=stayup|team1=T1
+|round3bg2=stayup|round4bg2=up|team2=Team Falcons
+|round3bg3=stayup|round4bg3=up|team3=Crazy Raccoon
+|round2bg4=stayup|round3bg4=up|team4=ZETA DIVISION
+|team5=New Era
+|round3bg6=stayup|round4bg6=up|team6=ONSIDE Gaming
+|round3bg7=stayup|team7=ZAN Esports
+|team8=Cheeseburger
+|round3bg9=stayup|team9=Poker Face
+
+|roundtitle=Week
+|tournament=Overwatch Champions Series/2026/Asia/Stage 1/Korea/Regular Season
+|tiebreaker1=series
+|tiebreaker2=diff
+|tiebreaker3=h2h series
+
+|sdate=2026-03-20 - 17:00 {{Abbr/KST}}
+|edate=2026-04-19 - 22:00 {{Abbr/KST}}
+}}
+<section end="Standings"/>
+{{box|break|padding=2em}}
+{{CrossTableLeague
+|tournament=Overwatch Champions Series/2026/Asia/Stage 1/Korea/Regular Season
+|single=true
+|team1=ZETA DIVISION
+|team2=Crazy Raccoon
+|team3=Team Falcons
+|team4=ONSIDE Gaming
+|team5=T1
+|team6=ZAN Esports
+|team7=Poker Face
+|team8=New Era
+|team9=Cheeseburger
+
+|sdate=March 20, 2026 - 17:00 {{Abbr/KST}}
+|edate=April 19, 2026 - 22:00 {{Abbr/KST}}
+}}
+{{box|end}}
+
+==Matches==
+{{box|start|padding=2em}}
+==={{HiddenSort|Week 1}}===
+{{Matchlist|id=RMvwAB0dBk|title=Week 1|matchsection=Week 1|collapsed=false
+|M1header=March 20th
+|M1={{Match
+    |bestof=5
+    |date=2026-03-20 - 17:30 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/QpNMWmqcZMI?t=2281
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|Cheeseburger}}
+    |opponent2={{TeamOpponent|Poker Face}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=Zarya|t2b1=Emre|banstart=2}}
+    |map2={{Map|map=Runasapi|mode=Push|score1=94.06|score2=94.07|winner=2
+        |t1b1=Symmetra|t2b1=Orisa|banstart=1}}
+    |map3={{Map|map=Numbani|mode=Hybrid|score1=2|score2=3|winner=2
+        |t1b1=Wuyang|t2b1=D.Va|banstart=1}}
+    |mvp=D4RT
+    }}
+|M2={{Match
+    |date=2026-03-20 - 18:55 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/QpNMWmqcZMI?t=8375
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|Crazy Raccoon}}
+    |opponent2={{TeamOpponent|ZETA Division}}
+    |map1={{Map|map=Busan|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=Wuyang|t2b1=Zarya|banstart=1}}
+    |map2={{Map|map=Suravasa|mode=Flashpoint|score1=1|score2=3|winner=2
+        |t1b1=Cassidy|t2b1=Winston|banstart=1}}
+    |map3={{Map|map=Havana|mode=Escort|score1=4|score2=3|winner=1
+        |t1b1=Ana|t2b1=Vendetta|banstart=1}}
+    |map4={{Map|map=Blizzard World|mode=Hybrid|score1=0|score2=3|winner=2
+        |t1b1=Illari|t2b1=D.Va|banstart=2}}
+    |mvp=Viol2t
+    }}
+|M3={{Match
+    |date=2026-03-20 - 21:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/QpNMWmqcZMI?t=16166
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|ZAN Esports}}
+    |opponent2={{TeamOpponent|ONSIDE Gaming}}
+    |map1={{Map|map=Busan|mode=Control|score1=2|score2=1|winner=1
+        |t1b1=emre|t2b1=zarya|banstart=2}}
+    |map2={{Map|map=Runasapi|mode=Push|score1=54.63|score2=108.73|winner=2
+        |t1b1=brigitte|t2b1=vendetta|banstart=2}}
+    |map3={{Map|map=Midtown|mode=Hybrid|score1=1|score2=2|winner=2
+        |t1b1=symmetra|t2b1=juno|banstart=1}}
+    |map4={{Map|map=Havana|mode=Escort|score1=3|score2=2|winner=1
+        |t1b1=ana|t2b1=orisa|banstart=1}}
+    |map5={{Map|map=Aatlis|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=d.va|t2b1=mei|banstart=2}}
+    |mvp=SP1NT
+    }}
+|M4header=March 21st
+|M4={{Match
+    |date=2026-03-21 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/CHo9VBokvi0?t=2101
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|New Era}}
+    |opponent2={{TeamOpponent|T1}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=dva|t2b1=brigitte|banstart=2}}
+    |map2={{Map|map=Blizzard World|mode=Hybrid|score1=0|score2=3|winner=2
+        |t1b1=kiriko|t2b1=dva|banstart=1}}
+    |map3={{Map|map=Suravasa|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=symmetra|t2b1=mizuki|banstart=1}}
+    |mvp=ZEST
+    }}
+|M5={{Match
+    |date=2026-03-21 - 16:25 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/CHo9VBokvi0?t=6677
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|Cheeseburger}}
+    |opponent2={{TeamOpponent|Team Falcons}}
+    |map1={{Map|map=Oasis|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=symmetra|t2b1=illari|banstart=1}}
+    |map2={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=dva|t2b1=wuyang|banstart=1}}
+    |map3={{Map|map=Suravasa|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=zarya|t2b1=baptiste|banstart=2}}
+    |mvp=Hanbin
+    }}
+|M6={{Match
+    |date=2026-03-21 - 17:45 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/CHo9VBokvi0?t=11277
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|ZAN Esports}}
+    |opponent2={{TeamOpponent|Crazy Raccoon}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=wuyang|t2b1=emre|banstart=2}}
+    |map2={{Map|map=Havana|mode=Escort|score1=1|score2=3|winner=2
+        |t1b1=sigma|t2b1=vendetta|banstart=1}}
+    |map3={{Map|map=Esperança|mode=Push|score1=129.75|score2=60.23|winner=1
+        |t1b1=zarya|t2b1=brigitte|banstart=1}}
+    |map4={{Map|map=Midtown|mode=Hybrid|score1=1|score2=3|winner=2
+        |t1b1=dva|t2b1=sojourn|banstart=2}}
+    |mvp=HeeSang
+    }}
+|M7header=March 22nd
+|M7={{Match
+    |date=2026-03-22 - 15:00 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/bpXIG-p-4hA?t=2317
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|Poker Face}}
+    |opponent2={{TeamOpponent|New Era}}
+    |map1={{Map|map=Busan|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=orisa|t2b1=lucio|banstart=2}}
+    |map2={{Map|map=Rialto|mode=Escort|score1=3|score2=0|winner=1
+        |t1b1=vendetta|t2b1=wuyang|banstart=2}}
+    |map3={{Map|map=Midtown|mode=Hybrid|score1=3|score2=0|winner=1
+        |t1b1=Cassidy|t2b1=Kiriko|banstart=2}}
+    |mvp=D4RT
+    }}
+|M8={{Match
+    |date=2026-03-22 - 16:40 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/bpXIG-p-4hA?t=7477
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|ONSIDE Gaming}}
+    |opponent2={{TeamOpponent|T1}}
+    |map1={{Map|map=Busan|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=cassidy|t2b1=zarya|banstart=1}}
+    |map2={{Map|map=Rialto|mode=Escort|score1=0|score2=1|winner=2
+        |t1b1=wuyang|t2b1=vendetta|banstart=2}}
+    |map3={{Map|map=Aatlis|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=sojourn|t2b1=mauga|banstart=1}}
+    |map4={{Map|map=Numbani|mode=Hybrid|score1=3|score2=2|winner=1
+        |t1b1=zarya|t2b1=symmetra|banstart=1}}
+    |map5={{Map|map=Runasapi|mode=Push|score1=117.63|score2=84.00|winner=1
+        |t1b1=lucio|t2b1=emre|banstart=2}}
+    |mvp=Kilo
+    }}
+|M9={{Match
+    |date=2026-03-22 - 18:45 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/bpXIG-p-4hA?t=14999
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|ZETA Division}}
+    |opponent2={{TeamOpponent|Team Falcons}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=1|winner=1
+        |t1b1=Symmetra|t2b1=Brigitte|banstart=2}}
+    |map2={{Map|map=Esperança|mode=Push|score1=63.70|score2=110.47|winner=2
+        |t1b1=zarya|t2b1=baptiste|banstart=1}}
+    |map3={{Map|map=Rialto|mode=Escort|score1=4|score2=3|winner=1
+        |t1b1=dva|t2b1=Ana|banstart=1}}
+    |map4={{Map|map=Numbani|mode=Hybrid|score1=2|score2=3|winner=2
+        |t1b1=Sojourn|t2b1=Illari|banstart=2}}
+    |map5={{Map|map=Blizzard World|mode=Hybrid|score1=3|score2=0|winner=1
+        |t1b1=kiriko|t2b1=vendetta|banstart=1}}
+    |mvp=Bernar
+    }}
+}}
+{{box|break|padding=2em}}
+
+==={{HiddenSort|Week 2}}===
+{{Matchlist|id=efcpZbsOzh|title=Week 2|matchsection=Week 2|collapsed=false
+|M1header=April 3rd
+|M1={{Match
+    |bestof=5
+    |date=2026-04-03 - 17:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/m1w6n04b72M?t=2212
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|Cheeseburger}}
+    |opponent2={{TeamOpponent|ZAN Esports}}
+    |map1={{Map|map=Oasis|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=vendetta|t2b1=orisa|banstart=2}}
+    |map2={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=1|score2=2|winner=2
+        |t1b1=hazard|t2b1=ana|banstart=1}}
+    |map3={{Map|map=Aatlis|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=mauga|t2b1=emre|banstart=1}}
+    |mvp=HEISER
+    }}
+|M2={{Match
+    |date=2026-04-03 - 18:30 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/m1w6n04b72M?t=6828
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|Poker Face}}
+    |opponent2={{TeamOpponent|ZETA Division}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=emre|t2b1=hazard|banstart=2}}
+    |map2={{Map|map=Esperança|mode=Push|score1=21.99|score2=142.41|winner=2
+        |t1b1=ana|t2b1=d.va|banstart=1}}
+    |map3={{Map|map=Rialto|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=illari|t2b1=zarya|banstart=1}}
+    |mvp=Viol2t
+    }}
+|M3={{Match
+    |date=2026-04-03 - 19:55 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/m1w6n04b72M?t=11974
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|Crazy Raccoon}}
+    |opponent2={{TeamOpponent|ONSIDE Gaming}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=zarya|t2b1=sojourn|banstart=2}}
+    |map2={{Map|map=Havana|mode=Escort|score1=2|score2=1|winner=1
+        |t1b1=wuyang|t2b1=mei|banstart=2}}
+    |map3={{Map|map=Blizzard World|mode=Hybrid|score1=1|score2=2|winner=2
+        |t1b1=emre|t2b1=lucio|banstart=2}}
+    |map4={{Map|map=Runasapi|mode=Push|score1=123.31|score2=123.30|winner=1
+        |t1b1=hazard|t2b1=brigitte|banstart=2}}
+    |map5={{Map|map=Rialto|mode=Escort|score1=3|score2=2|winner=1
+        |t1b1=pharah|t2b1=zarya|banstart=2}}
+    |mvp=HeeSang
+    }}
+|M4header=April 4th
+|M4={{Match
+    |date=2026-04-04 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/ToHuxCD0Bn4?t=2232
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|New Era}}
+    |opponent2={{TeamOpponent|Team Falcons}}
+    |map1={{Map|map=Oasis|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=lucio|t2b1=torbjorn|banstart=1}}
+    |map2={{Map|map=Havana|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=kiriko|t2b1=widowmaker|banstart=1}}
+    |map3={{Map|map=Midtown|mode=Hybrid|score1=0|score2=3|winner=2
+        |t1b1=vendetta|t2b1=brigitte|banstart=1}}
+    |mvp=Checkmate
+    }}
+|M5={{Match
+    |date=2026-04-04 - 16:25 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/ToHuxCD0Bn4?t=6674
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|T1}}
+    |opponent2={{TeamOpponent|Poker Face}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=mercy|t2b1=emre|banstart=1}}
+    |map2={{Map|map=Numbani|mode=Hybrid|score1=4|score2=3|winner=1
+        |t1b1=pharah|t2b1=doomfist|banstart=2}}
+    |map3={{Map|map=Esperança|mode=Push|score1=142.41|score2=15.92|winner=1
+        |t1b1=vendetta|t2b1=zarya|banstart=2}}
+    |mvp=Proud
+    }}
+|M6={{Match
+    |date=2026-04-04 - 17:45 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/ToHuxCD0Bn4?t=11490
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|Crazy Raccoon}}
+    |opponent2={{TeamOpponent|Cheeseburger}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=roadhog|t2b1=emre|banstart=1}}
+    |map2={{Map|map=Aatlis|mode=Flashpoint|score1=3|score2=2|winner=1
+        |t1b1=mauga|t2b1=sojourn|banstart=2}}
+    |map3={{Map|map=Havana|mode=Escort|score1=3|score2=1|winner=1
+        |t1b1=Vendetta|t2b1=Lucio|banstart=2}}
+    |mvp=CH0R0NG
+    }}
+|M7header=April 5th
+|M7={{Match
+    |date=2026-04-05 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/oBtOpaNCZg4?t=2149
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|ONSIDE Gaming}}
+    |opponent2={{TeamOpponent|New Era}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=juno|t2b1=zarya|banstart=2}}
+    |map2={{Map|map=Blizzard World|mode=Hybrid|score1=3|score2=1|winner=1
+        |t1b1=zarya|t2b1=kiriko|banstart=2}}
+    |map3={{Map|map=Havana|mode=Escort|score1=3|score2=0|winner=1
+        |t1b1=domina|t2b1=lucio|banstart=2}}
+    |mvp=Attack
+    }}
+|M8={{Match
+    |date=2026-04-05 - 16:30 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/oBtOpaNCZg4?t=6727
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|ZAN Esports}}
+    |opponent2={{TeamOpponent|ZETA Division}}
+    |map1={{Map|map=Busan|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=ana|t2b1=hazard|banstart=1}}
+    |map2={{Map|map=Suravasa|mode=Flashpoint|score1=2|score2=3|winner=2
+        |t1b1=tracer|t2b1=kiriko|banstart=1}}
+    |map3={{Map|map=Havana|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=illari|t2b1=dva|banstart=1}}
+    |mvp=Proper
+    }}
+|M9={{Match
+    |date=2026-04-05 - 18:00 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/oBtOpaNCZg4?t=12238
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|Team Falcons}}
+    |opponent2={{TeamOpponent|T1}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=emre|t2b1=mauga|banstart=1}}
+    |map2={{Map|map=Esperança|mode=Push|score1=131.31|score2=129.23|winner=1
+        |t1b1=brigitte|t2b1=vendetta|banstart=2}}
+    |map3={{Map|map=Havana|mode=Escort|score1=2|score2=1|winner=1
+        |t1b1=wuyang|t2b1=dva|banstart=2}}
+    |map4={{Map|map=Blizzard World|mode=Hybrid|score1=3|score2=2|winner=1
+        |t1b1=mercy|t2b1=winston|banstart=2}}
+    |mvp=Hanbin
+    }}
+}}
+{{box|break|padding=2em}}
+
+==={{HiddenSort|Week 3}}===
+{{Matchlist|id=PSIpB23sOg|title=Week 3|matchsection=Week 3|collapsed=false
+|M1header=April 10th
+|M1={{Match
+    |bestof=5
+    |date=2026-04-10 - 17:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/hCwQvbHEbAk?t=2073
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|ONSIDE Gaming}}
+    |opponent2={{TeamOpponent|Cheeseburger}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=dva|t2b1=emre|banstart=2}}
+    |map2={{Map|map=Aatlis|mode=Flashpoint|score1=3|score2=0|winner=1
+        |t1b1=mauga|t2b1=tracer|banstart=1}}
+    |map3={{Map|map=Blizzard World|mode=Hybrid|score1=2|score2=1|winner=1
+        |t1b1=vendetta|t2b1=kiriko|banstart=2}}
+    |mvp=IRONY
+    }}
+|M2={{Match
+    |date=2026-04-10 - 18:35 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/hCwQvbHEbAk?t=7168
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|Team Falcons}}
+    |opponent2={{TeamOpponent|Poker Face}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=jetpack cat|t2b1=dva|banstart=1}}
+    |map2={{Map|map=Numbani|mode=Hybrid|score1=6|score2=5|winner=1
+        |t1b1=lifeweaver|t2b1=tracer|banstart=2}}
+    |map3={{Map|map=Aatlis|mode=Flashpoint|score1=3|score2=1|winner=1
+        |t1b1=vendetta|t2b1=orisa|banstart=2}}
+    |mvp=Checkmate
+    }}
+|M3={{Match
+    |date=2026-04-10 - 20:15 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/hCwQvbHEbAk?t=12806
+    |caster1=Sim Ji-soo|caster2=AKaros
+    |opponent1={{TeamOpponent|T1}}
+    |opponent2={{TeamOpponent|Crazy Raccoon}}
+    |map1={{Map|map=Oasis|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=wrecking ball|t2b1=lucio|banstart=2}}
+    |map2={{Map|map=Havana|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=genji|t2b1=kiriko|banstart=1}}
+    |map3={{Map|map=Suravasa|mode=Flashpoint|score1=3|score2=2|winner=1
+        |t1b1=kiriko|t2b1=tracer|banstart=1}}
+    |map4={{Map|map=Blizzard World|mode=Hybrid|score1=2|score2=1|winner=1
+        |t1b1=winston|t2b1=ana|banstart=2}}
+    |map5={{Map|map=Aatlis|mode=Flashpoint|score1=3|score2=1|winner=1
+        |t1b1=vendetta|t2b1=doomfist|banstart=2}}
+    |mvp=DONGHAK
+    }}
+|M4header=April 11th
+|M4={{Match
+    |date=2026-04-11 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/T6yRsKNvrnw?t=1799
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|New Era}}
+    |opponent2={{TeamOpponent|ZAN Esports}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=zarya|t2b1=juno|banstart=2}}
+    |map2={{Map|map=Esperança|mode=Push|score1=0.00|score2=142.41|winner=2
+        |t1b1=hazard|t2b1=mizuki|banstart=1}}
+    |map3={{Map|map=Havana|mode=Escort|score1=0|score2=3|winner=2
+        |t1b1=tracer|t2b1=kiriko|banstart=1}}
+    |mvp=A1IEN
+    }}
+|M5={{Match
+    |date=2026-04-11 - 16:25 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/T6yRsKNvrnw?t=6393
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|ZETA Division}}
+    |opponent2={{TeamOpponent|ONSIDE Gaming}}
+    |map1={{Map|map=Oasis|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=cassidy|t2b1=ana|banstart=2}}
+    |map2={{Map|map=Blizzard World|mode=Hybrid|score1=3|score2=0|winner=1
+        |t1b1=dva|t2b1=illari|banstart=1}}
+    |map3={{Map|map=Runasapi|mode=Push|score1=114.91|score2=119.29|winner=2
+        |t1b1=hazard|t2b1=juno|banstart=2}}
+    |map4={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=3|score2=0|winner=1
+        |t1b1=brigitte|t2b1=winston|banstart=1}}
+    |map5={{Map|map=Busan|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=vendetta|t2b1=brigitte|banstart=2}}
+    |mvp=Proper
+    }}
+|M6={{Match
+    |date=2026-04-11 - 18:40 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/T6yRsKNvrnw?t=14338
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|Cheeseburger}}
+    |opponent2={{TeamOpponent|T1}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=jetpack cat|t2b1=cassidy|banstart=2}}
+    |map2={{Map|map=Havana|mode=Escort|score1=0|score2=1|winner=2
+        |t1b1=mauga|t2b1=ana|banstart=1}}
+    |map3={{Map|map=Blizzard World|mode=Hybrid|score1=1|score2=2|winner=2
+        |t1b1=hazard|t2b1=lucio|banstart=1}}
+    |mvp=Proud
+    }}
+|M7header=April 12th
+|M7={{Match
+    |date=2026-04-12 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/atb7QLG9VZo?t=2272
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|Team Falcons}}
+    |opponent2={{TeamOpponent|ZAN Esports}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=1|winner=1
+        |t1b1=hazard|t2b1=juno|banstart=2}}
+    |map2={{Map|map=Suravasa|mode=Flashpoint|score1=3|score2=1|winner=1
+        |t1b1=lifeweaver|t2b1=tracer|banstart=2}}
+    |map3={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=3|score2=0|winner=1
+        |t1b1=vendetta|t2b1=ana|banstart=2}}
+    |mvp=ChiYo
+    }}
+|M8={{Match
+    |date=2026-04-12 - 16:45 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/atb7QLG9VZo?t=7701https://youtu.be/atb7QLG9VZo?t=13000
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|Poker Face}}
+    |opponent2={{TeamOpponent|Crazy Raccoon}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=pharah|t2b1=d.va|banstart=2}}
+    |map2={{Map|map=Numbani|mode=Hybrid|score1=0|score2=2|winner=2
+        |t1b1=tracer|t2b1=hazard|banstart=1}}
+    |map3={{Map|map=Aatlis|mode=Flashpoint|score1=2|score2=3|winner=2
+        |t1b1=zarya|t2b1=kiriko|banstart=1}}
+    |mvp=HeeSang
+    }}
+|M9={{Match
+    |date=2026-04-12 - 18:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/atb7QLG9VZo?t=13000
+    |caster1=Sim Ji-soo|caster2=Strings
+    |opponent1={{TeamOpponent|ZETA Division}}
+    |opponent2={{TeamOpponent|New Era}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=roadhog|t2b1=jetpack cat|banstart=1}}
+    |map2={{Map|map=Runasapi|mode=Push|score1=144.86|score2=0.00|winner=1
+        |t1b1=lucio|t2b1=tracer|banstart=2}}
+    |map3={{Map|map=Havana|mode=Escort|score1=3|score2=1|winner=1
+        |t1b1=anran|t2b1=illari|banstart=2}}
+    |mvp=Knife
+    }}
+}}
+{{box|break|padding=2em}}
+
+==={{HiddenSort|Week 4}}===
+{{Matchlist|id=EUX1MMJE9T|title=Week 4|matchsection=Week 4|collapsed=false
+|M1header=April 17th
+|M1={{Match
+    |bestof=5
+    |date=2026-04-17 - 17:15 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/OUd_hoQzJLk?t=2455
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|Poker Face}}
+    |opponent2={{TeamOpponent|ONSIDE Gaming}}
+    |map1={{Map|map=Oasis|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=d.va|t2b1=pharah|banstart=1}}
+    |map2={{Map|map=Aatlis|mode=Flashpoint|score1=0|score2=3|winner=2
+        |t1b1=kiriko|t2b1=mauga|banstart=1}}
+    |map3={{Map|map=Rialto|mode=Escort|score1=3|score2=4|winner=2
+        |t1b1=hazard|t2b1=ana|banstart=1}}
+    |mvp=SP1NT
+    }}
+|M2={{Match
+    |date=2026-04-17 - 18:45 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/OUd_hoQzJLk?t=7804
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|T1}}
+    |opponent2={{TeamOpponent|ZETA Division}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=Pharah|t2b1=Lucio|banstart=2}}
+    |map2={{Map|map=Suravasa|mode=Flashpoint|score1=3|score2=1|winner=1
+        |t1b1=Illari|t2b1=Doomfist|banstart=1}}
+    |map3={{Map|map=Havana|mode=Escort|score1=1|score2=2|winner=2
+        |t1b1=zarya|t2b1=kiriko|banstart=2}}
+    |map4={{Map|map=Blizzard World|mode=Hybrid|score1=0|score2=2|winner=2
+        |t1b1=ana|t2b1=sojourn|banstart=2}}
+    |mvp=Proper
+    }}
+|M3={{Match
+    |date=2026-04-17 - 20:35 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/OUd_hoQzJLk?t=14406
+    |caster1=Park Han-eol|caster2=AKaros
+    |opponent1={{TeamOpponent|Crazy Raccoon}}
+    |opponent2={{TeamOpponent|New Era}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=emre|t2b1=ana|banstart=1}}
+    |map2={{Map|map=Suravasa|mode=Flashpoint|score1=3|score2=1|winner=1
+        |t1b1=cassidy|t2b1=lucio|banstart=2}}
+    |map3={{Map|map=Rialto|mode=Escort|score1=3|score2=0|winner=1
+        |t1b1=moira|t2b1=winston|banstart=2}}
+    |mvp=Stalk3r
+    }}
+|M4header=April 18th
+|M4={{Match
+    |date=2026-04-18 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/mHZNS0OtqZ8?t=2318
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|T1}}
+    |opponent2={{TeamOpponent|ZAN Esports}}
+    |map1={{Map|map=Oasis|mode=Control|score1=2|score2=1|winner=1
+        |t1b1=Pharah|t2b1=Wrecking Ball|banstart=1}}
+    |map2={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=5|score2=4|winner=1
+        |t1b1=cassidy|t2b1=ana|banstart=2}}
+    |map3={{Map|map=Esperança|mode=Push|score1=123.64|score2=84.26|winner=1
+        |t1b1=sojourn|t2b1=mauga|banstart=2}}
+    |mvp=DONGHAK
+    }}
+|M5={{Match
+    |date=2026-04-18 - 16:40 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/mHZNS0OtqZ8?t=7734
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|ZETA Division}}
+    |opponent2={{TeamOpponent|Cheeseburger}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=lucio|t2b1=pharah|banstart=2}}
+    |map2={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=3|score2=1|winner=1
+        |t1b1=emre|t2b1=dva|banstart=2}}
+    |map3={{Map|map=Blizzard World|mode=Hybrid|score1=3|score2=0|winner=1
+        |t1b1=winston|t2b1=jetpack cat|banstart=2}}
+    |mvp=Shu
+    }}
+|M6={{Match
+    |date=2026-04-18 - 18:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/mHZNS0OtqZ8?t=12809
+    |caster1=Park Han-eol|caster2=ChangSik
+    |opponent1={{TeamOpponent|Team Falcons}}
+    |opponent2={{TeamOpponent|Crazy Raccoon}}
+    |map1={{Map|map=Busan|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=pharah|t2b1=dva|banstart=2}}
+    |map2={{Map|map=Esperança|mode=Push|score1=92.56|score2=95.28|winner=2
+        |t1b1=winston|t2b1=kiriko|banstart=2}}
+    |map3={{Map|map=Rialto|mode=Escort|score1=0|score2=1|winner=2
+        |t1b1=zarya|t2b1=symmetra|banstart=1}}
+    |mvp=Stalk3r
+    }}
+|M7header=April 19th
+|M7={{Match
+    |date=2026-04-19 - 15:10 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/iwxxXdPBkb4?t=2718
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|ZAN Esports}}
+    |opponent2={{TeamOpponent|Poker Face}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=2|score2=0|winner=1
+        |t1b1=jetpack cat|t2b1=sojourn|banstart=1}}
+    |map2={{Map|map=Rialto|mode=Escort|score1=1|score2=0|winner=1
+        |t1b1=bastion|t2b1=kiriko|banstart=2}}
+    |map3={{Map|map=Aatlis|mode=Flashpoint|score1=3|score2=0|winner=1
+        |t1b1=juno|t2b1=orisa|banstart=2}}
+    |mvp=Becky
+    }}
+|M8={{Match
+    |date=2026-04-19 - 16:35 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/iwxxXdPBkb4?t=7523
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|ONSIDE Gaming}}
+    |opponent2={{TeamOpponent|Team Falcons}}
+    |map1={{Map|map=Lijiang Tower|mode=Control|score1=1|score2=2|winner=2
+        |t1b1=dva|t2b1=pharah|banstart=2}}
+    |map2={{Map|map=Runasapi|mode=Push|score1=28.28|score2=144.86|winner=2
+        |t1b1=kiriko|t2b1=hazard|banstart=1}}
+    |map3={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=1|score2=0|winner=1
+        |t1b1=symmetra|t2b1=sigma|banstart=1}}
+    |map4={{Map|map=Numbani|mode=Hybrid|score1=1|score2=0|winner=1
+        |t1b1=ramattra|t2b1=ana|banstart=2}}
+    |map5={{Map|map=Esperança|mode=Push|score1=104.73|score2=116.78|winner=2
+        |t1b1=wuyang|t2b1=bastion|banstart=2}}
+    |mvp=Checkmate
+    }}
+|M9={{Match
+    |date=2026-04-19 - 18:30 {{Abbr/KST}}
+    |afreeca=owesports|vod=https://youtu.be/iwxxXdPBkb4?t=14582
+    |caster1=Park Han-eol|caster2=Strings
+    |opponent1={{TeamOpponent|New Era}}
+    |opponent2={{TeamOpponent|Cheeseburger}}
+    |map1={{Map|map=Busan|mode=Control|score1=0|score2=2|winner=2
+        |t1b1=ramattra|t2b1=ana|banstart=2}}
+    |map2={{Map|map=Watchpoint: Gibraltar|mode=Escort|score1=1|score2=3|winner=2
+        |t1b1=Wuyang|t2b1=Hazard|banstart=1}}
+    |map3={{Map|map=Blizzard World|mode=Hybrid|score1=0|score2=3|winner=2
+        |t1b1=Kiriko|t2b1=Emre|banstart=1}}
+    |mvp=Zesin
+    }}
+}}
+{{box|end|padding=2em}}

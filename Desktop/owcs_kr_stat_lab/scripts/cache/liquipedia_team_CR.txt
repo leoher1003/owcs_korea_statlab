@@ -1,0 +1,66 @@
+{{Liquipedia links/Crazy Raccoon}}
+{{TeamTabs}}
+{{Infobox team
+|name=Crazy Raccoon
+|image=Crazy Raccoon 2021 allmode.png
+|location=Japan
+|region=Korea
+|achievements={{LeagueIconSmall/owcs}} Major: [[Overwatch Champions Series/2024/Major|2024]]<br>{{LeagueIconSmall/esports world cup}} Champion: [[Esports World Cup/2024|2024]]<br>{{LeagueIconSmall/owcs}} Champions Clash: [[Overwatch Champions Series/2025/Champions Clash|2025]]<br>{{LeagueIconSmall/owcs}} Champions Clash: [[Overwatch Champions Series/2026/Champions Clash|2026]]
+|website=https://crazyraccoon.jp/
+|youtube=channel/UCV3h-YCXiKiMmVupdknm73Q
+|twitter=crazyraccoon406
+|instagram=crazy_raccoon_official
+|created1=Org: 2018-04-06
+|created2=Overwatch2: 2024-04-07
+|disbanded=
+}}
+
+'''Crazy Raccoon''' is a [[:Category:Japan|Japanese]] esports organization.
+
+==History==
+===OWCS 2024===
+Crazy Raccoon entered ''Overwatch'' in April 2024 with the signing of the free-agent team "WAC". This roster included three ex-[[San Francisco Shock]] 2023 players with [[HeeSang]], [[Junbin]], and [[MAX]], alongside recent champion [[CH0R0NG]] and longtime [[OWL]] players [[LIP]] and [[Shu]]. CR defeated [[Team Falcons]] to win [[Overwatch_Champions_Series/2024/Asia/Stage_1/Main_Event|Asia Stage 1]], qualifying for [[Overwatch_Champions_Series/2024/Major|Dallas Major]]. There, they did not drop a single map to a Western team and won the first global event of the post-OWL era.
+
+Their Top 4 finish in Asia Stage 1 also qualified them to the [[Esports_World_Cup/2024|Esports World Cup 2024]]. At the event, they maintained a perfect record in the Group Stage, giving them a top seed. In the bracket, they quickly dispatched [[ENCE]], one of the top European teams at the event. They then met their rival [[Team Falcons]] in the semifinals, beating them in a close 4-1. [[LIP]] received match MVP in both matches. In the grand finals, they faced the [[Toronto Ultra]], who were fresh off a narrow victory over [[ZETA DIVISION]]. CR beat them in another 4-1 victory, losing their first ever map to a Western team, but winning their second global tournament of the year. [[Shu]] was awarded the tournament MVP.
+
+Crazy Raccoon went undefeated in maps through the [[Overwatch_Champions_Series/2024/Asia/Stage_2/Korea|OWCS Asia Stage 2 Korea]] Regular Season, emerging as the undisputed first seed for the Playoffs. Many analysts considered them nearly unbeatable, especially after their rivals [[Team Falcons]] took several losses in the season.{{citation needed}} CR selected Falcons as their opponent in the Playoff, but then were unexpectedly defeated in a 3-1 series. This defeat was the organization's second-ever loss, and ended an 18-match winstreak. Some fans attributed their defeat to a lack of understanding of the newly released hero [[Juno]].<ref name="unable to play new meta">{{cite web|url=https://x.com/Carbonatrix_/status/1832720880272568632|title=Unable to play meta comps with new hero|author=Carbon|date=2024-09-08}}</ref> CR then quickly dispatched [[Poker Face]] in the 3<sup>rd</sup> place match to qualify to the [[Overwatch_Champions_Series/2024/Asia/Stage_2/Main_Event|Asia Main Event]]. Ahead of the event, they unexpectedly signed ex-[[Fnatic]] DPS player [[KNIFE]], their first signing since their original announcement.<ref name="knife signed">{{cite web|url=https://x.com/OW_Esports_Asia/status/1837054095137333483|title=OWCS ASIA Roster Reveal|author=[[Overwatch Champions Series]]|date=2024-09-20}}</ref> Later, on the [[Overwatch_Champions_Series/2024/Asia/Stage_2/Main_Event|OWCS Asia Stage 2 Main Event]], they defeated [[Team Falcons]] on upper bracket final, making them the first team qualified to the [[Overwatch_Champions_Series/2024/Finals|Stockholm Finals]]. Nevertheless, on the grand final of the tournament, Crazy Raccoon lost to [[Team Falcons]] again in a close match and failed to obtain another trophy of this tournament. Advancing to the World Finals, Crazy Raccoon fell to Falcons in both the winner's final and the grand final, ending the year in second place. Still, four of the five Role MVP awards were given to CR players, and [[LIP]] received the Asia Region MVP award.
+
+===OWCS 2025===
+In 2025, Crazy Raccoon continued to showcase their regional dominance with a 8-0 record in [[Overwatch_Champions_Series/2025/Asia/Stage_1/Korea|Korea Stage 1]] regular season, showing a slight weakness in Seeding Deciders before a clean Playoffs allowed them to go into the Grand Finals and claim the stage title against [[ZETA DIVISION]] in a 4-2 series. Powering through [[Overwatch_Champions_Series/2025/Asia/Stage_1|Asia Stage 1]] as well, they beat [[Team Falcons]] 4-0 in semifinals but eventually let the championship slip away in a 2-4 rematch Grand Finals. Thus, they qualified for the first major as Korea's 2nd seed. At the [[Overwatch_Champions_Series/2025/Champions_Clash|Champions Clash]], CR notably lost their first-ever match against a Western team in a 1-3 series against [[NTMR]], and were relegated to the lower bracket of an international event for the first time. While some started to talk about the powerhouse's downfall, CR proved everyone wrong with a 3-0 revenge over NTMR in the lower finals into a 4-2 win against Team Falcons in the Grand Finals. They became champions of the first global event of the year which automatically qualified them for the [[Overwatch_Champions_Series/2025/Midseason_Championship|Midseason Championship]] as the first seed, with [[Shu]] being awarded tournament MVP.
+
+CR maintined their momentum in [[Overwatch_Champions_Series/2025/Asia/Stage_2/Korea|Korea Stage 2]] regular season, and despite a remarkable 0-3 stumble in the Playoffs Seeding Deciders that left them as the 4th seed and once again generated doubts about their form, they rebounded in the playoffs by successively defeating Team Falcons 4-2, [[All Gamers Global]] 4-0, and [[T1]] 4-2 in Grand Finals to secure the regional stage title once again. At the second major, CR advanced to playoffs after an unexpectedly close 3-2 series against [[Team Liquid]]; perhaps a sign of the to-be upset by [[Twisted Minds]] in the quarterfinals that would knock CR out of the [[Overwatch_Champions_Series/2025/Midseason_Championship|Midseason Championship]] at the 5th-8th place, their all-time lowest result. Commenters attributed this historical loss to CR's same inability to respond to the current meta when it doesn't lean into their strength.<ref name="2025 ewc meta">{{cite web|url=https://youtu.be/zCYj_RymGSk?t=247|title=How Ramattra SHOOK The Meta...|author=Kajor|date=2025-08-13}}</ref>
+
+The org signed ex-[[Poker Face]] DPS player [[SP1NT]] ahead of the remaining Stage 3<ref name="sp1nt signed">{{cite web|url=https://x.com/crazyraccoon406/status/1957366880928514328|title=Welcome SP1NT -> OW DIV.|author=[[Crazy Raccoon]]|date=2024-08-18}}</ref>; only their second addition to the original roster since the signing of [[KNIFE]] in 2024.
+
+==Timeline==
+{{TimelineSquadAuto}}
+
+==Player Roster==
+===Active===
+{{ActiveSquadAuto}}
+
+===Former===
+{{FormerSquadAuto}}
+
+==Organization==
+===Active===
+{{ActiveOrganizationAuto
+|{{SquadAutoRow|flag=jp|id=Retail Row no Ojisan|name=Daichi Takano|role=Owner|joindate=2018-04-06}}
+|{{SquadAutoRow|id=Cpt|name=Park Won-jae|joindate=2021-05-15}}
+}}
+
+===Former===
+{{FormerOrganizationAuto}}
+
+{{Team Footer|logos=n
+|trivia=
+* Crazy Raccoon played a Golden Stage in [[Overwatch_Champions_Series/2024/Asia/Stage_2/Korea|OWCS 2024 Asia Stage 2 Korea]], ending the regular season with a 21-0 map record.
+** Including matches before and after the regular season, they reached a 29-map winstreak.
+* All five of Crazy Raccoon's match losses in 2024 were against [[Team Falcons]].
+* Crazy Raccoon's loss against [[Twisted Minds]] at [[Overwatch_Champions_Series/2025/Midseason_Championship|OWCS 2025 Midseason Championship]] was their first ever time to be knocked out of a tournament by a team other than [[Team Falcons]].
+|gallery=
+<gallery mode="packed-hover" heights="300">
+Crazy Raccoon 2024 Esports World Cup Champions.jpg|'''Crazy Raccoons''' as the [[Esports_World_Cup/2024|2024 Esports World Cup]] Champions.<br><small>From left to right:</small><br>[[Pavane]] · [[CH0R0NG]] · [[LIP]] · [[MAX]] · [[Moon]] · [[HeeSang]] · [[Junbin]] · [[Kong]] · [[shu]]
+Crazy Raccoon at Esports World Cup 2025.jpg|Crazy Raccoon at the [[Overwatch_Champions_Series/2025/Midseason_Championship|Esports World Cup 2025]]<br><small>From left to right:</small><br>[[CH0R0NG]] · [[Junbin]] · [[LIP]] · [[HeeSang]] · [[MAX]] · [[Shu]] · [[Moon]]
+</gallery>
+}}

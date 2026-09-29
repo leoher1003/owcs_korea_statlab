@@ -1,0 +1,122 @@
+{
+  "parse": {
+    "title": "RunAway",
+    "pageid": 21230,
+    "sections": [
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Timeline",
+        "number": "1",
+        "index": "1",
+        "fromtitle": "RunAway",
+        "byteoffset": 503,
+        "anchor": "Timeline",
+        "linkAnchor": "Timeline"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Player Roster",
+        "number": "2",
+        "index": "2",
+        "fromtitle": "RunAway",
+        "byteoffset": 1624,
+        "anchor": "Player_Roster",
+        "linkAnchor": "Player_Roster"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Former",
+        "number": "2.1",
+        "index": "3",
+        "fromtitle": "RunAway",
+        "byteoffset": 1642,
+        "anchor": "Former",
+        "linkAnchor": "Former"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Organization",
+        "number": "3",
+        "index": "4",
+        "fromtitle": "RunAway",
+        "byteoffset": 1879,
+        "anchor": "Organization",
+        "linkAnchor": "Organization"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Active",
+        "number": "3.1",
+        "index": "5",
+        "fromtitle": "RunAway",
+        "byteoffset": 1896,
+        "anchor": "Active",
+        "linkAnchor": "Active"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Former",
+        "number": "3.2",
+        "index": "6",
+        "fromtitle": "RunAway",
+        "byteoffset": 2006,
+        "anchor": "Former_2",
+        "linkAnchor": "Former_2"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Results",
+        "number": "4",
+        "index": "7",
+        "fromtitle": "RunAway",
+        "byteoffset": 2181,
+        "anchor": "Results",
+        "linkAnchor": "Results"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Media",
+        "number": "5",
+        "index": "8",
+        "fromtitle": "RunAway",
+        "byteoffset": 2350,
+        "anchor": "Media",
+        "linkAnchor": "Media"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Articles",
+        "number": "5.1",
+        "index": "9",
+        "fromtitle": "RunAway",
+        "byteoffset": 2360,
+        "anchor": "Articles",
+        "linkAnchor": "Articles"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "References",
+        "number": "6",
+        "index": "10",
+        "fromtitle": "RunAway",
+        "byteoffset": 3164,
+        "anchor": "References",
+        "linkAnchor": "References"
+      }
+    ],
+    "showtoc": "",
+    "wikitext": {
+      "*": "{{Liquipedia links|leagueoflegends=Runaway}}\n{{TeamTabs}}\n{{Infobox team\n|name=RunAway\n|image=runawaylogo.png\n|location=South Korea\n|region=kr\n|website=https://runaway.gg/\n|website2=http://cafe.naver.com/runawaycafe\n|twitter=Runaway_OW\n|youtube=channel/UCNIrUQ8E8yh1HLlllxwZ4Ig\n|created=2016\n|disbanded=2024-09-07\n}}\n\n'''RunAway''' is an ''Overwatch'' team from [[:Category:South Korea|South Korea]] owned, managed and personally financed by popular streamers and couple, [[Runner]] and [[Flowervin]].\n\n==Timeline==\n{{TimelineSquadAuto\n|{{SquadAutoRow|date=2021-06-14|displaydate=June 14th|text='''RunAway''' disbands. {{player|MER1T|pos=dps}},  {{player|Ado|pos=dps}}, {{player|D0NGHAK|pos=tank}},  {{player|F4zE|pos=tank}}, {{player|ChiYo|pos=sup}}, {{player|Simple|pos=sup}}, {{player|SUNGMIN|pos=coach}}, {{player|Runner|pos=manager}}, and {{player|Flowervin|pos=manager}} leave. <ref name=\"runaway disband\">{{cite web|url=https://x.com/Runaway_OW/status/1404431579343048705|title=Today, we are going to notify a little heavy and saw news|date=2021-06-14|author='''[[RunAway]]'''}}</ref>}}\n|{{SquadAutoRow|date=2024-02-15|displaydate=February 15th|text='''RunAway''' returns. {{player|Prophet|pos=dps}},  {{player|ZEST|pos=dps}}, {{player|JaeWoo|pos=dps}},  {{player|Mag|pos=tank}}, {{player|LeeJaeGon|pos=sup}}, {{player|vigilante|pos=sup}}, {{player|Chara|pos=coach}}, {{player|Runner|pos=manager}}, and {{player|Flowervin|pos=manager}} join. <ref name=\"runaway reurns\">{{cite web|url=https://x.com/Runaway_OW/status/1757982646196646336|title=2024 RUNAWAY ROSTER|date=2024-02-15|author='''[[RunAway]]'''}}</ref>}}\n}}\n\n==Player Roster==\n===Former===\n{{FormerSquadAuto\n|{{SquadAutoRow|id=Mono |link=Mono (Korean player) |name=Kim Hyung-sun|joindate=2016-10-02|leavedate=2016-??-??}}\n|{{SquadAutoRow|id=Quad |name=Seok Joo-hyung|joindate=2016-10-02|leavedate=2016-??-??}}\n}}\n\n==Organization==\n===Active===\n{{ActiveOrganizationAuto\n|{{SquadAutoRow|id=Flowervin |name=Lee Hyun-a|joindate=2024-02-15}}\n}}\n\n===Former===\n{{FormerOrganizationAuto\n|{{SquadAutoRow|id=Flowervin |name=Lee Hyun-a|joindate=2018-02-19}}\n|{{SquadAutoRow|id=NoMi |name=Kim Min-yong|joindate=2016-10-02}}\n}}\n\n==Results==\n{{Tabs dynamic|hide-showall=true\n|name1=Achievements |content1={{Team achievements table}}\n|name2=Recent Matches |content2={{Team recent matches table}}\n}}\n\n==Media==\n===Articles===\n*{{ExternalMediaLink\n|link=http://www.espn.com/esports/story/_/id/20881227/ogn-overwatch-apex-runaway\n|title=There will never be another Overwatch team like RunAway\n|date=2017-10-01\n|by=Young Jae Jeon\n|of=[http://www.espn.com/esports/ ESPN]\n}}\n*{{ExternalMediaLink\n|link=https://www.invenglobal.com/articles/6268/up-close-and-personal-with-runaway-the-iconic-teams-potentially-last-group-interview\n|title=Up Close and Personal with RunAway: The Iconic Teams Potentially Last Group Interview.\n|date=2018-09-19\n|by=Ethan \"Premier\" Shin\n|of=[https://www.invenglobal.com/ Inven Global]\n}}\n*{{ExternalMediaLink\n|link=https://medium.com/@bonnieq/idle-worship-untangling-the-mythos-of-runaway-9043c800e035\n|title=Idle Worship — untangling the mythos of Runaway\n|date=2020-05-07\n|by=Bonnie Qu\n}}\n\n==References==\n{{Reflist}}\n{{Team roster}}"
+    }
+  }
+}

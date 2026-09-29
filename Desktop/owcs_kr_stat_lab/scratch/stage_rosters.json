@@ -1,0 +1,420 @@
+{
+  "Asia_Stage_1": {
+    "T1": {
+      "PLAYERS": {
+        "Proud": "DPS",
+        "ZEST": "DPS",
+        "DONGHAK": "TANK",
+        "Jasm1ne": "TANK",
+        "skewed": "SPT",
+        "Bliss": "SPT"
+      },
+      "STAFF": {
+        "RUSH": "Head Coach",
+        "Fleta": "Coach"
+      }
+    },
+    "Team Falcons": {
+      "PLAYERS": {
+        "Checkmate": "DPS",
+        "MER1T": "DPS",
+        "Hanbin": "TANK",
+        "SOMEONE": "TANK",
+        "ChiYo": "SPT",
+        "Fielder": "SPT"
+      },
+      "STAFF": {
+        "NineK": "Head Coach",
+        "SP9RK1E": "Coach",
+        "Junkbuck": "Coach",
+        "Levi": "Team Manager"
+      }
+    },
+    "Crazy Raccoon": {
+      "PLAYERS": {
+        "LIP": "DPS",
+        "HeeSang": "DPS",
+        "Stalk3r": "DPS",
+        "MAX": "TANK",
+        "JunBin": "TANK",
+        "CH0R0NG": "SPT",
+        "vigilante": "SPT"
+      },
+      "STAFF": {
+        "Moon": "Head Coach",
+        "Kong": "Assistant Coach",
+        "Izayaki": "Assistant Coach"
+      }
+    },
+    "ZETA DIVISION": {
+      "PLAYERS": {
+        "Proper": "DPS",
+        "knife": "DPS",
+        "Mealgaru": "TANK",
+        "Bernar": "TANK",
+        "Shu": "SPT",
+        "Viol2t": "SPT"
+      },
+      "STAFF": {
+        "Crusty": "Head Coach",
+        "GgulTaek": "Coach"
+      }
+    },
+    "New Era": {
+      "PLAYERS": {
+        "D0D0": "DPS",
+        "perr": "DPS",
+        "SoLA": "TANK",
+        "Secret": "SPT",
+        "MCD": "Flex",
+        "Yate": "Flex"
+      },
+      "STAFF": {
+        "Rumba": "Manager"
+      }
+    },
+    "ONSIDE GAMING": {
+      "PLAYERS": {
+        "SP1NT": "DPS",
+        "Kilo": "DPS",
+        "HAKSAL": "DPS",
+        "Attack": "TANK",
+        "IRONY": "SPT",
+        "OPENER": "SPT"
+      },
+      "STAFF": {
+        "F4zE": "Head Coach",
+        "Ado": "Coach",
+        "Doo": "Coach",
+        "Mixtape": "Manager"
+      }
+    },
+    "ZAN ESPORTS": {
+      "PLAYERS": {
+        "A1IEN": "DPS",
+        "probe": "DPS",
+        "Becky": "DPS",
+        "HEISER": "TANK",
+        "YangJun": "SPT",
+        "KIVIS": "SPT",
+        "Havira": "SPT"
+      },
+      "STAFF": {
+        "KariV": "Head Coach",
+        "Mircalla": "Coach",
+        "Ir1s": "Coach",
+        "sihu": "Manager"
+      }
+    },
+    "Cheeseburger": {
+      "PLAYERS": {
+        "Argon": "DPS",
+        "Zesin": "DPS",
+        "Jamelgong": "DPS",
+        "FARMER": "TANK",
+        "SeungAn": "TANK",
+        "WoochaN": "SPT",
+        "Faith": "SPT"
+      },
+      "STAFF": {
+        "Opera": "Coach"
+      }
+    },
+    "Poker Face": {
+      "PLAYERS": {
+        "M1NUT2": "DPS",
+        "D4RT": "DPS",
+        "FEARFUL": "TANK",
+        "Gur3um": "TANK",
+        "CARU": "SPT",
+        "TenTen": "SPT",
+        "Sp1nel": "SPT"
+      },
+      "STAFF": {
+        "SEON": "Head Coach",
+        "Da1Da1Sm00th": "Coach"
+      }
+    }
+  },
+  "Asia_Stage_2": {
+    "ZETA DIVISION": {
+      "PLAYERS": {
+        "Proper": "DPS",
+        "knife": "DPS",
+        "Mealgaru": "TANK",
+        "Bernar": "TANK",
+        "Shu": "SPT",
+        "Viol2t": "SPT"
+      },
+      "STAFF": {
+        "Crusty": "Head Coach",
+        "GgulTaek": "Coach",
+        "Twilight": "Coach"
+      }
+    },
+    "Team Falcons": {
+      "PLAYERS": {
+        "Checkmate": "DPS",
+        "MER1T": "DPS",
+        "SP1NT": "DPS",
+        "Hanbin": "TANK",
+        "SOMEONE": "TANK",
+        "ChiYo": "SPT",
+        "Fielder": "SPT"
+      },
+      "STAFF": {
+        "NineK": "Head Coach",
+        "SP9RK1E": "Coach",
+        "Junkbuck": "Coach",
+        "Levi": "Team Manager"
+      }
+    },
+    "Crazy Raccoon": {
+      "PLAYERS": {
+        "LIP": "DPS",
+        "HeeSang": "DPS",
+        "Stalk3r": "DPS",
+        "MAX": "TANK",
+        "JunBin": "TANK",
+        "CH0R0NG": "SPT",
+        "vigilante": "SPT"
+      },
+      "STAFF": {
+        "Moon": "Head Coach",
+        "Kong": "Assistant Coach",
+        "Izayaki": "Assistant Coach"
+      }
+    },
+    "T1": {
+      "PLAYERS": {
+        "Proud": "DPS",
+        "ZEST": "DPS",
+        "DONGHAK": "TANK",
+        "Jasm1ne": "TANK",
+        "skewed": "SPT",
+        "Bliss": "SPT"
+      },
+      "STAFF": {
+        "RUSH": "Head Coach",
+        "Fleta": "Coach"
+      }
+    },
+    "ZANSIDE GAMING": {
+      "PLAYERS": {
+        "Becky": "DPS",
+        "Kilo": "DPS",
+        "Probe": "DPS",
+        "HEISER": "TANK",
+        "Void": "TANK",
+        "IRONY": "SPT",
+        "OPENER": "SPT"
+      },
+      "STAFF": {
+        "KariV": "Head Coach",
+        "Ir1s": "Coach",
+        "Ado": "Coach",
+        "Haksal": "Coach"
+      }
+    },
+    "Cheeseburger": {
+      "PLAYERS": {
+        "M1nut2": "DPS",
+        "Argon": "DPS",
+        "FARMER": "TANK",
+        "Gur3um": "TANK",
+        "TenTen": "SPT",
+        "WoochaN": "SPT"
+      },
+      "STAFF": {
+        "Da1Da1Sm00th": "Coach",
+        "LeGo": "Coach",
+        "Mircalla": "Coach"
+      }
+    },
+    "O2 Blast": {
+      "PLAYERS": {
+        "Perr": "DPS",
+        "WuTian": "DPS",
+        "SeungAn": "TANK",
+        "Fate": "TANK",
+        "Faith": "SPT",
+        "Misin": "SPT",
+        "Gamjung": "SPT"
+      },
+      "STAFF": {
+        "O2Boss": "Head Coach",
+        "Chilhwa": "Coach",
+        "Myunb0ng": "Coach",
+        "Cane": "Coach"
+      }
+    },
+    "Poker Face": {
+      "PLAYERS": {
+        "K4ne": "DPS",
+        "D0D0": "DPS",
+        "Fearful": "TANK",
+        "HYEON": "TANK",
+        "Sp1nel": "SPT",
+        "CARU": "SPT"
+      },
+      "STAFF": {
+        "Mandu": "Coach",
+        "Rexi": "Coach",
+        "Nyammulba": "Coach"
+      }
+    },
+    "superbad": {
+      "PLAYERS": {
+        "SORI": "DPS",
+        "AZENT": "DPS",
+        "SENTIER": "TANK",
+        "Homerunball": "TANK",
+        "Dumbbell": "SPT",
+        "Univ2r": "SPT",
+        "Soae": "Flex"
+      },
+      "STAFF": {
+        "SeltaRet": "Coach",
+        "Yui": "Coach"
+      }
+    }
+  },
+  "Asia_Stage_3": {
+    "ZETA DIVISION": {
+      "PLAYERS": {
+        "Proper": "DPS",
+        "knife": "DPS",
+        "Mealgaru": "TANK",
+        "Bernar": "TANK",
+        "Shu": "SPT",
+        "Viol2t": "SPT"
+      },
+      "STAFF": {
+        "Crusty": "Head Coach",
+        "Twilight": "Coach"
+      }
+    },
+    "Crazy Raccoon": {
+      "PLAYERS": {
+        "LIP": "DPS",
+        "HeeSang": "DPS",
+        "Stalk3r": "DPS",
+        "MAX": "TANK",
+        "JunBin": "TANK",
+        "CH0R0NG": "SPT",
+        "vigilante": "SPT"
+      },
+      "STAFF": {
+        "Kong": "Assistant Coach",
+        "Izayaki": "Assistant Coach"
+      }
+    },
+    "T1": {
+      "PLAYERS": {
+        "Proud": "DPS",
+        "ZEST": "DPS",
+        "DONGHAK": "TANK",
+        "Jasm1ne": "TANK",
+        "skewed": "SPT",
+        "Bliss": "SPT"
+      },
+      "STAFF": {
+        "RUSH": "Head Coach",
+        "Fleta": "Coach",
+        "GgulTaek": "Coach"
+      }
+    },
+    "ZANSIDE GAMING": {
+      "PLAYERS": {
+        "Becky": "DPS",
+        "Kilo": "DPS",
+        "Taejong": "DPS",
+        "HEESUNG": "TANK",
+        "HEISER": "TANK",
+        "IRONY": "SPT",
+        "OPENER": "SPT"
+      },
+      "STAFF": {
+        "KariV": "Head Coach",
+        "Ir1s": "Coach",
+        "Mircalla": "Coach"
+      }
+    },
+    "Team Falcons": {
+      "PLAYERS": {
+        "Checkmate": "DPS",
+        "MER1T": "DPS",
+        "SP1NT": "DPS",
+        "Hanbin": "TANK",
+        "SOMEONE": "TANK",
+        "ChiYo": "SPT",
+        "Fielder": "SPT"
+      },
+      "STAFF": {
+        "NineK": "Head Coach",
+        "SP9RK1E": "Coach",
+        "Junkbuck": "Coach",
+        "Levi": "Team Manager"
+      }
+    },
+    "O2 Blast": {
+      "PLAYERS": {
+        "Perr": "DPS",
+        "WuTian": "DPS",
+        "A1IEN": "DPS",
+        "Fate": "TANK",
+        "Homerunball": "TANK",
+        "Faith": "SPT",
+        "Gamjung": "SPT"
+      },
+      "STAFF": {
+        "O2Boss": "Head Coach",
+        "Chilhwa": "Coach",
+        "Myunb0ng": "Coach",
+        "Cane": "Coach"
+      }
+    },
+    "Cheeseburger": {
+      "PLAYERS": {
+        "K4NE": "DPS",
+        "Profit": "DPS",
+        "AZENT": "DPS",
+        "Belosrea": "TANK",
+        "TENTEN": "SPT",
+        "Trest": "SPT"
+      },
+      "STAFF": {
+        "KRILLIN": "Coach"
+      }
+    },
+    "poker face": {
+      "PLAYERS": {
+        "F1nally": "DPS",
+        "SORI": "DPS",
+        "SoLA": "TANK",
+        "SWOO": "TANK",
+        "Dumbbell": "SPT",
+        "Caffeine": "SPT",
+        "Soae": "SPT"
+      },
+      "STAFF": {
+        "SEON": "Head Coach",
+        "Mandu": "Coach"
+      }
+    },
+    "SEIJI ESPORTS": {
+      "PLAYERS": {
+        "D4RT": "DPS",
+        "M1NUT2": "DPS",
+        "DOX": "TANK",
+        "SENTIER": "TANK",
+        "OFF": "SPT",
+        "Lavender": "SPT"
+      },
+      "STAFF": {
+        "Da1Da1Sm00th": "Coach",
+        "SanGuiNar": "Coach"
+      }
+    }
+  }
+}

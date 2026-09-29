@@ -1,0 +1,170 @@
+{
+  "parse": {
+    "title": "Poker Face",
+    "pageid": 120070,
+    "sections": [
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Upcoming Matches",
+        "number": "1",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Upcoming_Matches",
+        "linkAnchor": "Upcoming_Matches"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Timeline",
+        "number": "2",
+        "index": "1",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 483,
+        "anchor": "Timeline",
+        "linkAnchor": "Timeline"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Player Roster",
+        "number": "3",
+        "index": "2",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 519,
+        "anchor": "Player_Roster",
+        "linkAnchor": "Player_Roster"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Active",
+        "number": "3.1",
+        "index": "3",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 537,
+        "anchor": "Active",
+        "linkAnchor": "Active"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Former",
+        "number": "3.2",
+        "index": "4",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 570,
+        "anchor": "Former",
+        "linkAnchor": "Former"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Organization",
+        "number": "4",
+        "index": "5",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 604,
+        "anchor": "Organization",
+        "linkAnchor": "Organization"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Active",
+        "number": "4.1",
+        "index": "6",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 621,
+        "anchor": "Active_2",
+        "linkAnchor": "Active_2"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Former",
+        "number": "4.2",
+        "index": "7",
+        "fromtitle": "Poker_Face",
+        "byteoffset": 662,
+        "anchor": "Former_2",
+        "linkAnchor": "Former_2"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Results",
+        "number": "5",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Results",
+        "linkAnchor": "Results"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Statistics",
+        "number": "6",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Statistics",
+        "linkAnchor": "Statistics"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Gallery",
+        "number": "7",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Gallery",
+        "linkAnchor": "Gallery"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Logos",
+        "number": "7.1",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Logos",
+        "linkAnchor": "Logos"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "Media",
+        "number": "8",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Media",
+        "linkAnchor": "Media"
+      },
+      {
+        "toclevel": 2,
+        "level": "3",
+        "line": "Interviews",
+        "number": "8.1",
+        "index": "",
+        "byteoffset": null,
+        "anchor": "Interviews",
+        "linkAnchor": "Interviews"
+      },
+      {
+        "toclevel": 1,
+        "level": "2",
+        "line": "References",
+        "number": "9",
+        "index": "T-1",
+        "fromtitle": "Template:Team_Footer",
+        "byteoffset": null,
+        "anchor": "References",
+        "linkAnchor": "References"
+      }
+    ],
+    "showtoc": "",
+    "wikitext": {
+      "*": "{{Tabs static\n|name1={{Team|Poker Face}}\n|name2={{Team|Poker Face Academy}}\n|This=1\n}}\n{{TeamTabs}}\n{{Infobox team\n|name=Poker Face\n|image=Poker Face 2023 lightmode.png\n|imagedark=Poker Face 2023 darkmode.png\n|location=South Korea\n|region=kr\n|discord=va4gz7dQBg\n|twitter=WEAREPOKERFACE\n|instagram=pokerface_ow\n|youtube=@POKERFACE_OFFICIAL\n|created=2022-08-17\n}}\n\n'''Poker Face''' is a [[:Category:South Korea|South Korean]] ''Overwatch'' team formed from Ex-[[Incendia Evolution]].\n\n==Timeline==\n{{TimelineSquadAuto}}\n\n==Player Roster==\n===Active===\n{{ActiveSquadAuto}}\n===Former===\n{{FormerSquadAuto}}\n\n==Organization==\n===Active===\n{{ActiveOrganizationAuto}}\n\n===Former===\n{{FormerOrganizationAuto}}\n\n{{Team Footer}}"
+    }
+  }
+}

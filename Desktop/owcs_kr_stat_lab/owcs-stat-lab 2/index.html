@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <title>OWCS Korea Stat Lab | Stage 2 Stats & Stage 3 Preview</title>
+  <meta name="description" content="OWCS Korea 2026 공식 경기 통계 랩 및 Stage 3 정규 시즌 일정, 맵 풀, 이적 현황 프리뷰 대시보드" />
+  <meta property="og:title" content="OWCS Korea Stat Lab" />
+  <meta property="og:description" content="OWCS Korea 2026 공식 경기 통계 랩 및 Stage 3 정규 시즌 일정, 맵 풀, 이적 현황 프리뷰 대시보드" />
+  <meta property="og:image" content="assets/owcs_korea_dark.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="assets/owcs_korea_dark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260924_03" />
+  <!-- Data Visualization & Export Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <strong>OWCS</strong><span>STAT LAB</span>
+      </div>
+      <div class="tourney-selector" id="tourneySelector">
+        <button class="tourney-btn" id="tourneyBtn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="tourney-pulse"></span>
+          <span class="tourney-current-title" id="tourneyCurrentTitle">OWCS Korea 2026 Stage 2</span>
+          <span class="tourney-chevron">▾</span>
+        </button>
+        <div class="tourney-dropdown" id="tourneyDropdown">
+          <div class="tourney-option" data-tourney="kr-s1">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#10b981;"></span>
+              <span class="opt-name">OWCS Korea 2026 Stage 1</span>
+            </div>
+            <span class="badge-status" id="badgeKrS1" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);">Completed · Champion: ZETA</span>
+          </div>
+          <div class="tourney-option active" data-tourney="kr-s2">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot active"></span>
+              <span class="opt-name">OWCS Korea 2026 Stage 2</span>
+            </div>
+            <span class="badge-status live" id="badgeLive">Active</span>
+          </div>
+          <div class="tourney-option" data-tourney="kr-s3">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot upcoming"></span>
+              <span class="opt-name">OWCS Korea 2026 Stage 3</span>
+            </div>
+            <span class="badge-status upcoming-badge" id="badgeKrS3">A-Tier · Starts Oct 02</span>
+          </div>
+          <div class="tourney-option" data-tourney="asia-s1">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#f59e0b;"></span>
+              <span class="opt-name">OWCS Asia 2026 Stage 1</span>
+            </div>
+            <span class="badge-status" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);">S-Tier · Champion: ZETA</span>
+          </div>
+          <div class="tourney-option" data-tourney="bootcamp-s1">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#22c55e;"></span>
+              <span class="opt-name">OWCS 2026 Pre-Season Bootcamp</span>
+            </div>
+            <span class="badge-status" style="background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.3);">S-Tier · Champion: Twisted Minds</span>
+          </div>
+          <div class="tourney-option" data-tourney="clash-2026">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#ef4444;"></span>
+              <span class="opt-name">OWCS 2026 Champions Clash</span>
+            </div>
+            <span class="badge-status" style="background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);">S-Tier · Champion: Crazy Raccoon</span>
+          </div>
+          <div class="tourney-option" data-tourney="midseason-2026">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#f59e0b;"></span>
+              <span class="opt-name">OWCS 2026 Midseason Championship</span>
+            </div>
+            <span class="badge-status" style="background:rgba(245,158,11,0.15);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);">S-Tier · Champion: ZETA ($1M)</span>
+          </div>
+          <div class="tourney-option" data-tourney="owwc-2026">
+            <div class="tourney-opt-meta">
+              <span class="opt-status-dot done" style="background:#0284c7;"></span>
+              <span class="opt-name">Overwatch World Cup 2026</span>
+            </div>
+            <span class="badge-status" style="background:rgba(2,132,199,0.15);color:#38bdf8;border:1px solid rgba(2,132,199,0.3);">S-Tier · Champion: South Korea</span>
+          </div>
+        </div>
+      </div>
+      <button id="globalTeamsBtn" class="btn-global-teams-header" type="button" title="모든 참가팀 및 로스터 전체 보기" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);border-radius:10px;color:#38bdf8;cursor:pointer;font-size:13px;transition:all 0.15s ease;">
+        <span style="font-size:14px;">👥</span>
+        <span style="font-weight:700;">Teams &amp; Players</span>
+      </button>
+      <button id="tournamentsBtn" class="btn-tournaments-header" type="button" title="역대 OWCS 대회 역사 &amp; 일정 타임라인" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:10px;color:#fbbf24;cursor:pointer;font-size:13px;transition:all 0.15s ease;">
+        <span style="font-size:14px;">🏆</span>
+        <span style="font-weight:700;">Tournaments &amp; History</span>
+      </button>
+    </div>
+    <div class="topbar-right">
+      <nav id="nav"></nav>
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language selection">
+        <button class="lang-btn" data-lang="en" type="button">EN</button>
+        <button class="lang-btn active" data-lang="ko" type="button">한국어</button>
+      </div>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer id="footerText">Data: OWCS Korea 2026 Stage 2 workbook · Unofficial fan analytics project. Not affiliated with or endorsed by Blizzard Entertainment.</footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="data/liquipedia_data.js?v=20260924_18"></script>
+  <script src="data/data.js?v=20260924_18"></script>
+  <script src="data/stage1_preview.js?v=20260924_18"></script>
+  <script src="data/stage2_preview.js?v=20260924_18"></script>
+  <script src="data/stage3_preview.js?v=20260924_18"></script>
+  <script src="data/asia_s1_preview.js?v=20260924_18"></script>
+  <script src="data/bootcamp_preview.js?v=20260924_18"></script>
+  <script src="data/clash_preview.js?v=20260924_18"></script>
+  <script src="data/midseason_preview.js?v=20260924_18"></script>
+  <script src="data/owwc_preview.js?v=20260924_18"></script>
+  <script src="data/global_teams_data.js?v=20260924_18"></script>
+  <script src="data/tournaments_data.js?v=20260926_01"></script>
+  <script src="app.js?v=20260926_01"></script>
+</body>
+
+</html>
