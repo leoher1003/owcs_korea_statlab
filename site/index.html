@@ -5,28 +5,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="referrer" content="no-referrer" />
-  <title>OWCS Korea Stat Lab | 2026 Stage 2</title>
+  <title>OWCS Korea Stat Lab | 2026 Stage 3</title>
   <meta name="description"
-    content="Unofficial analytics dashboard for 2026 OWCS Korea Stage 2 player, team, match and hero ban statistics." />
+    content="Unofficial analytics dashboard for 2026 OWCS Korea Stages 2–3 player, team, match and hero ban statistics." />
 
   <!-- Social / Link Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="OWCS Korea Stat Lab" />
   <meta property="og:title" content="OWCS Korea Stat Lab" />
-  <meta property="og:description" content="Explore player, team, match and hero ban analytics for 2026 OWCS Korea Stage 2." />
+  <meta property="og:description" content="Explore player, team, match and hero ban analytics for 2026 OWCS Korea Stages 2–3." />
   <meta property="og:url" content="https://leoher1003.github.io/owcs_korea_statlab/" />
   <meta property="og:image" content="https://leoher1003.github.io/owcs_korea_statlab/assets/social_preview.png?v=3" />
   <meta property="og:image:secure_url" content="https://leoher1003.github.io/owcs_korea_statlab/assets/social_preview.png?v=3" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="OWCS Korea Stat Lab — 2026 OWCS Korea Stage 2 Analytics" />
+  <meta property="og:image:alt" content="OWCS Korea Stat Lab — 2026 OWCS Korea Stages 2–3 Analytics" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="OWCS Korea Stat Lab" />
-  <meta name="twitter:description" content="Explore player, team, match and hero ban analytics for 2026 OWCS Korea Stage 2." />
+  <meta name="twitter:description" content="Explore player, team, match and hero ban analytics for 2026 OWCS Korea Stages 2–3." />
   <meta name="twitter:image" content="https://leoher1003.github.io/owcs_korea_statlab/assets/social_preview.png?v=3" />
-  <meta name="twitter:image:alt" content="OWCS Korea Stat Lab — 2026 OWCS Korea Stage 2 Analytics" />
+  <meta name="twitter:image:alt" content="OWCS Korea Stat Lab — 2026 OWCS Korea Stages 2–3 Analytics" />
   <link rel="icon" type="image/png" href="assets/stat_lab_icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,10 +46,14 @@
         <img src="assets/stat_lab_icon.png" class="brand-icon" alt="OWCS Korea Stat Lab">
         <div class="brand-copy"><strong>OWCS KOREA</strong><span>STAT LAB</span></div>
       </div>
-      <div class="stage-label">2026 · STAGE 2</div>
+      <div class="stage-label" id="stageLabel">2026 · STAGE 3</div>
     </div>
     <div class="topbar-right">
       <nav id="nav"></nav>
+      <div class="lang-switch" id="stageSwitch" role="group" aria-label="Stage selection">
+        <button class="lang-btn" data-stage="s2" type="button">S2</button>
+        <button class="lang-btn active" data-stage="s3" type="button">S3</button>
+      </div>
       <div class="lang-switch" id="langSwitch" role="group" aria-label="Language selection">
         <button class="lang-btn" data-lang="en" type="button">EN</button>
         <button class="lang-btn active" data-lang="ko" type="button">한국어</button>
@@ -62,7 +66,10 @@
   <script src="data/data.js?v=20260929_03"></script>
   <script src="data/stage2_preview.js?v=20260928_01"></script>
   <script src="data/transfers.js?v=20260928_02"></script>
-  <script src="app.js?v=20260929_06"></script>
+  <script src="data/data_s3.js?v=20261011_02"></script>
+  <script src="data/stage3_preview.js?v=20261011_03"></script>
+  <script src="data/stage3_overview.js?v=20261011_04"></script>
+  <script src="app.js?v=20261011_06"></script>
 </body>
 
 </html>

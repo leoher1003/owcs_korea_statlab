@@ -93,18 +93,23 @@ window.OWCS_STAGE3_PREVIEW = {
       ]
     }
   },
+  // items: { name, role, staff?, remarkKo?, remarkEn? } — staff entries are coaches/staff
   transfers: {
     in: [
-      { team: "T1", short: "T1", items: [{ name: "Ggultaek" }] },
-      { team: "Røde Zanside Gaming", short: "ROZE", items: [{ name: "HEESUNG" }, { name: "Taejong" }] },
-      { team: "O2 Blast", short: "O2", items: [{ name: "Homerunball" }, { name: "A1IEN" }] },
-      { team: "Cheeseburger", short: "CB", items: [{ name: "Belosrea" }, { name: "Profit" }, { name: "AZENT" }, { name: "Trest" }, { name: "K4ne" }] },
-      { team: "Poker Face", short: "PF", items: [{ name: "F1nally" }, { name: "SORI" }, { name: "SoLA" }, { name: "SWOO" }, { name: "Caffeine" }, { name: "Dumbbell" }, { name: "SOAE" }] }
+      { team: "T1", short: "T1", items: [{ name: "GgulTaek", role: "Coach", staff: true }] },
+      { team: "ZETA DIVISION", short: "ZETA", items: [{ name: "Twilight", role: "Coach", staff: true }] },
+      { team: "Røde Zanside Gaming", short: "ROZE", items: [{ name: "Taejong", role: "DPS" }, { name: "HEESUNG", role: "TANK" }] },
+      { team: "O2 Blast", short: "O2", items: [{ name: "Homerunball", role: "TANK" }, { name: "A1IEN", role: "DPS" }] },
+      { team: "Cheeseburger", short: "CB", items: [{ name: "Belosrea", role: "TANK" }, { name: "Profit", role: "DPS" }, { name: "AZENT", role: "DPS" }, { name: "Trest", role: "SPT" }, { name: "K4ne", role: "DPS" }] },
+      { team: "Poker Face", short: "PF", items: [{ name: "F1nally", role: "DPS" }, { name: "SORI", role: "DPS" }, { name: "SoLA", role: "TANK" }, { name: "SWOO", role: "TANK" }, { name: "Caffeine", role: "SPT" }, { name: "Dumbbell", role: "SPT" }, { name: "SOAE", role: "SPT" }] }
     ],
     out: [
-      { team: "Røde Zanside Gaming", short: "ROZE", items: [{ name: "Probe" }, { name: "SeungAn" }] },
-      { team: "Cheeseburger", short: "CB", items: [{ name: "Farmer" }, { name: "WoochaN" }, { name: "Gur3um" }, { name: "Argon" }] },
-      { team: "Poker Face", short: "PF", items: [{ name: "Fearful" }, { name: "HYEON" }, { name: "K4ne" }, { name: "D0D0" }, { name: "Sp1nel" }, { name: "CARU" }] }
+      { team: "Crazy Raccoon", short: "CR", items: [{ name: "Moon", role: "Coach", staff: true, remarkKo: "가족 사정으로 Stage 3 활동 중단", remarkEn: "Inactive for Stage 3 due to family issues" }] },
+      { team: "ZETA DIVISION", short: "ZETA", items: [{ name: "GgulTaek", role: "Coach", staff: true }] },
+      { team: "Røde Zanside Gaming", short: "ROZE", items: [{ name: "Void", role: "TANK" }, { name: "Probe", role: "DPS" }] },
+      { team: "O2 Blast", short: "O2", items: [{ name: "SeungAn", role: "TANK" }, { name: "MISIN", role: "SPT" }] },
+      { team: "Cheeseburger", short: "CB", items: [{ name: "Farmer", role: "TANK" }, { name: "WoochaN", role: "SPT" }, { name: "Gur3um", role: "TANK" }, { name: "Argon", role: "DPS" }] },
+      { team: "Poker Face", short: "PF", items: [{ name: "Fearful", role: "TANK" }, { name: "HYEON", role: "TANK" }, { name: "K4ne", role: "DPS" }, { name: "D0D0", role: "DPS" }, { name: "Sp1nel", role: "SPT" }, { name: "CARU", role: "SPT" }] }
     ]
   },
   newTeam: {
@@ -177,13 +182,13 @@ window.OWCS_STAGE3_PREVIEW = {
       name: "Poker Face",
       short: "PF",
       roster: [
-        { name: "F1NALLY", role: "TANK", isNew: true },
+        { name: "SOLA", role: "TANK", isNew: true },
+        { name: "SWOO", role: "TANK", isNew: true },
+        { name: "F1NALLY", role: "DPS", isNew: true },
         { name: "SORI", role: "DPS", isNew: true },
-        { name: "SOLA", role: "DPS", isNew: true },
-        { name: "SWOO", role: "SPT", isNew: true },
+        { name: "SOAE", role: "SPT", isNew: true },
         { name: "CAFFEINE", role: "SPT", isNew: true },
-        { name: "DUMBBELL", role: "SPT", isNew: true },
-        { name: "SOAE", role: "SPT", isNew: true }
+        { name: "DUMBBELL", role: "SPT", isNew: true }
       ]
     },
     {
@@ -191,11 +196,11 @@ window.OWCS_STAGE3_PREVIEW = {
       short: "CB",
       roster: [
         { name: "BELOSREA", role: "TANK", isNew: true },
-        { name: "TREST", role: "DPS", isNew: true },
-        { name: "K4NE", role: "DPS", isNew: true },
         { name: "PROFIT", role: "DPS", isNew: true },
+        { name: "AZENT", role: "DPS", isNew: true },
+        { name: "K4NE", role: "DPS", isNew: true },
         { name: "TENTEN", role: "SPT" },
-        { name: "AZENT", role: "SPT", isNew: true }
+        { name: "TREST", role: "SPT", isNew: true }
       ]
     },
     {

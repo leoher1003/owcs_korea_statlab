@@ -1,4 +1,16 @@
-const D=window.OWCS_DATA;
+// Stage selection: each stage has its own stats dataset and overview metadata.
+// Switching stage reloads the page because derived tables below are computed once at load.
+const STAGES={
+  s3:{key:'s3',num:3,inProgress:true,data:window.OWCS_DATA_S3,overview:window.OWCS_STAGE3_OVERVIEW,
+      transfers:window.OWCS_STAGE3_TRANSFER_EVENTS,teamCount:9,noChangeTeams:[{team:'Team Falcons',short:'FLC'}]},
+  s2:{key:'s2',num:2,inProgress:false,data:window.OWCS_DATA,overview:window.OWCS_STAGE2_PREVIEW,
+      transfers:window.OWCS_STAGE2_TRANSFER_EVENTS,teamCount:8,noChangeTeams:[{team:'Crazy Raccoon',short:'CR'},{team:'T1',short:'T1'},{team:'ZETA DIVISION',short:'ZETA'}]}
+};
+const STAGE=(()=>{let k=null;try{k=new URLSearchParams(location.search).get('stage')||localStorage.getItem('owcs_stat_lab_stage')}catch(e){}
+  return (STAGES[k]&&STAGES[k].data)?STAGES[k]:(STAGES.s3.data?STAGES.s3:STAGES.s2)})();
+const D=STAGE.data;
+// Players who switched position mid-stage are stored as "NAME (POS)"; baseName strips the suffix.
+const baseName=n=>String(n||'').replace(/ \((TANK|DPS|SPT)\)$/,'');
 const L=window.OWCS_LIQUIPEDIA||{players:{},teams:{}};
 const state={
   tourney:'kr-s2',
@@ -17,7 +29,7 @@ const state={
   plotHighlight:'All',
   h2hRole:'MAIN DPS',
   h2hA:'PROPER',
-  h2hB:'LIP',
+  h2hB:STAGE.key==='s2'?'LIP':'KNIFE',
   matchPhase:'All',
   banTeam:'All',
   banBreakMode:'Overall',
@@ -239,7 +251,7 @@ const I18N = {
     nav_matches: '경기 탐색기',
 
     tourney_kr_s1: 'OWCS Korea 2026 Stage 1',
-    tourney_kr_s2: 'OWCS Korea 2026 Stage 2',
+    tourney_kr_s2: `OWCS Korea 2026 Stage ${STAGE.num}`,
     tourney_kr_s3: 'OWCS Korea 2026 Stage 3',
     tourney_asia_s1: 'OWCS Asia 2026 Stage 1',
     tourney_bootcamp: 'OWCS 2026 Pre-Season Bootcamp',
@@ -272,7 +284,7 @@ const I18N = {
     stage2_mappool_post: 'LCQ / 2차 RR / 플레이오프 맵 풀',
     stage2_transfers_title: 'Stage 1 ➔ Stage 2 선수단 변동 (IN / OUT)',
     stage2_transfers_sub: 'Stage 1 이후부터 Stage 2 개막 전까지의 주요 선수·스태프 이동',
-    stage2_teams_title: 'Stage 2 본선 진출 8개 팀 로스터',
+    stage2_teams_title: `Stage ${STAGE.num} 본선 진출 ${STAGE.teamCount}개 팀 로스터`,
 
     teams_title: '기본 정보',
     teams_subtitle: '정규시즌 성적 및 순위와 팀별 로스터 및 선수 정보입니다.',
@@ -298,7 +310,7 @@ const I18N = {
     potm_title: 'Player of the Match (POTM)',
     potm_total_awards: '총 수상',
     potm_times: '회',
-    potm_empty: '기록된 Stage 2 POTM 수상 내역이 없습니다.',
+    potm_empty: `기록된 Stage ${STAGE.num} POTM 수상 내역이 없습니다.`,
 
     rank_title: '선수 랭킹',
     rank_sub_per10: '',
@@ -355,7 +367,7 @@ const I18N = {
     most_played_map: '최다 진행 맵',
     most_banned_hero: '최다 밴 영웅',
 
-    footer_text: '데이터 출처: OWCS Korea 2026 Stage 2 공식 중계 기록 워크북 · 비공식 팬 분석 프로젝트. Blizzard Entertainment와 제휴되거나 보증되지 않았습니다.'
+    footer_text: `데이터 출처: OWCS Korea 2026 Stage ${STAGE.num} 공식 중계 기록 워크북 · 비공식 팬 분석 프로젝트. Blizzard Entertainment와 제휴되거나 보증되지 않았습니다.`
   },
   en: {
     nav_overview: 'Overview',
@@ -366,7 +378,7 @@ const I18N = {
     nav_matches: 'Match Explorer',
 
     tourney_kr_s1: 'OWCS 코리아 2026 스테이지 1',
-    tourney_kr_s2: 'OWCS 코리아 2026 스테이지 2',
+    tourney_kr_s2: `OWCS 코리아 2026 스테이지 ${STAGE.num}`,
     tourney_kr_s3: 'OWCS 코리아 2026 스테이지 3',
     tourney_asia_s1: 'OWCS 아시아 2026 스테이지 1',
     tourney_bootcamp: 'OWCS 2026 프리시즌 부트캠프',
@@ -399,7 +411,7 @@ const I18N = {
     stage2_mappool_post: 'LCQ & Playoffs Map Pool',
     stage2_transfers_title: 'Stage 1 ➔ Stage 2 Roster Transfers (IN / OUT)',
     stage2_transfers_sub: 'Key player and staff moves during the transition from Stage 1 to Stage 2',
-    stage2_teams_title: 'Stage 2 Qualified 8 Teams & Rosters',
+    stage2_teams_title: `Stage ${STAGE.num} Qualified ${STAGE.teamCount} Teams & Rosters`,
 
     teams_title: 'Teams & Players',
     teams_subtitle: 'Round Robin standings, rosters and player profiles.',
@@ -425,7 +437,7 @@ const I18N = {
     potm_title: 'Player of the Match (POTM)',
     potm_total_awards: 'Total Awards',
     potm_times: 'time(s)',
-    potm_empty: 'No Stage 2 POTM awards recorded.',
+    potm_empty: `No Stage ${STAGE.num} POTM awards recorded.`,
 
     rank_title: 'Player Rankings',
     rank_sub_per10: '',
@@ -482,7 +494,7 @@ const I18N = {
     most_played_map: 'Most Played Map',
     most_banned_hero: 'Most Banned Hero',
 
-    footer_text: 'Data: OWCS Korea 2026 Stage 2 workbook · Unofficial fan analytics project. Not affiliated with or endorsed by Blizzard Entertainment.'
+    footer_text: `Data: OWCS Korea 2026 Stage ${STAGE.num} workbook · Unofficial fan analytics project. Not affiliated with or endorsed by Blizzard Entertainment.`
   }
 };
 
@@ -555,7 +567,9 @@ function teamLogo(team,cls='team-logo'){
 }
 
 function heroAssetKey(hero){return String(hero||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.:]/g,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}
-function heroIcon(hero,cls='hero-icon'){if(!hero)return'';const k=heroAssetKey(hero);return`<img class="${cls}" src="https://raw.githubusercontent.com/drippinghere/overwatch-hero-icons/main/2d/${k}.png" alt="${hero}" loading="lazy" onerror="this.style.display='none'">`}
+// Heroes missing from the external icon repo are served from site/assets/heroes/.
+const LOCAL_HERO_ICONS=new Set(['doctrine']);
+function heroIcon(hero,cls='hero-icon'){if(!hero)return'';const k=heroAssetKey(hero);return`<img class="${cls}" src="${LOCAL_HERO_ICONS.has(k)?`assets/heroes/${k}.png`:`https://raw.githubusercontent.com/drippinghere/overwatch-hero-icons/main/2d/${k}.png`}" alt="${hero}" loading="lazy" onerror="this.style.display='none'">`}
 const fmt=n=>n==null?'—':typeof n==='number'?n.toLocaleString(undefined,{maximumFractionDigits:2}):n;
 const roleName=r=>r==='SPT'?'SUPPORT':r==='MAIN SPT'?'MAIN SUPPORT':r==='FLEX SPT'?'FLEX SUPPORT':r;
 const teamNames={}; const rosters={}; let cur=null;
@@ -714,7 +728,7 @@ function renderH2HRadar(containerId,playerA,playerB){
 
 function getTourneyDataset(tourneyKey) {
   if (tourneyKey === 'kr-s1') return window.OWCS_STAGE1_PREVIEW;
-  if (tourneyKey === 'kr-s2') return window.OWCS_STAGE2_PREVIEW;
+  if (tourneyKey === 'kr-s2') return STAGE.overview; // 'kr-s2' is the key for the currently selected stats stage
   if (tourneyKey === 'kr-s3') return window.OWCS_STAGE3_PREVIEW;
   if (tourneyKey === 'asia-s1') return window.OWCS_ASIA_S1_PREVIEW;
   if (tourneyKey === 'bootcamp-s1') return window.OWCS_BOOTCAMP_PREVIEW;
@@ -802,6 +816,7 @@ function teamLiquipediaUrl(team) {
 }
 
 function playerLiquipediaUrl(name) {
+  name = baseName(name);
   const lp = L.players?.[name];
   if (lp && lp.liquipediaUrl) return lp.liquipediaUrl;
   return `https://liquipedia.net/overwatch/${encodeURIComponent(name)}`;
@@ -863,7 +878,7 @@ function playerProfile(name){
     <a href="${lpUrl}" target="_blank" rel="noopener noreferrer" class="btn-lp-external">
       <span class="lp-external-icon">📖</span> ${t('link_lp')}
     </a>
-    
+    ${players.filter(o=>o!==name&&baseName(o)===baseName(name)).map(o=>`<button class="btn-lp-external" data-player="${o}">🔄 ${state.lang==='ko'?'다른 포지션 기록':'Other position'}: ${o}</button>`).join('')}
   </div>
   <div id="player-profile-export" class="export-target card player-simple-profile-card">
     <div class="player-simple-header">
@@ -1055,7 +1070,7 @@ function playerProfile(name){
         </div>
       `:`<div class="potm-empty-msg">${t('potm_empty')}</div>`}
     </div>
-    <div class="export-watermark">OWCS Korea 2026 Stage 2 · Stat Lab</div>
+    <div class="export-watermark">OWCS Korea 2026 Stage ${STAGE.num} · Stat Lab</div>
   </div>`;
 }
 
@@ -1144,9 +1159,9 @@ function teamsPage() {
   if(state.team){
     const tm=state.team, roster=rosterByTeam[tm]||[], st=standingMap[tm]||{}, a=stage2TeamAnalytics(tm);
     const mostTo=a.mostTo, mostBy=a.mostBy;
-    return `<button id="backTeams" class="backbtn">← ${isKo?'참가팀':'Stage 2 Teams'}</button>
+    return `<button id="backTeams" class="backbtn">← ${isKo?'참가팀':`Stage ${STAGE.num} Teams`}</button>
       <div class="team-profile-hero">
-        <div class="team-profile-identity">${teamLogo(tm,'team-profile-logo')}<div><div class="eyebrow">2026 OWCS KOREA · STAGE 2</div><h1>${teamNames[tm]||tm}</h1><div class="team-identity-meta"><span>${tm}</span>${PARTNER_TEAMS.includes(tm)?`<span class="partner-badge">PARTNER TEAM</span>`:''}${championshipCount(tm)?`<span class="trophy-badge">🏆 ${championshipCount(tm)}</span>`:''}</div></div></div>
+        <div class="team-profile-identity">${teamLogo(tm,'team-profile-logo')}<div><div class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</div><h1>${teamNames[tm]||tm}</h1><div class="team-identity-meta"><span>${tm}</span>${PARTNER_TEAMS.includes(tm)?`<span class="partner-badge">PARTNER TEAM</span>`:''}${championshipCount(tm)?`<span class="trophy-badge">🏆 ${championshipCount(tm)}</span>`:''}</div></div></div>
         <div class="team-profile-metrics team-profile-metrics-four">
           <div><span>${isKo?'정규 순위':'Standing'}</span><b>#${st.rank||'—'}</b></div>
           <div><span>${isKo?'매치 전적':'Match Record'}</span><b>${a.mw}W · ${a.ml}L</b></div>
@@ -1177,7 +1192,7 @@ function teamsPage() {
       <div class="team-card-trophy ${trophies?'has-trophies':'no-trophies'}">${trophies?`🏆 <b>${trophies}</b> ${isKo?'Championships':'Championships'}`:(isKo?'Stage 2 Team':'Stage 2 Team')}</div>
       <div class="stage-team-roster">${(rosterByTeam[tm.id]||[]).map(p=>`<span>${p.player}</span>`).join('')}</div>
     </button>`}).join('')}</div>`;
-  return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE 2</span><h1>${state.lang==='ko'?'팀 & 선수':'Teams & Players'}</h1><p>${isKo?'팀을 선택해 팀 기록·우승 경력·선수단을 확인하고, 선수를 눌러 POTM과 포지션별 백분위 통계를 확인하세요.':'Select a team for records, championship history and roster details, then open a player for POTM awards and position percentiles.'}</p></div></div>
+  return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${state.lang==='ko'?'팀 & 선수':'Teams & Players'}</h1><p>${isKo?'팀을 선택해 팀 기록·우승 경력·선수단을 확인하고, 선수를 눌러 POTM과 포지션별 백분위 통계를 확인하세요.':'Select a team for records, championship history and roster details, then open a player for POTM awards and position percentiles.'}</p></div></div>
     <div class="team-tier-heading"><span>PARTNER TEAMS</span></div>${cards(partner)}
     <div class="team-tier-heading non-partner"><span>NON-PARTNER TEAMS</span></div>${cards(nonPartner)}`;
 }
@@ -1894,7 +1909,7 @@ function h2hPage(){
   </div>
   <div class="card compare">${metrics.map(m=>{const pa=percentile(A.Player,m),pb=percentile(B.Player,m);return`<div class="compare-row slider-row"><div class="slider-side left"><strong>${fmt(A[m])}</strong>${pctSlider(pa)}</div><div class="compare-metric"><span>${m}</span><small>Per 10</small></div><div class="slider-side right"><strong>${fmt(B[m])}</strong>${pctSlider(pb)}</div></div>`}).join('')}</div>
   <p class="muted h2h-footnote">${t('h2h_footnote')}</p>`}
-  <div class="export-watermark">OWCS Korea 2026 Stage 2 · Stat Lab</div>
+  <div class="export-watermark">OWCS Korea 2026 Stage ${STAGE.num} · Stat Lab</div>
   </div>`;
 }
 
@@ -1919,7 +1934,7 @@ function getActiveTourneyData(tourneyKey) {
 
     return {
       tourneyKey: 'kr-s2',
-      title: isKo ? 'OWCS 코리아 2026 Stage 2' : 'OWCS Korea 2026 Stage 2',
+      title: isKo ? `OWCS 코리아 2026 Stage ${STAGE.num}` : `OWCS Korea 2026 Stage ${STAGE.num}`,
       matches: grouped,
       mapRows: mRows,
       teamNames: tNames,
@@ -3168,7 +3183,9 @@ function openMatchDetailModal(keyOrId, tourney) {
     : (match.phase === '2nd RR' ? (isKo ? '2차 라운드 로빈 (시드 결정전)' : 'Playoffs Seeding Decider') : match.phase);
 
   // Compute H2H within tournament
-  const allTourneyMatches = (tourDataset && tourDataset.matches) 
+  const allTourneyMatches = activeTourKey === 'kr-s2'
+    ? matches // series of the currently selected stats stage
+    : (tourDataset && tourDataset.matches)
     ? tourDataset.matches 
     : (activeTourKey === 'kr-s1' 
         ? ((window.OWCS_STAGE1_PREVIEW && window.OWCS_STAGE1_PREVIEW.matches) || [])
@@ -4317,7 +4334,7 @@ function stage1MatchesPage() {
 
 
 function stage2PreviewPage(){
-  const s2 = window.OWCS_STAGE2_PREVIEW || {};
+  const s2 = STAGE.overview || {};
   const tour = s2.tournament || {};
   const isKo = state.lang === 'ko';
   const curTab = state.s2Tab || 'schedule';
@@ -4400,7 +4417,7 @@ function stage2PreviewPage(){
           <span class="s2-standings-icon">🏆</span>
           <div>
             <h3 class="s2-standings-title" style="margin:0;font-size:16.5px;font-weight:800;color:#fff;">
-              ${isKo ? 'Stage 2 정규 시즌 최종 순위표' : 'Stage 2 Regular Season Final Standings'}
+              ${isKo ? `Stage ${STAGE.num} 정규 시즌 ${STAGE.inProgress?'현재':'최종'} 순위표` : `Stage ${STAGE.num} Regular Season ${STAGE.inProgress?'Current':'Final'} Standings`}
             </h3>
             <p class="s2-standings-sub muted" style="margin:3px 0 0;font-size:12px;">
               ${isKo ? '총 36경기 풀 라운드 로빈 결과 · 승자승(H2H) 동률 규정 적용' : '36 Regular Season Matches · Head-to-Head Tiebreakers Applied'}
@@ -4445,8 +4462,13 @@ function stage2PreviewPage(){
   `;
 
   // 1. Schedule Data & Rendering
-  const allS2Matches = matches || [];
-  const s2TeamsList = ['ALL', 'CR', 'FLC', 'ZETA', 'T1', 'ROZE', 'CB', 'O2', 'PF'];
+  // Not-yet-played round-robin fixtures from the stage overview's schedule (shown as upcoming cards).
+  const playedPairs = new Set((matches || []).filter(m => m.phase === 'Round Robin').map(m => [m.a, m.b].sort().join('|')));
+  const upcomingMatches = (s2.fixtures || [])
+    .filter(f => !playedPairs.has([f.a, f.b].sort().join('|')))
+    .map(f => ({ ...f, key: `upcoming-${f.week}-${f.day}-${f.a}-${f.b}`, phase: 'Round Robin', upcoming: true }));
+  const allS2Matches = [...(matches || []), ...upcomingMatches];
+  const s2TeamsList = STAGE.key === 's2' ? ['ALL', 'CR', 'FLC', 'ZETA', 'T1', 'ROZE', 'CB', 'O2', 'PF'] : ['ALL', ...standings.map(x => x.team)];
   
   const teamFilterChipsHtml = s2TeamsList.map(tm => {
     const isAct = curTeam === tm;
@@ -4506,10 +4528,43 @@ function stage2PreviewPage(){
     dayObj.matches.push(m);
   });
 
+  const upcomingMatchCard = m => {
+    const homeName = teamNames[m.a] || m.a;
+    const awayName = teamNames[m.b] || m.b;
+    const isDimmed = !(curTeam === 'ALL' || m.a === curTeam || m.b === curTeam);
+    const when = [isKo ? m.dateKo : m.dateEn, m.time && `${m.time} KST`].filter(Boolean).join(' · ');
+    return `
+          <div class="s3-match-row s2-match-row upcoming ${isDimmed ? 'dimmed' : ''}">
+            <div class="s3-match-meta">
+              <span class="s3-match-num">${m.phase}</span>
+              <span class="s2-result-tag" style="opacity:.75">${isKo ? '예정' : 'UPCOMING'}</span>
+              <span class="s2-match-hint">🗓️ ${when}</span>
+            </div>
+            <div class="s2-match-body">
+              <div class="s2-match-team home" title="${homeName}">
+                <div class="s3-team-text">
+                  <strong class="s3-team-abbr">${m.a}</strong>
+                  <span class="s3-team-fullname">${homeName}</span>
+                </div>
+                ${teamLogo(m.a, 's3-match-logo')}
+              </div>
+              <div class="s2-match-score-badge"><span class="s2-score-divider">VS</span></div>
+              <div class="s2-match-team away" title="${awayName}">
+                ${teamLogo(m.b, 's3-match-logo')}
+                <div class="s3-team-text">
+                  <strong class="s3-team-abbr">${m.b}</strong>
+                  <span class="s3-team-fullname">${awayName}</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+  };
+
   const scheduleHtml = matchGroups.length ? matchGroups.map(grp => {
     const grpTitle = isKo ? grp.titleKo : grp.titleEn;
     const daysHtml = grp.days.map(d => {
       const matchesCardsHtml = d.matches.map(m => {
+        if (m.upcoming) return upcomingMatchCard(m);
         const homeWon = m.winner === m.a;
         const awayWon = m.winner === m.b;
         const homeName = teamNames[m.a] || m.a;
@@ -4668,7 +4723,7 @@ function stage2PreviewPage(){
     <div class="s3-mappool-section" id="s2-mappool">
       <div class="page-title" style="margin-bottom:14px;">
         <div>
-          <h2>${isKo ? '공식 전장 맵 풀 (Stage 2 Map Pool)' : 'Stage 2 Official Map Pool'}</h2>
+          <h2>${isKo ? `공식 전장 맵 풀 (Stage ${STAGE.num} Map Pool)` : `Stage ${STAGE.num} Official Map Pool`}</h2>
           <p class="muted" style="margin:4px 0 0;">${isKo ? '정규 시즌 및 LCQ · 플레이오프 공식 채택 5개 전장 모드' : 'Official competitive map pool for Regular Season & Postseason'}</p>
         </div>
       </div>
@@ -4694,7 +4749,7 @@ function stage2PreviewPage(){
   `;
 
   // 3. Transfers Data & Rendering — grouped by team, then by date.
-  const transferEvents = window.OWCS_STAGE2_TRANSFER_EVENTS || [];
+  const transferEvents = STAGE.transfers || [];
   const transferLogo = (short, team) => {
     if (team === 'Cheeseburger') return `<img class="transfer-team-logo" src="assets/teams/cb_transfer.png" alt="Cheeseburger logo">`;
     return teamLogo(short, 'transfer-team-logo');
@@ -4708,16 +4763,12 @@ function stage2PreviewPage(){
     g.dates.get(ev.date).push(ev);
   });
   // Stage 2 participants with no recorded roster moves are still shown for completeness.
-  [
-    {team:'Crazy Raccoon', short:'CR'},
-    {team:'T1', short:'T1'},
-    {team:'ZETA DIVISION', short:'ZETA'}
-  ].forEach(team => {
+  STAGE.noChangeTeams.forEach(team => {
     const key = `${team.team}||${team.short}`;
     if (!groupedTransfers.has(key)) groupedTransfers.set(key, {...team, dates:new Map(), noChanges:true});
   });
 
-  const transferOrder = ['CR','FLC','T1','ZETA','PF','CB','ROZE','O2','SB','ROG','ZAN','NE'];
+  const transferOrder = ['CR','FLC','T1','ZETA','PF','CB','ROZE','O2','SEJ','SB','ROG','ZAN','NE'];
   const transferTeamsHtml = [...groupedTransfers.values()]
     .sort((a,b)=>{
       const ai=transferOrder.indexOf(a.short), bi=transferOrder.indexOf(b.short);
@@ -4726,19 +4777,21 @@ function stage2PreviewPage(){
     .map(group => {
       const datesHtml = [...group.dates.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([date, events]) => {
         const rows = events.map(ev => {
+          // entries are plain names or {name, role, remarkKo, remarkEn}
+          const person = (x, fallback) => typeof x === 'string' ? {name:x, kind:fallback} : {name:x.name, kind:x.role || fallback, remark:isKo ? x.remarkKo : x.remarkEn};
           const people = [
-            ...(ev.players||[]).map(name=>({name, kind:isKo?'선수':'Player'})),
-            ...(ev.staff||[]).map(name=>({name, kind:isKo?'스태프':'Staff'}))
+            ...(ev.players||[]).map(x=>person(x, isKo?'선수':'Player')),
+            ...(ev.staff||[]).map(x=>person(x, isKo?'스태프':'Staff'))
           ];
           return `<div class="transfer-event-row ${ev.type.toLowerCase()}">
             <span class="transfer-direction ${ev.type.toLowerCase()}">${ev.type}</span>
-            <div class="transfer-event-people">${people.map(p=>`<span class="transfer-person"><b>${p.name}</b><small>${p.kind}</small></span>`).join('')}</div>
+            <div class="transfer-event-people">${people.map(p=>`<span class="transfer-person"><b>${p.name}</b><small>${p.kind}</small>${p.remark?`<small class="muted">${p.remark}</small>`:''}</span>`).join('')}</div>
           </div>`;
         }).join('');
         return `<div class="transfer-date-group"><div class="transfer-date">${date}</div>${rows}</div>`;
       }).join('');
       const bodyHtml = group.noChanges
-        ? `<div class="transfer-no-change"><b>${isKo ? '선수단 변동 없음' : 'No roster changes'}</b><span>${isKo ? 'Stage 1 이후 ~ Stage 2 개막 전' : 'Between Stage 1 and the start of Stage 2'}</span></div>`
+        ? `<div class="transfer-no-change"><b>${isKo ? '선수단 변동 없음' : 'No roster changes'}</b><span>${isKo ? `Stage ${STAGE.num-1} 이후 ~ Stage ${STAGE.num} 개막 전` : `Between Stage ${STAGE.num-1} and the start of Stage ${STAGE.num}`}</span></div>`
         : datesHtml;
       return `<article class="transfer-group-card">
         <header class="transfer-group-head">${transferLogo(group.short, group.team)}<div><h3>${group.team}</h3><span>${group.short}</span></div></header>
@@ -4799,7 +4852,7 @@ function stage2PreviewPage(){
             <b>${isKo ? 'A-TIER 대회' : 'A-TIER'}</b>
           </span>
           <span class="stage3-dday-badge" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%);color:#fff;box-shadow:0 2px 10px rgba(16,185,129,0.35);">
-            ✓ ${isKo ? '대회 종료 (결과 확정)' : 'Completed'}
+            ${STAGE.inProgress ? (isKo ? '● 진행 중' : '● In Progress') : (isKo ? '✓ 대회 종료 (결과 확정)' : '✓ Completed')}
           </span>
         </div>
 
@@ -4825,10 +4878,10 @@ function stage2PreviewPage(){
           <div>
             <div style="display:flex;align-items:center;gap:8px;">
               <span class="s3-schedule-live-dot" style="background:#10b981;box-shadow:0 0 10px #10b981;"></span>
-              <h2 class="s3-schedule-heading">${isKo ? 'Stage 2 전체 경기 일정 & 최종 결과' : 'Stage 2 Match Schedule & Final Results'}</h2>
+              <h2 class="s3-schedule-heading">${isKo ? `Stage ${STAGE.num} ${STAGE.inProgress?'경기 결과 (진행 중)':'전체 경기 일정 & 최종 결과'}` : `Stage ${STAGE.num} ${STAGE.inProgress?'Match Results (In Progress)':'Match Schedule & Final Results'}`}</h2>
             </div>
             <p class="muted" style="margin:4px 0 0;font-size:13px;">
-              ${isKo ? '정규 시즌 36경기 풀 라운드 로빈 및 2차 RR · LCQ · 플레이오프 전 경기 최종 스코어' : 'Full Round Robin (36 matches), 2nd Round Robin, LCQ and Playoffs official scores'}
+              ${STAGE.inProgress ? (isKo ? `정규 시즌 라운드 로빈 · Week ${Math.max(...D.matchInfo.map(r=>+r.WEEK||0))}까지 반영` : `Regular season round robin · through Week ${Math.max(...D.matchInfo.map(r=>+r.WEEK||0))}`) : (isKo ? '정규 시즌 36경기 풀 라운드 로빈 및 2차 RR · LCQ · 플레이오프 전 경기 최종 스코어' : 'Full Round Robin (36 matches), 2nd Round Robin, LCQ and Playoffs official scores')}
             </p>
           </div>
           <div class="s3-broadcast-box">
@@ -4874,8 +4927,8 @@ function stage2PreviewPage(){
       <div class="roster-changes-section">
         <div class="page-title" style="margin-bottom:12px;">
           <div>
-            <h2>${isKo ? 'Stage 1 ➔ Stage 2 선수단 변동 (IN / OUT)' : 'Stage 1 ➔ Stage 2 Transfers (IN / OUT)'}</h2>
-            <p class="muted" style="margin:4px 0 0;">${isKo ? 'Stage 1 이후부터 Stage 2 개막 전까지의 주요 선수·스태프 이동' : 'Key player and staff moves during the transition from Stage 1 to Stage 2'}</p>
+            <h2>${isKo ? `Stage ${STAGE.num-1} ➔ Stage ${STAGE.num} 선수단 변동 (IN / OUT)` : `Stage ${STAGE.num-1} ➔ Stage ${STAGE.num} Transfers (IN / OUT)`}</h2>
+            <p class="muted" style="margin:4px 0 0;">${isKo ? `Stage ${STAGE.num-1} 이후부터 Stage ${STAGE.num} 개막 전까지의 주요 선수·스태프 이동` : `Key player and staff moves during the transition from Stage ${STAGE.num-1} to Stage ${STAGE.num}`}</p>
           </div>
         </div>
         <div class="transfer-group-grid">
@@ -4889,7 +4942,7 @@ function stage2PreviewPage(){
         <div class="page-title" style="margin-bottom:12px;">
           <div>
             <h2>${t('stage2_teams_title')}</h2>
-            <p class="muted" style="margin:4px 0 0;">${isKo ? 'Stage 2 본선 진출 8개 팀 확정 로스터' : 'Official 8-team Stage 2 rosters'}</p>
+            <p class="muted" style="margin:4px 0 0;">${isKo ? `Stage ${STAGE.num} 본선 진출 ${STAGE.teamCount}개 팀 확정 로스터` : `Official ${STAGE.teamCount}-team Stage ${STAGE.num} rosters`}</p>
           </div>
         </div>
         <div class="stage3-teams-grid">
@@ -4901,8 +4954,8 @@ function stage2PreviewPage(){
     <div class="stage3-notice-card" style="border-left-color:#10b981;">
       <span class="stage3-notice-icon">📊</span>
       <div>
-        <strong style="color:#10b981;display:block;margin-bottom:2px;">${isKo ? 'Stage 2 공식 통계 랩 안내' : 'Stage 2 Stats Lab Notice'}</strong>
-        <span>${isKo ? 'Stage 2의 모든 선수/팀 지표, 상관관계 산점도 및 영웅 밴 분석은 상단 메뉴의 각 탭(기본 정보, 선수 랭킹, 경기 탐색기 등)에서 확인하실 수 있습니다.' : 'All Stage 2 player/team metrics, correlation plots, and hero ban analyses can be explored in the top navigation tabs.'}</span>
+        <strong style="color:#10b981;display:block;margin-bottom:2px;">${isKo ? `Stage ${STAGE.num} 공식 통계 랩 안내` : `Stage ${STAGE.num} Stats Lab Notice`}</strong>
+        <span>${isKo ? `Stage ${STAGE.num}의 모든 선수/팀 지표, 상관관계 산점도 및 영웅 밴 분석은 상단 메뉴의 각 탭(기본 정보, 선수 랭킹, 경기 탐색기 등)에서 확인하실 수 있습니다.` : `All Stage ${STAGE.num} player/team metrics, correlation plots, and hero ban analyses can be explored in the top navigation tabs.`}</span>
       </div>
     </div>
   `;
@@ -5253,7 +5306,18 @@ function bind(){
 // Setup Global Header Controls
 // ==========================================
 function setupHeaderControls(){
-  const langBtns=document.querySelectorAll('.lang-btn');
+  const stageLabel=document.getElementById('stageLabel');
+  if(stageLabel)stageLabel.textContent=`2026 · STAGE ${STAGE.num}`;
+  document.title=`OWCS Korea Stat Lab | 2026 Stage ${STAGE.num}`;
+  document.querySelectorAll('.lang-btn[data-stage]').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.stage === STAGE.key);
+    btn.onclick=()=>{
+      if(btn.dataset.stage===STAGE.key)return;
+      try{localStorage.setItem('owcs_stat_lab_stage',btn.dataset.stage)}catch(e){}
+      const u=new URL(location.href);u.searchParams.delete('stage');location.href=u.toString();
+    };
+  });
+  const langBtns=document.querySelectorAll('.lang-btn[data-lang]');
   langBtns.forEach(btn=>{
     btn.classList.toggle('active', btn.dataset.lang === state.lang);
     btn.onclick=()=>{
@@ -5859,8 +5923,8 @@ function infoPage(){
         <span class="eyebrow">OWCS KOREA STAT LAB</span>
         <h1>${ko?'프로젝트 정보':'Project Info'}</h1>
         <p>${ko
-          ? '2026 OWCS Korea Stage 2의 팀·선수·경기 데이터를 더 깊게 탐색하기 위해 만든 비공식 팬 분석 프로젝트입니다.'
-          : 'An unofficial fan analytics project for exploring team, player, and match data from 2026 OWCS Korea Stage 2.'}</p>
+          ? `2026 OWCS Korea Stage ${STAGE.num}의 팀·선수·경기 데이터를 더 깊게 탐색하기 위해 만든 비공식 팬 분석 프로젝트입니다.`
+          : `An unofficial fan analytics project for exploring team, player, and match data from 2026 OWCS Korea Stage ${STAGE.num}.`}</p>
       </div>
     </div>
 
@@ -5889,10 +5953,10 @@ function infoPage(){
 
       <article class="info-card">
         <span class="eyebrow">${ko?'범위 및 한계':'SCOPE & LIMITATIONS'}</span>
-        <h2>${ko?'Stage 2 기준':'Stage 2 Scope'}</h2>
+        <h2>${ko?`Stage ${STAGE.num} 기준`:`Stage ${STAGE.num} Scope`}</h2>
         <p>${ko
-          ? '현재 공개 버전은 2026 OWCS Korea Stage 2에 집중합니다. 공개 방송 화면에서 확인 가능한 스코어보드 수준의 데이터가 중심이므로 팀파이트, 궁극기 타이밍, 영웅 교체, 조합 상태, 위치 데이터와 같은 세부 이벤트는 포함하지 않습니다.'
-          : 'The current public version focuses on 2026 OWCS Korea Stage 2. Because it is built primarily from scoreboard-level information visible in public broadcasts, it does not include granular events such as teamfights, ultimate timing, hero swaps, composition states, or spatial data.'}</p>
+          ? `현재 공개 버전은 2026 OWCS Korea Stage ${STAGE.num}에 집중합니다. 공개 방송 화면에서 확인 가능한 스코어보드 수준의 데이터가 중심이므로 팀파이트, 궁극기 타이밍, 영웅 교체, 조합 상태, 위치 데이터와 같은 세부 이벤트는 포함하지 않습니다.`
+          : `The current public version focuses on 2026 OWCS Korea Stage ${STAGE.num}. Because it is built primarily from scoreboard-level information visible in public broadcasts, it does not include granular events such as teamfights, ultimate timing, hero swaps, composition states, or spatial data.`}</p>
       </article>
 
       <article class="info-card disclaimer-card">
