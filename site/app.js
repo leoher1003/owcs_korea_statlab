@@ -580,6 +580,11 @@ const per10=Object.fromEntries(D.per10Stats.map(r=>[r.Player,r]));
 const players=[...new Set(D.totalStats.map(r=>r.PLAYER))].filter(Boolean);
 const phases=['All',...new Set(D.matchInfo.map(r=>r.PHASE).filter(Boolean))];
 const potmByPlayer={}; D.potm.forEach(r=>{(potmByPlayer[r.POTM]??=[]).push(r)});
+// A player who switched position mid-stage has one entry per position ("LIP (DPS)", "LIP (SPT)").
+const stintPos=p=>(String(p).match(/\((TANK|DPS|SPT)\)$/)||[])[1]||'';
+const stintsOf=n=>{const b=baseName(n);const s=players.filter(p=>baseName(p)===b).sort((x,y)=>['TANK','DPS','SPT'].indexOf(stintPos(x))-['TANK','DPS','SPT'].indexOf(stintPos(y)));return s.length?s:[n]};
+// Stint the player appeared in most recently; used as the default profile view.
+const latestStint=n=>{const b=baseName(n);let last=n;D.rawStats.forEach(r=>{if(baseName(r.Player)===b)last=r.Player});return last};
 function groupMatches(rows=D.matchInfo){const m=new Map();rows.forEach(r=>{const key=`${r.WEEK}-${r.DAY}-${r.MATCH}-${r.PHASE}`;(m.get(key)??m.set(key,[]).get(key)).push(r)});return [...m.entries()].map(([key,maps])=>{const a=maps[0]['TEAM 1'],b=maps[0]['TEAM 2'];let aw=0,bw=0;maps.forEach(x=>{if(x.WINNER===a)aw++;else if(x.WINNER===b)bw++});return{key,a,b,aw,bw,phase:maps[0].PHASE,week:maps[0].WEEK,day:maps[0].DAY,maps,winner:aw>bw?a:b}})}
 const matches=groupMatches();
 function teamStandings(){
@@ -878,7 +883,10 @@ function playerProfile(name){
     <a href="${lpUrl}" target="_blank" rel="noopener noreferrer" class="btn-lp-external">
       <span class="lp-external-icon">📖</span> ${t('link_lp')}
     </a>
-    ${players.filter(o=>o!==name&&baseName(o)===baseName(name)).map(o=>`<button class="btn-lp-external" data-player="${o}">🔄 ${state.lang==='ko'?'다른 포지션 기록':'Other position'}: ${o}</button>`).join('')}
+    ${stintsOf(name).length>1?`<div class="lang-switch stint-switch" role="group" aria-label="Position">
+      <span style="align-self:center;padding:0 6px 0 8px;font-size:12px;font-weight:700;color:var(--muted);">As</span>
+      ${stintsOf(name).map(x=>`<button class="lang-btn ${x===name?'active':''}" data-player="${x}" type="button">${stintPos(x)}</button>`).join('')}
+    </div>`:''}
   </div>
   <div id="player-profile-export" class="export-target card player-simple-profile-card">
     <div class="player-simple-header">
@@ -891,7 +899,7 @@ function playerProfile(name){
           <span class="role-pill">${roleName(pos)}</span>
           ${!isQualified ? '<span class="pill-nq-top-badge">⚠️ NOT QUALIFIED</span>' : ''}
         </div>
-        <h1 class="player-simple-name">${name}</h1>
+        <h1 class="player-simple-name">${baseName(name)}</h1>
       </div>
     </div>
 
@@ -900,7 +908,7 @@ function playerProfile(name){
     <div class="player-info-grid">
       <div class="player-info-item">
         <span class="player-info-label">${t('player_id')}</span>
-        <b class="player-info-val">${name}</b>
+        <b class="player-info-val">${baseName(name)}</b>
       </div>
       <div class="player-info-item">
         <span class="player-info-label">${t('position')}</span>
@@ -1146,7 +1154,11 @@ function teamsPage() {
   D.teamInfo.forEach(r=>{
     if(r.Shortened){ currentTeam=r.Shortened; rosterByTeam[currentTeam]=rosterByTeam[currentTeam]||[]; }
     else if(r['Player Name']&&currentTeam){
-      rosterByTeam[currentTeam].push({player:r['Player Name'],role:r.Detailed||r['Player Position']||''});
+      const base=baseName(r['Player Name']);
+      if(rosterByTeam[currentTeam].some(p=>p.base===base)) return;
+      const stints=stintsOf(r['Player Name']);
+      rosterByTeam[currentTeam].push({player:latestStint(base), base, stints,
+        roles:stints.length>1?stints.map(x=>detailedRoleByPlayer[x]||stintPos(x)):[r.Detailed||r['Player Position']||'']});
     }
   });
   const orderedTeams=[...stageTeams].sort((a,b)=>{
@@ -1178,9 +1190,10 @@ function teamsPage() {
       ${championshipHistory(tm,isKo)}
       <div class="section roster-section"><div class="section-heading"><div><span class="eyebrow">ROSTER</span><h2>${isKo?'선수단':'Players'}</h2></div><span class="muted">${roster.length} players</span></div>
         <div class="roster-card-grid">${roster.map(p=>{
-          const awards=(potmByPlayer[p.player]||[]).length;
-          const pt=per10[p.player]?.Playtime_Min;
-          return `<button class="roster-player-card" data-player="${p.player}"><div class="roster-role">${roleName(p.role)}</div><strong>${p.player}</strong><div class="roster-meta"><span>${pt!=null?fmt(pt)+' min':'—'}</span><span class="potm-mini">⭐ POTM ${awards}</span></div><span class="view-profile">${isKo?'POTM · 백분위 상세 보기':'POTM · Percentile profile'} →</span></button>`;
+          const awards=p.stints.reduce((n,x)=>n+(potmByPlayer[x]||[]).length,0);
+          const pts=p.stints.map(x=>per10[x]?.Playtime_Min).filter(x=>x!=null);
+          const pt=pts.length?pts.reduce((a,b)=>a+b,0):null;
+          return `<button class="roster-player-card" data-player="${p.player}"><div class="roster-role">${p.roles.map(roleName).join(' / ')}</div><strong>${p.base}</strong><div class="roster-meta"><span>${pt!=null?fmt(pt)+' min':'—'}</span><span class="potm-mini">⭐ POTM ${awards}</span></div><span class="view-profile">${isKo?'POTM · 백분위 상세 보기':'POTM · Percentile profile'} →</span></button>`;
         }).join('')}</div>
       </div>`;
   }
@@ -1189,8 +1202,8 @@ function teamsPage() {
   const nonPartner=orderedTeams.filter(x=>!PARTNER_TEAMS.includes(x.id));
   const cards=(arr)=>`<div class="stage-team-grid">${arr.map(tm=>{const trophies=championshipCount(tm.id);return `<button class="stage-team-card team-card" data-team="${tm.id}">
       <div class="stage-team-card-top">${teamLogo(tm.id,'team-logo')}<div><strong>${tm.name}</strong><span>${tm.id}</span></div>${PARTNER_TEAMS.includes(tm.id)?'<div class="partner-mini">PARTNER</div>':''}</div>
-      <div class="team-card-trophy ${trophies?'has-trophies':'no-trophies'}">${trophies?`🏆 <b>${trophies}</b> ${isKo?'Championships':'Championships'}`:(isKo?'Stage 2 Team':'Stage 2 Team')}</div>
-      <div class="stage-team-roster">${(rosterByTeam[tm.id]||[]).map(p=>`<span>${p.player}</span>`).join('')}</div>
+      <div class="team-card-trophy ${trophies?'has-trophies':'no-trophies'}">${trophies?`🏆 <b>${trophies}</b> ${isKo?'Championships':'Championships'}`:`Stage ${STAGE.num} Team`}</div>
+      <div class="stage-team-roster">${(rosterByTeam[tm.id]||[]).map(p=>`<span>${p.base}</span>`).join('')}</div>
     </button>`}).join('')}</div>`;
   return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${state.lang==='ko'?'팀 & 선수':'Teams & Players'}</h1><p>${isKo?'팀을 선택해 팀 기록·우승 경력·선수단을 확인하고, 선수를 눌러 POTM과 포지션별 백분위 통계를 확인하세요.':'Select a team for records, championship history and roster details, then open a player for POTM awards and position percentiles.'}</p></div></div>
     <div class="team-tier-heading"><span>PARTNER TEAMS</span></div>${cards(partner)}
