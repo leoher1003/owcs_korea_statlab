@@ -14,7 +14,7 @@ const baseName=n=>String(n||'').replace(/ \((TANK|DPS|SPT)\)$/,'');
 const L=window.OWCS_LIQUIPEDIA||{players:{},teams:{}};
 const state={
   tourney:'kr-s2',
-  page:['overview','teams','rankings','plotting','h2h','matches'].includes(localStorage.getItem('owcs_stat_lab_page')) ? localStorage.getItem('owcs_stat_lab_page') : 'overview',
+  page:['overview','teams','rankings','plotting','h2h','matches','teamfights'].includes(localStorage.getItem('owcs_stat_lab_page')) ? localStorage.getItem('owcs_stat_lab_page') : 'overview',
   team:null,
   player:null,
   profileTab:'percentile',
@@ -59,7 +59,13 @@ const state={
   s1BanBreakValue:'All',
   s1OpenPhase:null,
   s1MapDrill:null,
-  s1SelectedMapDetail:null
+  s1SelectedMapDetail:null,
+  tfTeam:'ALL',
+  tfShowAll:false,
+  tfCompA:null,
+  tfCompB:null,
+  tfTeamSort:'rate', tfTeamDir:'desc',
+  tfCompSort:'rate', tfCompDir:'desc'
 };
 
 const MAP_TYPE_NAMES = {
@@ -751,6 +757,7 @@ function getNavItems(){
     ['plotting', t('nav_plotting')],
     ['h2h', t('nav_h2h')],
     ['matches', state.lang === 'ko' ? '경기 탐색기' : 'Match Explorer'],
+    ...((D.teamfights||[]).length ? [['teamfights', state.lang === 'ko' ? '한타 분석' : 'Teamfights']] : []),
     ['info', state.lang === 'ko' ? '정보' : 'Info']
   ];
 }
@@ -1187,6 +1194,7 @@ function teamsPage() {
         ${mapRecordCard(isKo?'Best Record Map (최소 3경기)':'Best Record Map (3 matches minimum)',a.best,isKo)}
         ${mapRecordCard(isKo?'Worst Record Map (최소 3경기)':'Worst Record Map (3 matches minimum)',a.worst,isKo)}
       </div>
+      ${teamTeamfightSection(tm,isKo)}
       ${championshipHistory(tm,isKo)}
       <div class="section roster-section"><div class="section-heading"><div><span class="eyebrow">ROSTER</span><h2>${isKo?'선수단':'Players'}</h2></div><span class="muted">${roster.length} players</span></div>
         <div class="roster-card-grid">${roster.map(p=>{
@@ -5029,6 +5037,174 @@ function stageUpcomingPlaceholderPage(tourneyKey){
   `;
 }
 
+// ==============================================================================
+// TEAMFIGHTS & COMPOSITIONS (manually recorded TEAMFIGHT INFO; see docs/TEAMFIGHT_DEFINITION.md)
+// ==============================================================================
+// Hero roles (T/D/S) come from the exporter (HERO_ROLES in pipeline/export_site_data.py).
+const HERO_ROLES=D.heroRoles||{};
+const TF_COMP_MIN=10; // comps need at least this many (non-mirror) teamfights to be ranked
+const compKey=comp=>[...comp].sort((a,b)=>('TDS'.indexOf(HERO_ROLES[a]??'Z')-'TDS'.indexOf(HERO_ROLES[b]??'Z'))||a.localeCompare(b)).join(' / ');
+
+// One team's teamfight record and the comps it played (mirrors included: it is the team's own record).
+function teamTeamfightSummary(team){
+  const tfs=(D.teamfights||[]).filter(t=>t['TEAM 1']===team||t['TEAM 2']===team);
+  const comps={}; let w=0;
+  tfs.forEach(t=>{const side=t['TEAM 1']===team?'TEAM 1':'TEAM 2', k=compKey(t[side+' COMP']), won=t.WINNER===team;
+    if(won)w++; const c=comps[k]??={key:k,heroes:k.split(' / '),w:0,l:0}; if(won)c.w++;else c.l++;});
+  const list=Object.values(comps).map(c=>({...c,n:c.w+c.l,share:tfs.length?Math.round((c.w+c.l)/tfs.length*1000)/10:0,rate:Math.round(c.w/(c.w+c.l)*1000)/10}));
+  const mostUsed=[...list].sort((a,b)=>b.n-a.n||b.rate-a.rate)[0]||null;
+  const best=list.filter(c=>c.n>=TF_COMP_MIN).sort((a,b)=>b.rate-a.rate||b.n-a.n)[0]||null;
+  return {n:tfs.length,w,l:tfs.length-w,rate:tfs.length?Math.round(w/tfs.length*1000)/10:null,comps:list.length,mostUsed,best};
+}
+
+// "Teamfights & Comps" block on a team's page.
+function teamTeamfightSection(team,isKo){
+  if(!(D.teamfights||[]).length)return '';
+  const s=teamTeamfightSummary(team);
+  if(!s.n)return '';
+  const compCard=(title,c,empty)=>`<div class="team-insight-card" style="grid-column:span 2;min-width:0"><span>${title}</span>${c?`
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0">${c.heroes.map(h=>`<span title="${h}" style="display:inline-flex;flex-direction:column;align-items:center;width:52px">${heroIcon(h,'ban-hero-icon')}<small style="font-size:10px;color:var(--muted);text-align:center;line-height:1.1">${h}</small></span>`).join('')}</div>
+    <b>${isKo?`비중 ${c.share}%`:`${c.share}% of fights`}</b><small>${c.n}${isKo?'한타':' fights'} · ${c.w}W ${c.l}L · ${c.rate}%</small>`:`<b>—</b><small>${empty}</small>`}</div>`;
+  return `<div class="section"><div class="section-heading"><div><span class="eyebrow">TEAMFIGHTS</span><h2>${isKo?'한타 & 조합':'Teamfights & Comps'}</h2></div>
+    <button class="chip" data-tf-goto-analysis="${team}">${isKo?'한타 분석에서 보기 →':'Open in Teamfights →'}</button></div>
+    <div class="team-insights-grid">
+      <div class="team-insight-card"><span>${isKo?'한타 전적':'Teamfight Record'}</span><b>${s.w}W · ${s.l}L</b><small>${isKo?`승률 ${s.rate}% · n=${s.n}`:`${s.rate}% · n=${s.n}`}</small></div>
+      <div class="team-insight-card"><span>${isKo?'사용한 조합 수':'Comps Used'}</span><b>${s.comps}</b><small>${isKo?'교전 시작 시점 기준':'At fight start'}</small></div>
+      ${s.best&&s.mostUsed&&s.best.key===s.mostUsed.key
+        ? compCard(isKo?`주력 조합 · 최고 승률 조합 (${TF_COMP_MIN}한타 이상)`:`Most Used & Best Win-Rate Comp (${TF_COMP_MIN}+ fights)`,s.mostUsed,'')
+        : compCard(isKo?'주력 조합 (가장 많이 사용)':'Most Used Comp',s.mostUsed,'')
+          + compCard(isKo?`최고 승률 조합 (${TF_COMP_MIN}한타 이상)`:`Best Win-Rate Comp (${TF_COMP_MIN}+ fights)`,s.best,isKo?`${TF_COMP_MIN}한타 이상 사용한 조합이 없습니다.`:`No comp with ${TF_COMP_MIN}+ fights.`)}
+    </div>
+    <p class="muted" style="font-size:12px;margin-top:8px">${isKo?'비중 = 해당 조합으로 싸운 한타 ÷ 팀 전체 한타. 한 명의 기록자가 VOD로 판정한 기술 통계입니다.':'Share = fights played with the comp ÷ all of the team\'s fights. Descriptive stats judged by a single annotator from VODs.'}</p>
+  </div>`;
+}
+
+function teamfightsPage(){
+  const isKo=state.lang==='ko';
+  const tfs=D.teamfights||[];
+  const team=state.tfTeam||'ALL';
+  const pct=(w,n)=>n?Math.round(w/n*1000)/10:null;
+  const bar=v=>v==null?'—':`<div style="display:flex;align-items:center;gap:8px;min-width:120px"><div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden"><div style="width:${v}%;height:100%;background:${v>=50?'#10b981':'#f43f5e'}"></div></div><b>${v}%</b></div>`;
+
+  // coverage
+  const mapIds=[...new Set(tfs.map(t=>t.MATCH_ID))];
+  const weeks=[...new Set(mapIds.map(id=>D.matchInfo.find(m=>m.MATCH_ID===id)?.WEEK).filter(Boolean))].sort();
+
+  // team teamfight records
+  const teamRec={};
+  tfs.forEach(t=>[t['TEAM 1'],t['TEAM 2']].forEach(tm=>{const r=teamRec[tm]??={team:tm,w:0,l:0,maps:new Set()};r.maps.add(t.MATCH_ID);if(t.WINNER===tm)r.w++;else r.l++;}));
+  // sortable tables: getters per column key; ties fall back to larger n
+  const sortRows=(rows,key,dir,get)=>rows.sort((a,b)=>{const va=get[key](a),vb=get[key](b);
+    const c=typeof va==='string'?va.localeCompare(vb):(va??-1)-(vb??-1);return (dir==='asc'?c:-c)||b.n-a.n;});
+  const th=(label,table,key)=>{const on=state[table+'Sort']===key, dir=state[table+'Dir'];
+    return `<th class="sortable ${on?'sorted':''}" data-tf-sort="${table}:${key}" style="cursor:pointer;white-space:nowrap">${label}${on?(dir==='asc'?' ↑':' ↓'):''}</th>`;};
+  const teamGet={team:r=>teamNames[r.team]||r.team, record:r=>r.w, rate:r=>r.rate, n:r=>r.n, maps:r=>r.maps.size, perMap:r=>r.n/r.maps.size};
+  const teamRows=sortRows(Object.values(teamRec).map(r=>({...r,n:r.w+r.l,rate:pct(r.w,r.w+r.l)})),state.tfTeamSort,state.tfTeamDir,teamGet);
+
+  // composition records (per side; mirrors excluded from W/L when looking at all teams)
+  const compRec={};
+  tfs.forEach(t=>{
+    const k1=compKey(t['TEAM 1 COMP']), k2=compKey(t['TEAM 2 COMP']);
+    [[t['TEAM 1'],k1,t['TEAM 1 COMP'],k2],[t['TEAM 2'],k2,t['TEAM 2 COMP'],k1]].forEach(([tm,k,comp,opp])=>{
+      if(team!=='ALL'&&tm!==team)return;
+      const r=compRec[k]??={key:k,heroes:k.split(' / '),w:0,l:0,mirror:0,freq:0,teams:{}};
+      r.freq++;
+      if(team==='ALL'&&k===opp){r.mirror++;return;}
+      if(t.WINNER===tm)r.w++;else r.l++;
+      r.teams[tm]=(r.teams[tm]||0)+1;
+    });
+  });
+  // share: fights featuring the comp (a mirror counts once) / all fights — or, with a team filter, / that team's fights
+  const shareBase=team==='ALL'?tfs.length:(teamRec[team]?.w||0)+(teamRec[team]?.l||0);
+  const compsAll=Object.values(compRec).map(r=>({...r,mirror:r.mirror/2,n:r.w+r.l,rate:pct(r.w,r.w+r.l),
+    share:shareBase?Math.round((r.w+r.l+r.mirror/2)/shareBase*1000)/10:null}));
+  const compGet={comp:r=>r.key, freq:r=>r.freq, share:r=>r.share, record:r=>r.w, rate:r=>r.rate, n:r=>r.n, teams:r=>Object.keys(r.teams).length, mirror:r=>r.mirror};
+  const ranked=sortRows(compsAll.filter(r=>r.n>=TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
+  const unranked=sortRows(compsAll.filter(r=>r.n<TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
+
+  const teamChips=['ALL',...standings.map(x=>x.team).filter(x=>teamRec[x])].map(tm=>`<button class="chip s3-filter-chip ${team===tm?'active':''}" data-tf-team="${tm}">${tm!=='ALL'?teamLogo(tm,'s3-chip-logo'):''}<span>${tm==='ALL'?(isKo?'전체 팀':'All Teams'):(teamNames[tm]||tm)}</span></button>`).join('');
+  const compCell=r=>`<div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;min-width:290px">${r.heroes.map(h=>`<span title="${h}" style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;width:52px">${heroIcon(h,'ban-hero-icon')}<small style="font-size:10px;color:var(--muted);text-align:center;line-height:1.1">${h}</small></span>`).join('')}</div>`;
+  const compRow=(r,i)=>`<tr${i==null?' style="opacity:.6"':''}><td class="rank">${i==null?'—':i+1}</td><td>${compCell(r)}</td><td><b>${r.freq}</b></td><td>${r.share}%</td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td>
+    <td style="white-space:normal"><div style="display:flex;flex-wrap:wrap;gap:4px 10px;min-width:150px;max-width:240px">${Object.entries(r.teams).sort((a,b)=>b[1]-a[1]).map(([tm,c])=>`<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap">${teamLogo(tm,'s3-chip-logo')}<small>${tm} ${c}</small></span>`).join('')}</div></td>
+    ${team==='ALL'?`<td>${r.mirror||'—'}</td>`:''}</tr>`;
+
+  return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${isKo?'한타 & 조합 분석':'Teamfights & Compositions'}</h1>
+    <p>${isKo?`VOD를 보고 한타 단위로 수동 기록한 데이터입니다. 기록 범위: Week ${weeks.join(', ')} · ${mapIds.length}개 맵 · 한타 ${tfs.length}회.`:`Manually recorded per teamfight from VODs. Coverage: Week ${weeks.join(', ')} · ${mapIds.length} maps · ${tfs.length} teamfights.`}</p></div></div>
+  <div class="ranking-note"><span style="font-size:14px;flex-shrink:0">ℹ️</span><span>${isKo
+    ?'한타: 거점/화물/로봇의 주도권을 두고 벌이는 싸움(4v5·3v5 포함). 승자는 최종적으로 주도권을 쥔 팀이며 무승부는 없습니다. 조합은 교전 시작 시점 기준입니다. 한 명의 기록자가 판정한 결과이며, 승률은 맥락을 보정하지 않은 기술 통계입니다.'
+    :'A teamfight is a fight for control of the point/payload/robot (4v5 and 3v5 included). The winner is the team that ends up in control; there are no draws. Compositions are recorded at the start of each fight. Judged by a single annotator; win rates are descriptive and not context-adjusted.'}</span></div>
+
+  <div class="section"><div class="section-heading"><div><span class="eyebrow">TEAMS</span><h2>${isKo?'팀별 한타 승률':'Teamfight Win Rate by Team'}</h2></div><span class="muted">${isKo?'팀 이름을 누르면 팀 페이지로 이동':'Click a team for its page'}</span></div>
+  <div class="table-wrap"><table><thead><tr><th>#</th>${th(isKo?'팀':'Team','tfTeam','team')}${th(isKo?'한타 전적':'Record','tfTeam','record')}${th(isKo?'한타 승률':'Win Rate','tfTeam','rate')}${th('n','tfTeam','n')}${th(isKo?'기록된 맵':'Maps','tfTeam','maps')}${th(isKo?'맵당 한타':'Fights / Map','tfTeam','perMap')}</tr></thead>
+  <tbody>${teamRows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td><button class="player-link" data-tf-goto-team="${r.team}" title="${isKo?'팀 페이지에서 한타·조합 보기':'Open team page'}" style="display:inline-flex;align-items:center;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit">${teamLogo(r.team,'s3-chip-logo')}<b>${teamNames[r.team]||r.team}</b><small class="muted">→</small></button></td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td><td>${r.maps.size}</td><td>${fmt(Math.round(r.n/r.maps.size*10)/10)}</td></tr>`).join('')}</tbody></table></div></div>
+
+  <div class="section"><div class="section-heading"><div><span class="eyebrow">COMPOSITIONS</span><h2>${isKo?'조합별 한타 승률':'Teamfight Win Rate by Composition'}</h2></div>
+    <span class="muted">${isKo?`${TF_COMP_MIN}한타 이상 조합만 순위 포함`:`Ranked: ${TF_COMP_MIN}+ teamfights`}</span></div>
+  <div class="s3-map-filters-bar" style="margin-bottom:12px">${teamChips}</div>
+  <p class="muted" style="margin:0 0 10px;font-size:12px">${team==='ALL'
+    ?(isKo?'빈도는 팀 단위 사용 횟수입니다(미러 한타는 양 팀 모두 셈). 비중은 전체 한타 중 그 조합이 등장한 한타의 비율입니다(미러는 1회). 미러 한타는 승/패에서 제외하고 "미러" 열에 따로 셉니다. 조합은 영웅 순서와 무관하게 같은 5명이면 같은 조합으로 봅니다. 열 제목을 누르면 정렬됩니다.':'Frequency counts team-side uses (a mirror fight counts for both teams). Share is the % of all fights in which the comp appeared (a mirror counts once). Mirror fights are excluded from W/L and counted under "Mirror". Comps are matched by the same five heroes regardless of order. Click a column header to sort.')
+    :(isKo?`${teamNames[team]||team}이(가) 사용한 조합의 한타 전적입니다(미러 포함). 비중은 ${teamNames[team]||team}의 전체 한타 ${shareBase}회 대비 비율입니다.`:`Teamfight record of compositions played by ${teamNames[team]||team} (mirrors included). Share is out of the team's ${shareBase} fights.`)}</p>
+  <div class="table-wrap"><table><thead><tr><th>#</th>${th(isKo?'조합 (탱 · 딜 · 힐)':'Comp (Tank · DPS · Support)','tfComp','comp')}${th(isKo?'빈도':'Frequency','tfComp','freq')}${th(isKo?'비중':'Share','tfComp','share')}${th(isKo?'한타 전적':'Record','tfComp','record')}${th(isKo?'한타 승률':'Win Rate','tfComp','rate')}${th('n','tfComp','n')}${th(isKo?'사용 팀':'Teams','tfComp','teams')}${team==='ALL'?th(isKo?'미러':'Mirror','tfComp','mirror'):''}</tr></thead>
+  <tbody>${ranked.length?ranked.map((r,i)=>compRow(r,i)).join(''):`<tr><td colspan="9" class="muted" style="text-align:center;padding:18px">${isKo?`${TF_COMP_MIN}한타 이상 사용한 조합이 없습니다.`:`No composition with ${TF_COMP_MIN}+ teamfights.`}</td></tr>`}
+  ${state.tfShowAll?unranked.map(r=>compRow(r,null)).join(''):''}</tbody></table></div>
+  ${unranked.length?`<button class="chip" data-tf-showall="1" style="margin-top:10px">${state.tfShowAll?(isKo?'표본 부족 조합 숨기기':'Hide low-sample comps'):(isKo?`표본 부족 조합 ${unranked.length}개 보기 (순위 제외)`:`Show ${unranked.length} low-sample comps (unranked)`)}</button>`:''}
+  </div>
+  ${compVsSection(tfs,isKo)}`;
+}
+
+// Head-to-head teamfight record between two compositions (all teams).
+function compVsSection(tfs,isKo){
+  const freq={};
+  tfs.forEach(t=>[compKey(t['TEAM 1 COMP']),compKey(t['TEAM 2 COMP'])].forEach(k=>freq[k]=(freq[k]||0)+1));
+  const options=Object.entries(freq).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  if(!options.length)return '';
+  if(!freq[state.tfCompA]||!freq[state.tfCompB]){
+    // default to the most frequent non-mirror matchup
+    const pairs={};
+    tfs.forEach(t=>{const k1=compKey(t['TEAM 1 COMP']),k2=compKey(t['TEAM 2 COMP']);if(k1!==k2){const p=[k1,k2].sort().join('||');pairs[p]=(pairs[p]||0)+1;}});
+    const top=Object.entries(pairs).sort((x,y)=>y[1]-x[1])[0];
+    [state.tfCompA,state.tfCompB]=top?top[0].split('||').sort((x,y)=>freq[y]-freq[x]):[options[0][0],(options[1]||options[0])[0]];
+  }
+  const A=state.tfCompA, B=state.tfCompB;
+  const select=(id,val)=>`<select id="${id}" style="max-width:100%">${options.map(([k,n])=>`<option value="${k}" ${k===val?'selected':''}>${k} (${n})</option>`).join('')}</select>`;
+  const icons=k=>k.split(' / ').map(h=>heroIcon(h,'ban-hero-icon')).join('');
+
+  // fights where one side played A and the other B, grouped by map
+  const byMap=new Map(); let aw=0, bw=0;
+  tfs.forEach(t=>{
+    const k1=compKey(t['TEAM 1 COMP']), k2=compKey(t['TEAM 2 COMP']);
+    let aTeam=null,bTeam=null;
+    if(k1===A&&k2===B){aTeam=t['TEAM 1'];bTeam=t['TEAM 2'];}
+    else if(k1===B&&k2===A){aTeam=t['TEAM 2'];bTeam=t['TEAM 1'];}
+    else return;
+    const aWon=t.WINNER===aTeam; if(aWon)aw++;else bw++;
+    const g=byMap.get(t.MATCH_ID)??byMap.set(t.MATCH_ID,{id:t.MATCH_ID,aTeam,bTeam,aw:0,bw:0}).get(t.MATCH_ID);
+    if(aWon)g.aw++;else g.bw++;
+  });
+  const n=aw+bw, mirror=A===B;
+  const mapRows=[...byMap.values()].map(g=>{const m=D.matchInfo.find(x=>x.MATCH_ID===g.id)||{};
+    return `<tr><td>${m.DATE||''}</td><td>${m['TEAM 1']||''} vs ${m['TEAM 2']||''}</td><td>S${m['Set #']||''} · ${mapDisplayName(m.MAP||'')}</td>
+      <td>${mirror?`${g.aTeam} / ${g.bTeam}`:`<b>${g.aTeam}</b> (A) ${g.aw} : ${g.bw} <b>${g.bTeam}</b> (B)`}</td></tr>`}).join('');
+  return `<div class="section"><div class="section-heading"><div><span class="eyebrow">HEAD-TO-HEAD</span><h2>${isKo?'조합 A vs 조합 B':'Comp A vs Comp B'}</h2></div>
+    <span class="muted">${isKo?'괄호 안 숫자는 사용 빈도':'Number in brackets = frequency'}</span></div>
+  <div class="ranking-sort-controls" style="flex-wrap:wrap">
+    <label style="min-width:0;flex:1 1 280px"><span>${isKo?'조합 A':'Comp A'}</span>${select('tfCompA',A)}</label>
+    <label style="min-width:0;flex:1 1 280px"><span>${isKo?'조합 B':'Comp B'}</span>${select('tfCompB',B)}</label>
+  </div>
+  <div class="card" style="padding:16px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;gap:4px;align-items:center"><b style="margin-right:6px">A</b>${icons(A)}</div>
+    <div style="text-align:center">${mirror
+      ?`<div class="muted" style="font-size:12px">${isKo?'같은 조합 (미러)':'Same comp (mirror)'}</div><b style="font-size:22px">${n}${isKo?'회':''}</b>`
+      :n?`<b style="font-size:26px;color:${aw>=bw?'#10b981':'#f43f5e'}">${aw}</b><span style="font-size:20px;margin:0 8px">:</span><b style="font-size:26px;color:${bw>=aw?'#10b981':'#f43f5e'}">${bw}</b>
+        <div class="muted" style="font-size:12px">n=${n} · A ${Math.round(aw/n*1000)/10}%</div>`
+      :`<span class="muted">${isKo?'두 조합이 맞붙은 한타가 없습니다.':'These comps never fought each other.'}</span>`}</div>
+    <div style="display:flex;gap:4px;align-items:center">${icons(B)}<b style="margin-left:6px">B</b></div>
+  </div>
+  ${n?`<div class="table-wrap"><table><thead><tr><th>${isKo?'날짜':'Date'}</th><th>${isKo?'경기':'Match'}</th><th>${isKo?'맵':'Map'}</th><th>${isKo?'한타 결과':'Teamfights'}</th></tr></thead><tbody>${mapRows}</tbody></table></div>`:''}
+  ${n&&n<TF_COMP_MIN&&!mirror?`<p class="muted" style="font-size:12px;margin-top:8px">${isKo?`표본이 ${n}회뿐이라 해석에 주의가 필요합니다.`:`Only ${n} fights — interpret with caution.`}</p>`:''}
+  </div>`;
+}
+
 function render(){
   state.tourney = 'kr-s2';
   nav();
@@ -5040,11 +5216,30 @@ function render(){
   else if (state.page === 'h2h') app.innerHTML = h2hPage();
   else if (state.page === 'matches') app.innerHTML = matchesPage();
   else if (state.page === 'info') app.innerHTML = infoPage();
+  else if (state.page === 'teamfights' && (D.teamfights||[]).length) app.innerHTML = teamfightsPage();
   else app.innerHTML = stage2PreviewPage();
   bind();
 }
 
 function bind(){
+  document.querySelectorAll('[data-tf-team]').forEach(b=>b.onclick=()=>{state.tfTeam=b.dataset.tfTeam;render();});
+  document.querySelectorAll('[data-tf-showall]').forEach(b=>b.onclick=()=>{state.tfShowAll=!state.tfShowAll;render();});
+  document.querySelectorAll('[data-tf-goto-team]').forEach(b=>b.onclick=()=>{
+    state.page='teams'; state.team=b.dataset.tfGotoTeam; state.player=null;
+    localStorage.setItem('owcs_stat_lab_page','teams'); render();
+    document.querySelector('[data-tf-goto-analysis]')?.scrollIntoView({block:'center'});
+  });
+  document.querySelectorAll('[data-tf-goto-analysis]').forEach(b=>b.onclick=()=>{
+    state.page='teamfights'; state.tfTeam=b.dataset.tfGotoAnalysis; state.team=null; state.player=null;
+    localStorage.setItem('owcs_stat_lab_page','teamfights'); render(); window.scrollTo(0,0);
+  });
+  document.querySelectorAll('[data-tf-sort]').forEach(h=>h.onclick=()=>{
+    const [table,key]=h.dataset.tfSort.split(':');
+    if(state[table+'Sort']===key)state[table+'Dir']=state[table+'Dir']==='asc'?'desc':'asc';
+    else{state[table+'Sort']=key;state[table+'Dir']=(key==='team'||key==='comp')?'asc':'desc';}
+    render();
+  });
+  ['tfCompA','tfCompB'].forEach(id=>{const el=document.getElementById(id);if(el)el.onchange=()=>{state[id]=el.value;render();};});
   const btnS2 = document.getElementById('btnGoStage2') || document.getElementById('btnGoStage2Direct');
   if(btnS2) btnS2.onclick = () => {
     state.tourney = 'kr-s2';

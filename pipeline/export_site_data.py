@@ -36,14 +36,59 @@ def score(v):
     return str(int(v)) if float(v).is_integer() else f"{v:.2f}"
 
 
+HERO_ALIASES = {"Rammatra": "Ramattra", "Lúcio": "Lucio"}
+# T / D / S. Newer heroes were inferred from TEAMFIGHT INFO: every recorded comp is 1-2-2
+# and only this assignment satisfies that. Add new heroes here (the export fails otherwise).
+HERO_ROLES = {
+    "D.Va": "T", "Doomfist": "T", "Mauga": "T", "Orisa": "T", "Ramattra": "T", "Reinhardt": "T",
+    "Sigma": "T", "Winston": "T", "Wrecking Ball": "T", "D.Mon": "T", "Domina": "T",
+    "Ashe": "D", "Bastion": "D", "Cassidy": "D", "Hanzo": "D", "Junkrat": "D", "Reaper": "D",
+    "Sojourn": "D", "Sombra": "D", "Tracer": "D", "Widowmaker": "D", "Shion": "D", "Anran": "D",
+    "Emre": "D", "Vendetta": "D",
+    "Ana": "S", "Baptiste": "S", "Brigitte": "S", "Kiriko": "S", "Lucio": "S", "Zenyatta": "S",
+    "Jetpack Cat": "S", "Wuyang": "S",
+}
+
+
+
 def hero(v):
-    return str(v).strip().title() if v else ""
+    if not v:
+        return ""
+    name = str(v).strip().title()
+    return HERO_ALIASES.get(name, name)
 
 
 def rows(ws):
     header = [c.value for c in ws[1]]
     for r in ws.iter_rows(min_row=2, values_only=True):
         yield dict(zip(header, r))
+
+
+def read_teamfights(wb, mi):
+    """Parse TEAMFIGHT INFO (Match_Id only on the first row of each map). Returns (teamfights, problems)."""
+    teamfights, problems, cur_id, order = [], [], None, 0
+    if "TEAMFIGHT INFO" not in wb.sheetnames:
+        return teamfights, problems
+    for r in wb["TEAMFIGHT INFO"].iter_rows(min_row=2, values_only=True):
+        if r[0]:
+            cur_id, order = r[0], 0
+        if not any(r[1:]):
+            continue
+        order += 1
+        m = mi.get(cur_id)
+        t1, t2 = [hero(h) for h in r[3:8]], [hero(h) for h in r[8:13]]
+        where = f"TEAMFIGHT INFO {cur_id} #{order}"
+        if not m:
+            problems.append(f"{where}: MATCH_ID not in MATCH INFO")
+            continue
+        if r[13] not in (m["TEAM 1"], m["TEAM 2"]):
+            problems.append(f"{where}: winner {r[13]} is not {m['TEAM 1']}/{m['TEAM 2']}")
+        if len(set(filter(None, t1))) != 5 or len(set(filter(None, t2))) != 5:
+            problems.append(f"{where}: each side needs 5 distinct heroes")
+        problems += [f"{where}: no role for hero {h!r} (add it to HERO_ROLES)" for h in t1 + t2 if h not in HERO_ROLES]
+        teamfights.append({"MATCH_ID": cur_id, "Order": order, "TEAM 1": m["TEAM 1"], "TEAM 2": m["TEAM 2"],
+                           "TEAM 1 COMP": t1, "TEAM 2 COMP": t2, "WINNER": r[13]})
+    return teamfights, problems
 
 
 def main(xlsx, out_path, var_name):
@@ -154,17 +199,22 @@ def main(xlsx, out_path, var_name):
             problems.append(f"totals mismatch for {t['PLAYER']}: workbook {expect} vs raw {got}")
     problems += [f"raw rows for {p} have no TOTAL STATISTICS row" for p in agg]
 
+    teamfights, tf_problems = read_teamfights(wb, mi)
+    problems += tf_problems
+
     potm = [{"Date": ymd(r["Date"]), "Match": r["Match"],
              "POTM": key(r["POTM"], r["Position"]), "Position": r["Position"]}
             for r in rows(wb["POTM"]) if r["POTM"]]
 
     data = {"teamInfo": team_info, "matchInfo": match_info, "totalStats": total_stats,
-            "per10Stats": per10_stats, "potm": potm, "rawStats": raw}
+            "per10Stats": per10_stats, "potm": potm, "rawStats": raw, "teamfights": teamfights,
+            "heroRoles": HERO_ROLES if teamfights else {}}
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(f"window.{var_name} = {json.dumps(data, ensure_ascii=False)};\n")
 
     print(f"{out_path}: {len(match_info)} maps, {len(raw)} player-map rows, "
-          f"{len(total_stats)} players, {len(potm)} POTM; split players: {sorted(split) or 'none'}")
+          f"{len(total_stats)} players, {len(potm)} POTM, "
+          f"{len(teamfights)} teamfights on {len({t['MATCH_ID'] for t in teamfights})} maps; split players: {sorted(split) or 'none'}")
     if problems:
         print("PROBLEMS:\n  " + "\n  ".join(problems))
         sys.exit(1)
