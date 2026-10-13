@@ -5038,7 +5038,7 @@ function stageUpcomingPlaceholderPage(tourneyKey){
 }
 
 // ==============================================================================
-// TEAMFIGHTS & COMPOSITIONS (manually recorded TEAMFIGHT INFO; see docs/TEAMFIGHT_DEFINITION.md)
+// TEAMFIGHTS & COMPOSITIONS (manually recorded TEAMFIGHT INFO; see docs/methodology.md, "Teamfights")
 // ==============================================================================
 // Hero roles (T/D/S) come from the exporter (HERO_ROLES in pipeline/export_site_data.py).
 const HERO_ROLES=D.heroRoles||{};
