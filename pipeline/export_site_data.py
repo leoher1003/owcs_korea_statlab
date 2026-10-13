@@ -65,7 +65,10 @@ def rows(ws):
 
 
 def read_teamfights(wb, mi):
-    """Parse TEAMFIGHT INFO (Match_Id only on the first row of each map). Returns (teamfights, problems)."""
+    """Parse TEAMFIGHT INFO (Match_Id only on the first row of each map). Returns (teamfights, problems).
+
+    Content checks (winner, heroes, roles) are SQL: pipeline/sql/checks_teamfights.sql via tf_db.run_checks.
+    """
     teamfights, problems, cur_id, order = [], [], None, 0
     if "TEAMFIGHT INFO" not in wb.sheetnames:
         return teamfights, problems
@@ -81,11 +84,6 @@ def read_teamfights(wb, mi):
         if not m:
             problems.append(f"{where}: MATCH_ID not in MATCH INFO")
             continue
-        if r[13] not in (m["TEAM 1"], m["TEAM 2"]):
-            problems.append(f"{where}: winner {r[13]} is not {m['TEAM 1']}/{m['TEAM 2']}")
-        if len(set(filter(None, t1))) != 5 or len(set(filter(None, t2))) != 5:
-            problems.append(f"{where}: each side needs 5 distinct heroes")
-        problems += [f"{where}: no role for hero {h!r} (add it to HERO_ROLES)" for h in t1 + t2 if h not in HERO_ROLES]
         teamfights.append({"MATCH_ID": cur_id, "Order": order, "TEAM 1": m["TEAM 1"], "TEAM 2": m["TEAM 2"],
                            "TEAM 1 COMP": t1, "TEAM 2 COMP": t2, "WINNER": r[13]})
     return teamfights, problems
@@ -201,6 +199,9 @@ def main(xlsx, out_path, var_name):
 
     teamfights, tf_problems = read_teamfights(wb, mi)
     problems += tf_problems
+    if teamfights:
+        import tf_db  # local import: tf_db imports this module
+        problems += tf_db.run_checks(tf_db.build(mi, teamfights))
 
     potm = [{"Date": ymd(r["Date"]), "Match": r["Match"],
              "POTM": key(r["POTM"], r["Position"]), "Position": r["Position"]}
