@@ -98,3 +98,48 @@ In particular, team eliminations should **not** be required to equal opponent de
 Confirmed issues identified during dataset review were corrected against source/reference information before the final public dataset was produced. These included identity/spelling normalization, metadata corrections, and confirmed statistic-field corrections.
 
 The public files represent the corrected final dataset.
+
+## Stage 3 Additions
+
+### Scoreboard data
+
+Stage 3 result screens go through the same deterministic validation, with two additions:
+
+- Map names are folded to one canonical spelling (case, accents and punctuation ignored) and checked against the map recorded for that `match_id`. A mismatch or an unknown map is reported, never guessed.
+- A player ID that differs from the roster only by look-alike characters (0/O, 1/I/L, 5/S, 8/B) is matched to the roster automatically, but only when exactly one roster player matches. Every such change is logged; anything else fails as an unknown player.
+
+Map results can also be compared against Liquipedia (`pipeline/fetch_liquipedia.py --compare`), which reports any difference rather than correcting it.
+
+The Stage 2 final-dataset QA and manual source-screen audit above have not yet been repeated for Stage 3.
+
+### Teamfight records
+
+Before export, every teamfight row is checked:
+
+- its `match_id` exists in the match records;
+- the winner is one of the map's two teams;
+- each side has exactly five distinct heroes;
+- every hero is a known hero with a role;
+- each side is one tank, two DPS and two supports.
+
+Failures are reported with the map and fight number; rows are never silently fixed or dropped.
+
+These checks confirm structure, not judgment: they cannot show that a fight's winner or boundaries were called correctly. As a cross-check in the other direction, the VOD hero classifier (below) found 392 of the 395 heroes recorded in the Week 1 teamfight log (99.2%). A manual re-watch audit of a sample of teamfights has not been documented yet.
+
+### Hero playtime (VOD estimate)
+
+For each of the 300 Stage 3 Week 1 player-maps, the VOD-estimated playtime summed over heroes is compared with the official per-map playtime from the result screen:
+
+```text
+Player-maps compared:        300
+Within ±10% of official:     300 / 300 (100%)
+Within ±5% of official:      96%
+Median absolute difference:  6.5 s
+```
+
+Slot-to-player assignments come from the on-screen name plates and must match that map's scoreboard players exactly; otherwise the run stops.
+
+Known limitations:
+
+- A transition between rounds of 30 seconds or less cannot be told apart from a short HUD gap, so it is filled with the previous hero. The per-map gap report is the check for this.
+- Brief portrait misreads can leave a few seconds on a hero the player did not really play. On the site, heroes below 0.5% of a player's time in a position are shown only as "Other".

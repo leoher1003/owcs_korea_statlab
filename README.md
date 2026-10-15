@@ -1,6 +1,6 @@
 # OWCS Korea Stat Lab
 
-An unofficial interactive analytics project for **2026 Overwatch Champions Series (OWCS) Korea Stage 2**.
+An unofficial interactive analytics project for **2026 Overwatch Champions Series (OWCS) Korea**, Stage 2 and Stage 3.
 
 > I built an end-to-end analytics pipeline for OWCS Korea — from AI-assisted data collection and deterministic validation to statistical processing and an interactive Stat Lab — without access to an official public statistics API.
 
@@ -12,7 +12,7 @@ As a longtime Overwatch player and esports viewer, I wanted a deeper way to expl
 
 This project is an attempt to build the kind of statistical experience I wished existed for Overwatch Esports: a place where fans can explore player performance, compare statistical profiles, examine team and map trends, and investigate match-level results interactively.
 
-The current release covers **2026 OWCS Korea Stage 2**.
+The current release covers **2026 OWCS Korea Stage 2** (complete) and **Stage 3** (in progress: Weeks 1–2). A stage switch on the site keeps each stage's statistics separate.
 
 ## Features
 
@@ -22,6 +22,8 @@ The current release covers **2026 OWCS Korea Stage 2**.
 - **Plotting** — interactive player scatterplots using selectable Per-10 metrics
 - **Head-to-Head** — same-position player comparisons
 - **Match Explorer** — match/map results and hero-ban exploration
+- **Teamfights** (Stage 3) — team teamfight win rates and composition records from a manually recorded teamfight log
+- **Hero Playtime** (Stage 3) — per-player and per-hero playtime estimated from the broadcast HUD
 - **Info** — methodology, scope, limitations, and disclaimer
 
 ## Data Pipeline
@@ -50,6 +52,11 @@ A structured public statistics API was not available for this project, so player
 
 AI output is **not treated as ground truth**. Extracted records pass through deterministic validation and roster checks before being used downstream. The final dataset was also checked for structural and aggregation consistency, and a 20-map manual source-screen audit found no discrepancies in the audited fields.
 
+Stage 3 adds two layers built from the broadcast VODs, kept separate from the scoreboard statistics:
+
+- **Teamfights** are recorded by hand, one row per fight (compositions at the start of the fight and the winner), following a written [teamfight definition](docs/TEAMFIGHT_DEFINITION.md).
+- **Hero playtime** is estimated by classifying the ten HUD hero portraits at 2 frames per second and assigning each HUD slot to a player from the on-screen name plates.
+
 See [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) and [`docs/VALIDATION.md`](docs/VALIDATION.md).
 
 ## Statistical Methodology
@@ -66,7 +73,7 @@ Players must have at least **30 minutes of total playtime** to be included in ra
 
 ### Percentiles
 
-Percentiles compare eligible players within the same **detailed position**. They are descriptive comparisons within the observed Stage 2 sample, **not an overall player rating**.
+Percentiles compare eligible players within the same **detailed position** and stage. They are descriptive comparisons within the observed sample, **not an overall player rating**.
 
 ### Interpretation
 
@@ -78,7 +85,7 @@ Small eligible player pools can also make position-level percentiles coarse. The
 
 ## Dataset
 
-The public processed dataset contains:
+The Stage 2 public dataset contains:
 
 - **188 maps**
 - **1,880 player-map records**
@@ -100,6 +107,12 @@ The eight public CSVs are stored in [`data/`](data/). See [`docs/DATA_DICTIONARY
 | `hero_bans.csv` | 376 | Hero-ban records |
 | `potm.csv` | 51 | Player of the Match records |
 
+### Stage 3 (in progress)
+
+- **63 maps** and **630 player-map records** (Weeks 1–2), currently shipped in the site data
+- **338 teamfights** over all **30 Week 1 maps**
+- VOD hero playtime for Week 1: [`data/stage3/vod_hero_playtime.csv`](data/stage3/vod_hero_playtime.csv) (238 rows)
+
 ## Validation Summary
 
 Final-dataset QA found:
@@ -119,15 +132,18 @@ A separate manual audit compared **20 maps (200 player-map records)** against th
 
 This is an audit result for the sampled records, not a claim that the complete dataset has a 0% error rate.
 
+For Stage 3 hero playtime, the VOD estimate summed over heroes is within ±10% of the official per-map playtime for all 300 Week 1 player-maps (96% within ±5%, median difference 6.5 s). Teamfight rows pass structural checks (winner, five distinct heroes per side, 1-2-2 roles); those checks cannot confirm the annotator's calls.
+
 Full details: [`docs/VALIDATION.md`](docs/VALIDATION.md).
 
 ## Repository Structure
 
 ```text
 owcs_korea_statlab/
-├── data/                 # Public processed CSV datasets
-├── docs/                 # Methodology, validation, and data documentation
-├── pipeline/             # AI-assisted extraction / validation notebook
+├── data/                 # Public processed CSV datasets (Stage 2 at the root, stage3/)
+├── docs/                 # Methodology, validation, teamfight definition, and data documentation
+├── pipeline/             # Extraction notebook, site export, teamfight SQL checks, Liquipedia fetcher
+│   └── vod/              # VOD HUD scan and hero-playtime scripts
 ├── site/                 # Interactive Stat Lab
 ├── .github/workflows/    # GitHub Pages deployment
 ├── LICENSE
@@ -154,8 +170,8 @@ For the reproducibility boundary and pipeline notes, see [`docs/REPRODUCIBILITY.
 ## Limitations
 
 1. **Scoreboard context** — player statistics are affected by heroes, compositions, maps, opponents, team strategy, and role responsibilities.
-2. **No hero-level attribution** — the current dataset cannot separate a player's statistics by hero usage.
-3. **No event-level telemetry** — teamfights, ultimates, hero swaps, composition states, and spatial positions are not available.
+2. **Limited hero-level attribution** — scoreboard statistics cannot be separated by hero. Stage 3 hero playtime is a VOD estimate, not an official statistic.
+3. **No event-level telemetry** — ultimates and spatial positions are not available. Teamfights are a manual annotation by one person, with team- and composition-level results only, and currently cover Stage 3 Week 1.
 4. **Residual extraction risk** — plausible transcription errors can pass structural checks even after deterministic validation.
 5. **Small samples** — one tournament stage and position-level eligibility filters can produce small comparison groups.
 6. **Unofficial source** — this project should not be treated as an official OWCS statistics source.
@@ -171,8 +187,7 @@ For the reproducibility boundary and pipeline notes, see [`docs/REPRODUCIBILITY.
 
 ### If more granular data becomes available
 
-- Teamfight identification and outcomes
-- Team composition usage and effectiveness
+- Automatic teamfight detection from the VOD HUD, to extend the manual log
 - Hero swap and adaptation analysis
 - Ultimate economy
 - Spatial/teamfight location analysis

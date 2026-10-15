@@ -1,6 +1,7 @@
 # Data Dictionary
 
-This document describes the eight public CSV files for **2026 OWCS Korea Stage 2**.
+This document describes the eight public CSV files for **2026 OWCS Korea Stage 2** (`data/*.csv`) and the
+Stage 3 data published so far (`data/stage3/` and the teamfight records in `site/data/data_s3.js`).
 
 ## Conventions
 
@@ -135,8 +136,12 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `player_id` | Canonical player identifier receiving POTM. |
 | `position` | Position recorded with the POTM entry. |
 
+# Stage 3
 
-## `stage3/vod_hero_playtime.csv` (draft, not yet published)
+Stage 3 is in progress. Its scoreboard data uses the same fields as Stage 2 and currently ships in
+`site/data/data_s3.js`; Stage 3 CSV exports to `data/stage3/` will follow the Stage 2 schemas above.
+
+## `stage3/vod_hero_playtime.csv`
 
 VOD-estimated playtime per player, map-level position and hero. Produced by
 `pipeline/vod/export_hero_playtime.py` from HUD portrait classification of the broadcast VODs.
@@ -158,3 +163,19 @@ teamfight data. Coverage: Stage 3 Week 1 (30 maps).
 
 Accuracy check: per player-map totals vs official `Playtime(Seconds)` — 300/300 within ±10%,
 96% within ±5%, median absolute error 6.5 s.
+
+## Teamfight records (`teamfights` in `site/data/data_s3.js`)
+
+Manually recorded from the broadcast VODs per [`TEAMFIGHT_DEFINITION.md`](TEAMFIGHT_DEFINITION.md).
+Team- and composition-level only: the log does not record which player played which hero, so it
+never joins to `player_id`. Coverage: Stage 3 Week 1 (30 of 63 Stage 3 maps, 338 teamfights).
+
+| Field | Description |
+|---|---|
+| `MATCH_ID` | Map-level identifier (same as `match_id`). |
+| `Order` | Teamfight number within the map, numbered 1..n in sheet row order at export. |
+| `TEAM 1` / `TEAM 2` | Canonical team identifiers, in the same order as the map's match record. |
+| `TEAM 1 COMP` / `TEAM 2 COMP` | The five heroes each team had when the fight started. Order is not meaningful; compositions are compared as unordered sets. |
+| `WINNER` | Team identifier of the fight winner. There are no draws. |
+
+A map without a log is missing, not "0 fights".
