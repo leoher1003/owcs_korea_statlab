@@ -14,7 +14,7 @@ const baseName=n=>String(n||'').replace(/ \((TANK|DPS|SPT)\)$/,'');
 const L=window.OWCS_LIQUIPEDIA||{players:{},teams:{}};
 const state={
   tourney:'kr-s2',
-  page:['overview','teams','rankings','plotting','h2h','matches','teamfights'].includes(localStorage.getItem('owcs_stat_lab_page')) ? localStorage.getItem('owcs_stat_lab_page') : 'overview',
+  page:['overview','teams','rankings','plotting','h2h','matches','teamfights','heroplay'].includes(localStorage.getItem('owcs_stat_lab_page')) ? localStorage.getItem('owcs_stat_lab_page') : 'overview',
   team:null,
   player:null,
   profileTab:'percentile',
@@ -357,8 +357,8 @@ const I18N = {
     analytics_phase: '분석 페이즈',
     later_phases: '후속 페이즈',
     hero_bans: '영웅 밴 통계',
-    bans_by: '가 시행한 밴',
-    bans_against: '를 상대로 나온 밴',
+    bans_by: '시행한 밴',
+    bans_against: '상대로 나온 밴',
     map_win_rate_type: '팀별 맵 모드 승률',
     drill_note: '기록을 클릭하면 세부 맵별 전적과 승리 매치 상세를 확인합니다.',
     map_wins_vs: '이긴 경기',
@@ -657,7 +657,10 @@ function renderPlayerRadar(containerId, playerName){
       indicator:indicator,
       shape:'polygon',
       splitNumber:4,
-      axisName:{color:'#cbd5e1',fontSize:11.5,fontWeight:'700'},
+      radius:'62%',
+      center:['50%','53%'],
+      nameGap:8,
+      axisName:{color:'#cbd5e1',fontSize:11.5,fontWeight:'700',lineHeight:14,formatter:n=>n.replace(' (','\n(')},
       splitLine:{lineStyle:{color:'rgba(255,255,255,0.1)'}},
       splitArea:{show:true,areaStyle:{color:['rgba(255,255,255,0.015)','rgba(255,255,255,0.035)']}},
       axisLine:{lineStyle:{color:'rgba(255,255,255,0.12)'}}
@@ -725,7 +728,10 @@ function renderH2HRadar(containerId,playerA,playerB){
       indicator:indicator,
       shape:'polygon',
       splitNumber:4,
-      axisName:{color:'#cbd5e1',fontSize:11.5,fontWeight:'700'},
+      radius:'62%',
+      center:['50%','53%'],
+      nameGap:8,
+      axisName:{color:'#cbd5e1',fontSize:11.5,fontWeight:'700',lineHeight:14,formatter:n=>n.replace(' (','\n(')},
       splitLine:{lineStyle:{color:'rgba(255,255,255,0.1)'}},
       splitArea:{show:true,areaStyle:{color:['rgba(255,255,255,0.015)','rgba(255,255,255,0.035)']}},
       axisLine:{lineStyle:{color:'rgba(255,255,255,0.12)'}}
@@ -758,6 +764,7 @@ function getNavItems(){
     ['h2h', t('nav_h2h')],
     ['matches', state.lang === 'ko' ? '경기 탐색기' : 'Match Explorer'],
     ...((D.teamfights||[]).length ? [['teamfights', state.lang === 'ko' ? '한타 분석' : 'Teamfights']] : []),
+    ...(STAGE.key==='s3' && window.OWCS_HERO_PLAYTIME_S3 ? [['heroplay', state.lang === 'ko' ? '영웅 플레이타임' : 'Hero Playtime']] : []),
     ['info', state.lang === 'ko' ? '정보' : 'Info']
   ];
 }
@@ -848,6 +855,7 @@ function playerProfile(name){
   const teamCode=tInfo.TEAM;
   const teamFullName=teamNames[teamCode]||teamCode;
   const lpUrl=playerLiquipediaUrl(name);
+  const mapRec=playerMapRecord(name);
 
   // Per 10 & Percentile Calculations
   const p = per10[name];
@@ -914,16 +922,16 @@ function playerProfile(name){
     <!-- Basic Info Grid -->
     <div class="player-info-grid">
       <div class="player-info-item">
-        <span class="player-info-label">${t('player_id')}</span>
-        <b class="player-info-val">${baseName(name)}</b>
+        <span class="player-info-label">${state.lang==='ko'?'출전 맵':'Maps Played'}</span>
+        <b class="player-info-val">${mapRec.played}</b>
       </div>
       <div class="player-info-item">
-        <span class="player-info-label">${t('position')}</span>
-        <b class="player-info-val">${roleName(pos)}</b>
+        <span class="player-info-label">${state.lang==='ko'?'맵 전적':'Map Record'}</span>
+        <b class="player-info-val">${mapRec.w}W · ${mapRec.l}L${mapRec.rate!=null?` <small class="muted">(${mapRec.rate}%)</small>`:''}</b>
       </div>
       <div class="player-info-item">
-        <span class="player-info-label">${t('team')}</span>
-        <b class="player-info-val">${teamFullName} (${teamCode})</b>
+        <span class="player-info-label">POTM</span>
+        <b class="player-info-val">${awards.length}${state.lang==='ko'?'회':''}</b>
       </div>
       <div class="player-info-item">
         <span class="player-info-label">${state.lang==='ko'?'출전 시간':'Playtime'}</span>
@@ -1208,9 +1216,9 @@ function teamsPage() {
 
   const partner=orderedTeams.filter(x=>PARTNER_TEAMS.includes(x.id));
   const nonPartner=orderedTeams.filter(x=>!PARTNER_TEAMS.includes(x.id));
-  const cards=(arr)=>`<div class="stage-team-grid">${arr.map(tm=>{const trophies=championshipCount(tm.id);return `<button class="stage-team-card team-card" data-team="${tm.id}">
+  const cards=(arr)=>`<div class="stage-team-grid ${arr.length===4?'cols-4':''}">${arr.map(tm=>{const trophies=championshipCount(tm.id);return `<button class="stage-team-card team-card" data-team="${tm.id}">
       <div class="stage-team-card-top">${teamLogo(tm.id,'team-logo')}<div><strong>${tm.name}</strong><span>${tm.id}</span></div>${PARTNER_TEAMS.includes(tm.id)?'<div class="partner-mini">PARTNER</div>':''}</div>
-      <div class="team-card-trophy ${trophies?'has-trophies':'no-trophies'}">${trophies?`🏆 <b>${trophies}</b> ${isKo?'Championships':'Championships'}`:`Stage ${STAGE.num} Team`}</div>
+      <div class="team-card-trophy ${trophies?'has-trophies':'no-trophies'}" style="display:flex;justify-content:space-between;gap:8px"><span>${trophies?`🏆 <b>${trophies}</b> Championships`:(isKo?'우승 기록 없음':'No titles yet')}</span>${standingMap[tm.id]?`<span style="color:#cbd5e1">${isKo?`정규 ${standingMap[tm.id].rank}위`:`#${standingMap[tm.id].rank}`} · ${standingMap[tm.id].w??standingMap[tm.id].mw}W ${standingMap[tm.id].l??standingMap[tm.id].ml}L</span>`:''}</div>
       <div class="stage-team-roster">${(rosterByTeam[tm.id]||[]).map(p=>`<span>${p.base}</span>`).join('')}</div>
     </button>`}).join('')}</div>`;
   return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${state.lang==='ko'?'팀 & 선수':'Teams & Players'}</h1><p>${isKo?'팀을 선택해 팀 기록·우승 경력·선수단을 확인하고, 선수를 눌러 POTM과 포지션별 백분위 통계를 확인하세요.':'Select a team for records, championship history and roster details, then open a player for POTM awards and position percentiles.'}</p></div></div>
@@ -1815,7 +1823,7 @@ function rankingsPage(){
    return dir==='asc'?av-bv:bv-av;
  });
  const sortMark=k=>state.rankMetric===k?(dir==='asc'?' ↑':' ↓'):'';
- return`<div class="page-title"><div><h1>${t('rank_title')}</h1>${mode==='per10'?'':`<p>${t('rank_sub_acc')}</p>`}</div></div>
+ return`${pageHeader(t('rank_title'),mode==='per10'?'':t('rank_sub_acc'))}
  <div class="ranking-toolbar">
    <div class="ranking-role-tabs">${['TANK','MAIN DPS','FLEX DPS','MAIN SPT','FLEX SPT'].map(r=>`<button class="rank-role-tab ${r===role?'active':''}" data-rank-role="${r}">${roleName(r)}</button>`).join('')}</div>
    <div class="ranking-mode-toggle"><button class="${mode==='per10'?'active':''}" data-rank-mode="per10">${t('mode_per10')}</button><button class="${mode==='acc'?'active':''}" data-rank-mode="acc">${t('mode_acc')}</button></div>
@@ -1844,14 +1852,27 @@ function scatter(rows,xm,ym,highlight='All'){
  rows=rows.filter(r=>r.Playtime_Min>=30&&Number.isFinite(r[xm])&&Number.isFinite(r[ym]));
  if(!rows.length)return'<div class="note">No eligible players for this selection.</div>';
  const W=980,H=560,pad=68,xs=rows.map(r=>r[xm]),ys=rows.map(r=>r[ym]);
- const xmin=Math.min(...xs)*.95,xmax=Math.max(...xs)*1.05,ymin=Math.min(...ys)*.95,ymax=Math.max(...ys)*1.05;
+ // round axis bounds to a 1 / 2 / 2.5 / 5 x 10^k step so tick labels are readable numbers
+ const niceAxis=vals=>{const lo=Math.min(...vals),hi=Math.max(...vals),raw=(hi-lo||Math.abs(hi)||1)/5,mag=10**Math.floor(Math.log10(raw)),
+   step=[1,2,2.5,5,10].map(m=>m*mag).find(st=>st>=raw);let min=Math.floor(lo/step)*step,max=Math.ceil(hi/step)*step;
+   if(min===lo)min-=step; if(max===hi)max+=step; if(lo>=0&&min<0)min=0;
+   const ticks=[];for(let v=min;v<=max+step/2;v+=step)ticks.push(+v.toFixed(6));return{min,max,ticks};};
+ const ax=niceAxis(xs),ay=niceAxis(ys),xmin=ax.min,xmax=ax.max,ymin=ay.min,ymax=ay.max;
  const X=v=>pad+(v-xmin)/(xmax-xmin||1)*(W-2*pad),Y=v=>H-pad-(v-ymin)/(ymax-ymin||1)*(H-2*pad);
  const xmed=median(xs),ymed=median(ys);
  let ticks='';
- for(let i=0;i<=5;i++){
-   let xv=xmin+(xmax-xmin)*i/5,yv=ymin+(ymax-ymin)*i/5;
-   ticks+=`<text class="tick" x="${X(xv)}" y="${H-pad+18}" text-anchor="middle">${fmt(xv)}</text><text class="tick" x="${pad-8}" y="${Y(yv)+3}" text-anchor="end">${fmt(yv)}</text>`;
- }
+ ax.ticks.forEach(xv=>{ticks+=`<text class="tick" x="${X(xv)}" y="${H-pad+18}" text-anchor="middle">${fmt(xv)}</text>`;});
+ ay.ticks.forEach(yv=>{ticks+=`<text class="tick" x="${pad-8}" y="${Y(yv)+3}" text-anchor="end">${fmt(yv)}</text>`;});
+ // label placement: try right-above, right-below, left-above, left-below; keep the first that does not collide
+ const placed=[], labelPos={};
+ [...rows].sort((a,b)=>Y(a[ym])-Y(b[ym])).forEach(r=>{
+   const px=X(r[xm]),py=Y(r[ym]),w=String(r.Player).length*6.6+4,h=12;
+   const cands=[[px+8,py-7,'start'],[px+8,py+15,'start'],[px-8,py-7,'end'],[px-8,py+15,'end'],[px+8,py-19,'start'],[px+8,py+27,'start']];
+   const box=([x,y,a])=>({x1:a==='end'?x-w:x,x2:a==='end'?x:x+w,y1:y-h+2,y2:y+2});
+   const hit=b=>placed.some(o=>b.x1<o.x2&&b.x2>o.x1&&b.y1<o.y2&&b.y2>o.y1)||b.x2>W-4||b.x1<pad;
+   const pick=cands.find(c=>!hit(box(c)))||cands[0];
+   placed.push(box(pick)); labelPos[r.Player]=pick;
+ });
  const pts=rows.map(r=>{
    const hi=highlight!=='All'&&r.Player===highlight;
    const faded=highlight!=='All'&&!hi;
@@ -1862,7 +1883,7 @@ ${xm}: ${fmt(r[xm])}
 ${ym}: ${fmt(r[ym])}
 Playtime: ${fmt(r.Playtime_Min)} min</title>
       </circle>
-      <text class="point-label ${hi?'label-highlight':''}" x="${X(r[xm])+8}" y="${Y(r[ym])-7}">${r.Player}</text>
+      <text class="point-label ${hi?'label-highlight':''}" x="${labelPos[r.Player][0]}" y="${labelPos[r.Player][1]}" text-anchor="${labelPos[r.Player][2]}">${r.Player}</text>
    </g>`;
  }).join('');
  return`<div class="plot-summary"><span>${t('eligible_players')}: <b>${rows.length}</b></span><span>${t('median')} ${xm}: <b>${fmt(xmed)}</b></span><span>${t('median')} ${ym}: <b>${fmt(ymed)}</b></span></div>
@@ -1886,7 +1907,7 @@ function plottingPage(){
  const eligible=rows.filter(r=>r.Playtime_Min>=30&&Number.isFinite(r[state.plotX])&&Number.isFinite(r[state.plotY]));
  const names=eligible.map(r=>r.Player).sort();
  if(state.plotHighlight!=='All'&&!names.includes(state.plotHighlight))state.plotHighlight='All';
- return`<div class="page-title"><div><h1>${t('plot_title')}</h1><p>${t('plot_subtitle')}</p></div></div>
+ return`${pageHeader(t('plot_title'),t('plot_subtitle'))}
  <div class="controls">
    <div class="control"><label>${t('lbl_position')}</label><select id="plotRole">${['TANK','MAIN DPS','FLEX DPS','MAIN SPT','FLEX SPT'].map(x=>`<option ${x===state.plotRole?'selected':''}>${x}</option>`).join('')}</select></div>
    <div class="control"><label>${t('lbl_x_metric')}</label><select id="plotX">${metrics.map(x=>`<option ${x===state.plotX?'selected':''}>${x}</option>`).join('')}</select></div>
@@ -1916,7 +1937,7 @@ function h2hPage(){
   const metrics=roleMetrics(state.h2hRole);
   const sampleA=A?.Playtime_Min>=30,sampleB=B?.Playtime_Min>=30;
   const ra=A?playerMapRecord(A.Player):null,rb=B?playerMapRecord(B.Player):null;
-  return`<div class="page-title"><div><h1>${t('h2h_title')}</h1><p>${t('h2h_subtitle')}</p></div></div>
+  return`${pageHeader(t('h2h_title'),t('h2h_subtitle'))}
   <div class="profile-header-actions"></div>
   <div class="controls"><div class="control"><label>${t('lbl_position')}</label><select id="h2hRole">${roles.map(x=>`<option ${x===state.h2hRole?'selected':''}>${x}</option>`).join('')}</select></div><div class="control"><label>Player A</label><select id="h2hA">${opts.map(x=>`<option ${x===state.h2hA?'selected':''}>${x}</option>`).join('')}</select></div><div class="control"><label>Player B</label><select id="h2hB">${opts.map(x=>`<option ${x===state.h2hB?'selected':''}>${x}</option>`).join('')}</select></div></div>
   <div id="h2h-export-target" class="export-target">
@@ -2351,7 +2372,7 @@ function banList(arr) {
         </div>
       `).join('')}
     </div>
-  ` : '<div class="note">Select a team to view bans against that team.</div>';
+  ` : `<div class="note">${state.lang==='ko'?'팀을 선택하면 그 팀을 상대로 나온 밴을 볼 수 있습니다.':'Select a team to view bans against that team.'}</div>`;
 }
 
 function mapTypeStats(phase, tData) {
@@ -2498,12 +2519,7 @@ function matchesPage() {
   const banTeam = state.banTeam || 'All';
 
   return `
-    <div class="page-title">
-      <div>
-        <h1>${td.title} ${t('match_title')}</h1>
-        <p>${t('match_subtitle')}</p>
-      </div>
-    </div>
+    ${pageHeader(t('match_title'),t('match_subtitle'))}
 
     <!-- 1. Primary Round Robin / Group Matrix -->
     <div class="section round-robin-section">
@@ -2550,11 +2566,11 @@ function matchesPage() {
     <!-- 5. Bans By & Bans Against Cards -->
     <div class="section analytics-grid">
       <div class="card">
-        <h2>${t('bans_by')} (${banTeam})</h2>
+        <h2>${t('bans_by')} · ${banTeam==='All'?(state.lang==='ko'?'전체 팀':'All teams'):(teamNames[banTeam]||banTeam)}</h2>
         ${banList(banCounts(phase, banTeam, 'by', state.banBreakMode, state.banBreakValue, td))}
       </div>
       <div class="card">
-        <h2>${t('bans_against')} (${banTeam})</h2>
+        <h2>${t('bans_against')} · ${banTeam==='All'?(state.lang==='ko'?'전체 팀':'All teams'):(teamNames[banTeam]||banTeam)}</h2>
         ${banList(banCounts(phase, banTeam, 'against', state.banBreakMode, state.banBreakValue, td))}
       </div>
     </div>
@@ -4335,11 +4351,11 @@ function stage1MatchesPage() {
 
     <div class="section analytics-grid">
       <div class="card">
-        <h2>${t('bans_by')} (${banTeam})</h2>
+        <h2>${t('bans_by')} · ${banTeam==='All'?(state.lang==='ko'?'전체 팀':'All teams'):(teamNames[banTeam]||banTeam)}</h2>
         ${banList(s1BanCounts(phase, banTeam, 'by', state.s1BanBreakMode, state.s1BanBreakValue))}
       </div>
       <div class="card">
-        <h2>${t('bans_against')} (${banTeam})</h2>
+        <h2>${t('bans_against')} · ${banTeam==='All'?(state.lang==='ko'?'전체 팀':'All teams'):(teamNames[banTeam]||banTeam)}</h2>
         ${banList(s1BanCounts(phase, banTeam, 'against', state.s1BanBreakMode, state.s1BanBreakValue))}
       </div>
     </div>
@@ -4390,7 +4406,9 @@ function stage2PreviewPage(){
     
     const tierClass = isTop4 ? 'tier-rr2' : (isLcq ? 'tier-lcq' : 'tier-elim');
     const statusClass = isTop4 ? 'status-green' : (isLcq ? 'status-yellow' : 'status-red');
-    const statusText = isTop4 ? 'Advanced to 2nd RR' : (isLcq ? 'Advanced to LCQ' : 'Eliminated');
+    const statusText = STAGE.inProgress
+      ? (isKo ? (isTop4 ? '2차 RR권' : (isLcq ? 'LCQ권' : '탈락권')) : (isTop4 ? '2nd RR zone' : (isLcq ? 'LCQ zone' : 'Elimination zone')))
+      : (isTop4 ? 'Advanced to 2nd RR' : (isLcq ? 'Advanced to LCQ' : 'Eliminated'));
 
     const diff = s.mapw - s.mapl;
     const diffText = diff > 0 ? `+${diff}` : String(diff);
@@ -4441,22 +4459,24 @@ function stage2PreviewPage(){
               ${isKo ? `Stage ${STAGE.num} 정규 시즌 ${STAGE.inProgress?'현재':'최종'} 순위표` : `Stage ${STAGE.num} Regular Season ${STAGE.inProgress?'Current':'Final'} Standings`}
             </h3>
             <p class="s2-standings-sub muted" style="margin:3px 0 0;font-size:12px;">
-              ${isKo ? '총 36경기 풀 라운드 로빈 결과 · 승자승(H2H) 동률 규정 적용' : '36 Regular Season Matches · Head-to-Head Tiebreakers Applied'}
+              ${STAGE.inProgress
+                ? (isKo ? `정규 시즌 ${matches.filter(m=>m.phase==='Round Robin').length}/36경기 진행 · 현재 순위 기준 (확정 아님) · 승자승(H2H) 동률 규정 적용` : `${matches.filter(m=>m.phase==='Round Robin').length} of 36 regular season matches played · provisional · head-to-head tiebreakers applied`)
+                : (isKo ? '총 36경기 풀 라운드 로빈 결과 · 승자승(H2H) 동률 규정 적용' : '36 Regular Season Matches · Head-to-Head Tiebreakers Applied')}
             </p>
           </div>
         </div>
         <div class="s2-standings-legend">
           <span class="s2-legend-item green">
             <span class="s2-legend-dot green"></span>
-            <b>1~4위:</b> Advanced to 2nd RR
+            <b>${isKo?'1~4위':'1st–4th'}:</b> ${STAGE.inProgress?(isKo?'2차 RR권':'2nd RR zone'):'Advanced to 2nd RR'}
           </span>
           <span class="s2-legend-item yellow">
             <span class="s2-legend-dot yellow"></span>
-            <b>5~8위:</b> Advanced to LCQ
+            <b>${isKo?'5~8위':'5th–8th'}:</b> ${STAGE.inProgress?(isKo?'LCQ권':'LCQ zone'):'Advanced to LCQ'}
           </span>
           <span class="s2-legend-item red">
             <span class="s2-legend-dot red"></span>
-            <b>9위:</b> Eliminated
+            <b>${isKo?'9위':'9th'}:</b> ${STAGE.inProgress?(isKo?'탈락권':'Elimination zone'):'Eliminated'}
           </span>
         </div>
       </div>
@@ -5042,10 +5062,17 @@ function stageUpcomingPlaceholderPage(tourneyKey){
 // ==============================================================================
 // Hero roles (T/D/S) come from the exporter (HERO_ROLES in pipeline/export_site_data.py).
 const HERO_ROLES=D.heroRoles||{};
-const TF_COMP_MIN=10; // comps need at least this many (non-mirror) teamfights to be ranked
+const TF_COMP_MIN=10;
+// Five hero icons with names; 'wrap' lets them wrap inside narrow cards.
+const tfComp=(heroes,mode='')=>`<div class="tf-comp ${mode}">${heroes.map(h=>`<span class="tf-hero" title="${h}">${heroIcon(h,'ban-hero-icon')}<small>${h}</small></span>`).join('')}</div>`; // comps need at least this many (non-mirror) teamfights to be ranked
 const compKey=comp=>[...comp].sort((a,b)=>('TDS'.indexOf(HERO_ROLES[a]??'Z')-'TDS'.indexOf(HERO_ROLES[b]??'Z'))||a.localeCompare(b)).join(' / ');
 
 // One team's teamfight record and the comps it played (mirrors included: it is the team's own record).
+// Common page header used by the main tabs.
+function pageHeader(title,sub){
+  return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div></div>`;
+}
+
 function teamTeamfightSummary(team){
   const tfs=(D.teamfights||[]).filter(t=>t['TEAM 1']===team||t['TEAM 2']===team);
   const comps={}; let w=0;
@@ -5062,8 +5089,8 @@ function teamTeamfightSection(team,isKo){
   if(!(D.teamfights||[]).length)return '';
   const s=teamTeamfightSummary(team);
   if(!s.n)return '';
-  const compCard=(title,c,empty)=>`<div class="team-insight-card" style="grid-column:span 2;min-width:0"><span>${title}</span>${c?`
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0">${c.heroes.map(h=>`<span title="${h}" style="display:inline-flex;flex-direction:column;align-items:center;width:52px">${heroIcon(h,'ban-hero-icon')}<small style="font-size:10px;color:var(--muted);text-align:center;line-height:1.1">${h}</small></span>`).join('')}</div>
+  const compCard=(title,c,empty)=>`<div class="team-insight-card tf-comp-card"><span>${title}</span>${c?`
+    ${tfComp(c.heroes,'wrap')}
     <b>${isKo?`비중 ${c.share}%`:`${c.share}% of fights`}</b><small>${c.n}${isKo?'한타':' fights'} · ${c.w}W ${c.l}L · ${c.rate}%</small>`:`<b>—</b><small>${empty}</small>`}</div>`;
   return `<div class="section"><div class="section-heading"><div><span class="eyebrow">TEAMFIGHTS</span><h2>${isKo?'한타 & 조합':'Teamfights & Comps'}</h2></div>
     <button class="chip" data-tf-goto-analysis="${team}">${isKo?'한타 분석에서 보기 →':'Open in Teamfights →'}</button></div>
@@ -5075,7 +5102,7 @@ function teamTeamfightSection(team,isKo){
         : compCard(isKo?'주력 조합 (가장 많이 사용)':'Most Used Comp',s.mostUsed,'')
           + compCard(isKo?`최고 승률 조합 (${TF_COMP_MIN}한타 이상)`:`Best Win-Rate Comp (${TF_COMP_MIN}+ fights)`,s.best,isKo?`${TF_COMP_MIN}한타 이상 사용한 조합이 없습니다.`:`No comp with ${TF_COMP_MIN}+ fights.`)}
     </div>
-    <p class="muted" style="font-size:12px;margin-top:8px">${isKo?'비중 = 해당 조합으로 싸운 한타 ÷ 팀 전체 한타. 한 명의 기록자가 VOD로 판정한 기술 통계입니다.':'Share = fights played with the comp ÷ all of the team\'s fights. Descriptive stats judged by a single annotator from VODs.'}</p>
+    <p class="tf-footnote">${isKo?'비중 = 해당 조합으로 싸운 한타 ÷ 팀 전체 한타. 한 명의 기록자가 VOD로 판정한 기술 통계입니다.':'Share = fights played with the comp ÷ all of the team\'s fights. Descriptive stats judged by a single annotator from VODs.'}</p>
   </div>`;
 }
 
@@ -5084,7 +5111,7 @@ function teamfightsPage(){
   const tfs=D.teamfights||[];
   const team=state.tfTeam||'ALL';
   const pct=(w,n)=>n?Math.round(w/n*1000)/10:null;
-  const bar=v=>v==null?'—':`<div style="display:flex;align-items:center;gap:8px;min-width:120px"><div style="flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden"><div style="width:${v}%;height:100%;background:${v>=50?'#10b981':'#f43f5e'}"></div></div><b>${v}%</b></div>`;
+  const bar=v=>v==null?'—':`<div class="tf-bar"><div class="tf-bar-track"><div class="tf-bar-fill ${v>=50?'win':'loss'}" style="width:${v}%"></div></div><b>${v}%</b></div>`;
 
   // coverage
   const mapIds=[...new Set(tfs.map(t=>t.MATCH_ID))];
@@ -5097,7 +5124,7 @@ function teamfightsPage(){
   const sortRows=(rows,key,dir,get)=>rows.sort((a,b)=>{const va=get[key](a),vb=get[key](b);
     const c=typeof va==='string'?va.localeCompare(vb):(va??-1)-(vb??-1);return (dir==='asc'?c:-c)||b.n-a.n;});
   const th=(label,table,key)=>{const on=state[table+'Sort']===key, dir=state[table+'Dir'];
-    return `<th class="sortable ${on?'sorted':''}" data-tf-sort="${table}:${key}" style="cursor:pointer;white-space:nowrap">${label}${on?(dir==='asc'?' ↑':' ↓'):''}</th>`;};
+    return `<th class="sortable ${on?'sorted':''}" data-tf-sort="${table}:${key}">${label}${on?(dir==='asc'?' ↑':' ↓'):''}</th>`;};
   const teamGet={team:r=>teamNames[r.team]||r.team, record:r=>r.w, rate:r=>r.rate, n:r=>r.n, maps:r=>r.maps.size, perMap:r=>r.n/r.maps.size};
   const teamRows=sortRows(Object.values(teamRec).map(r=>({...r,n:r.w+r.l,rate:pct(r.w,r.w+r.l)})),state.tfTeamSort,state.tfTeamDir,teamGet);
 
@@ -5123,31 +5150,30 @@ function teamfightsPage(){
   const unranked=sortRows(compsAll.filter(r=>r.n<TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
 
   const teamChips=['ALL',...standings.map(x=>x.team).filter(x=>teamRec[x])].map(tm=>`<button class="chip s3-filter-chip ${team===tm?'active':''}" data-tf-team="${tm}">${tm!=='ALL'?teamLogo(tm,'s3-chip-logo'):''}<span>${tm==='ALL'?(isKo?'전체 팀':'All Teams'):(teamNames[tm]||tm)}</span></button>`).join('');
-  const compCell=r=>`<div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;min-width:290px">${r.heroes.map(h=>`<span title="${h}" style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;width:52px">${heroIcon(h,'ban-hero-icon')}<small style="font-size:10px;color:var(--muted);text-align:center;line-height:1.1">${h}</small></span>`).join('')}</div>`;
-  const compRow=(r,i)=>`<tr${i==null?' style="opacity:.6"':''}><td class="rank">${i==null?'—':i+1}</td><td>${compCell(r)}</td><td><b>${r.freq}</b></td><td>${r.share}%</td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td>
-    <td style="white-space:normal"><div style="display:flex;flex-wrap:wrap;gap:4px 10px;min-width:150px;max-width:240px">${Object.entries(r.teams).sort((a,b)=>b[1]-a[1]).map(([tm,c])=>`<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap">${teamLogo(tm,'s3-chip-logo')}<small>${tm} ${c}</small></span>`).join('')}</div></td>
+  const compCell=r=>tfComp(r.heroes);
+  const compRow=(r,i)=>`<tr${i==null?' class="tf-unranked"':''}><td class="rank">${i==null?'—':i+1}</td><td>${compCell(r)}</td><td><b>${r.freq}</b></td><td>${r.share}%</td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td>
+    <td class="tf-wrap-cell"><div class="tf-teams">${Object.entries(r.teams).sort((a,b)=>b[1]-a[1]).map(([tm,c])=>`<span class="tf-team-chip">${teamLogo(tm,'s3-chip-logo')}<small>${tm} ${c}</small></span>`).join('')}</div></td>
     ${team==='ALL'?`<td>${r.mirror||'—'}</td>`:''}</tr>`;
 
-  return `<div class="page-title"><div><span class="eyebrow">2026 OWCS KOREA · STAGE ${STAGE.num}</span><h1>${isKo?'한타 & 조합 분석':'Teamfights & Compositions'}</h1>
-    <p>${isKo?`VOD를 보고 한타 단위로 수동 기록한 데이터입니다. 기록 범위: Week ${weeks.join(', ')} · ${mapIds.length}개 맵 · 한타 ${tfs.length}회.`:`Manually recorded per teamfight from VODs. Coverage: Week ${weeks.join(', ')} · ${mapIds.length} maps · ${tfs.length} teamfights.`}</p></div></div>
+  return `${pageHeader(isKo?'한타 & 조합 분석':'Teamfights & Compositions',isKo?`VOD를 보고 한타 단위로 수동 기록한 데이터입니다. 기록 범위: Week ${weeks.join(', ')} · ${mapIds.length}개 맵 · 한타 ${tfs.length}회.`:`Manually recorded per teamfight from VODs. Coverage: Week ${weeks.join(', ')} · ${mapIds.length} maps · ${tfs.length} teamfights.`)}
   <div class="ranking-note"><span style="font-size:14px;flex-shrink:0">ℹ️</span><span>${isKo
     ?'한타: 거점/화물/로봇의 주도권을 두고 벌이는 싸움(4v5·3v5 포함). 승자는 최종적으로 주도권을 쥔 팀이며 무승부는 없습니다. 조합은 교전 시작 시점 기준입니다. 한 명의 기록자가 판정한 결과이며, 승률은 맥락을 보정하지 않은 기술 통계입니다.'
     :'A teamfight is a fight for control of the point/payload/robot (4v5 and 3v5 included). The winner is the team that ends up in control; there are no draws. Compositions are recorded at the start of each fight. Judged by a single annotator; win rates are descriptive and not context-adjusted.'}</span></div>
 
   <div class="section"><div class="section-heading"><div><span class="eyebrow">TEAMS</span><h2>${isKo?'팀별 한타 승률':'Teamfight Win Rate by Team'}</h2></div><span class="muted">${isKo?'팀 이름을 누르면 팀 페이지로 이동':'Click a team for its page'}</span></div>
   <div class="table-wrap"><table><thead><tr><th>#</th>${th(isKo?'팀':'Team','tfTeam','team')}${th(isKo?'한타 전적':'Record','tfTeam','record')}${th(isKo?'한타 승률':'Win Rate','tfTeam','rate')}${th('n','tfTeam','n')}${th(isKo?'기록된 맵':'Maps','tfTeam','maps')}${th(isKo?'맵당 한타':'Fights / Map','tfTeam','perMap')}</tr></thead>
-  <tbody>${teamRows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td><button class="player-link" data-tf-goto-team="${r.team}" title="${isKo?'팀 페이지에서 한타·조합 보기':'Open team page'}" style="display:inline-flex;align-items:center;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit">${teamLogo(r.team,'s3-chip-logo')}<b>${teamNames[r.team]||r.team}</b><small class="muted">→</small></button></td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td><td>${r.maps.size}</td><td>${fmt(Math.round(r.n/r.maps.size*10)/10)}</td></tr>`).join('')}</tbody></table></div></div>
+  <tbody>${teamRows.map((r,i)=>`<tr><td class="rank">${i+1}</td><td><button class="tf-team-link" data-tf-goto-team="${r.team}" title="${isKo?'팀 페이지에서 한타·조합 보기':'Open team page'}">${teamLogo(r.team,'s3-chip-logo')}<b>${teamNames[r.team]||r.team}</b><small class="muted">→</small></button></td><td>${r.w}W · ${r.l}L</td><td>${bar(r.rate)}</td><td><b>${r.n}</b></td><td>${r.maps.size}</td><td>${fmt(Math.round(r.n/r.maps.size*10)/10)}</td></tr>`).join('')}</tbody></table></div></div>
 
   <div class="section"><div class="section-heading"><div><span class="eyebrow">COMPOSITIONS</span><h2>${isKo?'조합별 한타 승률':'Teamfight Win Rate by Composition'}</h2></div>
     <span class="muted">${isKo?`${TF_COMP_MIN}한타 이상 조합만 순위 포함`:`Ranked: ${TF_COMP_MIN}+ teamfights`}</span></div>
-  <div class="s3-map-filters-bar" style="margin-bottom:12px">${teamChips}</div>
-  <p class="muted" style="margin:0 0 10px;font-size:12px">${team==='ALL'
+  <div class="s3-map-filters-bar tf-filter-bar">${teamChips}</div>
+  <p class="tf-note">${team==='ALL'
     ?(isKo?'빈도는 팀 단위 사용 횟수입니다(미러 한타는 양 팀 모두 셈). 비중은 전체 한타 중 그 조합이 등장한 한타의 비율입니다(미러는 1회). 미러 한타는 승/패에서 제외하고 "미러" 열에 따로 셉니다. 조합은 영웅 순서와 무관하게 같은 5명이면 같은 조합으로 봅니다. 열 제목을 누르면 정렬됩니다.':'Frequency counts team-side uses (a mirror fight counts for both teams). Share is the % of all fights in which the comp appeared (a mirror counts once). Mirror fights are excluded from W/L and counted under "Mirror". Comps are matched by the same five heroes regardless of order. Click a column header to sort.')
     :(isKo?`${teamNames[team]||team}이(가) 사용한 조합의 한타 전적입니다(미러 포함). 비중은 ${teamNames[team]||team}의 전체 한타 ${shareBase}회 대비 비율입니다.`:`Teamfight record of compositions played by ${teamNames[team]||team} (mirrors included). Share is out of the team's ${shareBase} fights.`)}</p>
   <div class="table-wrap"><table><thead><tr><th>#</th>${th(isKo?'조합 (탱 · 딜 · 힐)':'Comp (Tank · DPS · Support)','tfComp','comp')}${th(isKo?'빈도':'Frequency','tfComp','freq')}${th(isKo?'비중':'Share','tfComp','share')}${th(isKo?'한타 전적':'Record','tfComp','record')}${th(isKo?'한타 승률':'Win Rate','tfComp','rate')}${th('n','tfComp','n')}${th(isKo?'사용 팀':'Teams','tfComp','teams')}${team==='ALL'?th(isKo?'미러':'Mirror','tfComp','mirror'):''}</tr></thead>
-  <tbody>${ranked.length?ranked.map((r,i)=>compRow(r,i)).join(''):`<tr><td colspan="9" class="muted" style="text-align:center;padding:18px">${isKo?`${TF_COMP_MIN}한타 이상 사용한 조합이 없습니다.`:`No composition with ${TF_COMP_MIN}+ teamfights.`}</td></tr>`}
+  <tbody>${ranked.length?ranked.map((r,i)=>compRow(r,i)).join(''):`<tr><td colspan="9" class="tf-empty">${isKo?`${TF_COMP_MIN}한타 이상 사용한 조합이 없습니다.`:`No composition with ${TF_COMP_MIN}+ teamfights.`}</td></tr>`}
   ${state.tfShowAll?unranked.map(r=>compRow(r,null)).join(''):''}</tbody></table></div>
-  ${unranked.length?`<button class="chip" data-tf-showall="1" style="margin-top:10px">${state.tfShowAll?(isKo?'표본 부족 조합 숨기기':'Hide low-sample comps'):(isKo?`표본 부족 조합 ${unranked.length}개 보기 (순위 제외)`:`Show ${unranked.length} low-sample comps (unranked)`)}</button>`:''}
+  ${unranked.length?`<button class="chip tf-more" data-tf-showall="1">${state.tfShowAll?(isKo?'표본 부족 조합 숨기기':'Hide low-sample comps'):(isKo?`표본 부족 조합 ${unranked.length}개 보기 (순위 제외)`:`Show ${unranked.length} low-sample comps (unranked)`)}</button>`:''}
   </div>
   ${compVsSection(tfs,isKo)}`;
 }
@@ -5166,7 +5192,7 @@ function compVsSection(tfs,isKo){
     [state.tfCompA,state.tfCompB]=top?top[0].split('||').sort((x,y)=>freq[y]-freq[x]):[options[0][0],(options[1]||options[0])[0]];
   }
   const A=state.tfCompA, B=state.tfCompB;
-  const select=(id,val)=>`<select id="${id}" style="max-width:100%">${options.map(([k,n])=>`<option value="${k}" ${k===val?'selected':''}>${k} (${n})</option>`).join('')}</select>`;
+  const select=(id,val)=>`<select id="${id}">${options.map(([k,n])=>`<option value="${k}" ${k===val?'selected':''}>${k} (${n})</option>`).join('')}</select>`;
   const icons=k=>k.split(' / ').map(h=>heroIcon(h,'ban-hero-icon')).join('');
 
   // fights where one side played A and the other B, grouped by map
@@ -5187,22 +5213,101 @@ function compVsSection(tfs,isKo){
       <td>${mirror?`${g.aTeam} / ${g.bTeam}`:`<b>${g.aTeam}</b> (A) ${g.aw} : ${g.bw} <b>${g.bTeam}</b> (B)`}</td></tr>`}).join('');
   return `<div class="section"><div class="section-heading"><div><span class="eyebrow">HEAD-TO-HEAD</span><h2>${isKo?'조합 A vs 조합 B':'Comp A vs Comp B'}</h2></div>
     <span class="muted">${isKo?'괄호 안 숫자는 사용 빈도':'Number in brackets = frequency'}</span></div>
-  <div class="ranking-sort-controls" style="flex-wrap:wrap">
-    <label style="min-width:0;flex:1 1 280px"><span>${isKo?'조합 A':'Comp A'}</span>${select('tfCompA',A)}</label>
-    <label style="min-width:0;flex:1 1 280px"><span>${isKo?'조합 B':'Comp B'}</span>${select('tfCompB',B)}</label>
+  <div class="ranking-sort-controls tf-vs-controls">
+    <label><span>${isKo?'조합 A':'Comp A'}</span>${select('tfCompA',A)}</label>
+    <label><span>${isKo?'조합 B':'Comp B'}</span>${select('tfCompB',B)}</label>
   </div>
-  <div class="card" style="padding:16px;margin:12px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-    <div style="display:flex;gap:4px;align-items:center"><b style="margin-right:6px">A</b>${icons(A)}</div>
-    <div style="text-align:center">${mirror
-      ?`<div class="muted" style="font-size:12px">${isKo?'같은 조합 (미러)':'Same comp (mirror)'}</div><b style="font-size:22px">${n}${isKo?'회':''}</b>`
-      :n?`<b style="font-size:26px;color:${aw>=bw?'#10b981':'#f43f5e'}">${aw}</b><span style="font-size:20px;margin:0 8px">:</span><b style="font-size:26px;color:${bw>=aw?'#10b981':'#f43f5e'}">${bw}</b>
-        <div class="muted" style="font-size:12px">n=${n} · A ${Math.round(aw/n*1000)/10}%</div>`
+  <div class="tf-vs-card">
+    <div class="tf-vs-side"><b class="tf-vs-tag">A</b>${icons(A)}</div>
+    <div class="tf-vs-score">${mirror
+      ?`<small>${isKo?'같은 조합 (미러)':'Same comp (mirror)'}</small><b class="tf-vs-num">${n}${isKo?'회':''}</b>`
+      :n?`<b class="tf-vs-num ${aw>=bw?'win':'loss'}">${aw}</b><span class="tf-vs-colon">:</span><b class="tf-vs-num ${bw>=aw?'win':'loss'}">${bw}</b>
+        <small>n=${n} · A ${Math.round(aw/n*1000)/10}%</small>`
       :`<span class="muted">${isKo?'두 조합이 맞붙은 한타가 없습니다.':'These comps never fought each other.'}</span>`}</div>
-    <div style="display:flex;gap:4px;align-items:center">${icons(B)}<b style="margin-left:6px">B</b></div>
+    <div class="tf-vs-side">${icons(B)}<b class="tf-vs-tag">B</b></div>
   </div>
   ${n?`<div class="table-wrap"><table><thead><tr><th>${isKo?'날짜':'Date'}</th><th>${isKo?'경기':'Match'}</th><th>${isKo?'맵':'Map'}</th><th>${isKo?'한타 결과':'Teamfights'}</th></tr></thead><tbody>${mapRows}</tbody></table></div>`:''}
-  ${n&&n<TF_COMP_MIN&&!mirror?`<p class="muted" style="font-size:12px;margin-top:8px">${isKo?`표본이 ${n}회뿐이라 해석에 주의가 필요합니다.`:`Only ${n} fights — interpret with caution.`}</p>`:''}
+  ${n&&n<TF_COMP_MIN&&!mirror?`<p class="tf-footnote">${isKo?`표본이 ${n}회뿐이라 해석에 주의가 필요합니다.`:`Only ${n} fights — interpret with caution.`}</p>`:''}
   </div>`;
+}
+
+// VOD-estimated playtime per hero (HUD portrait classification). Kept apart from the official
+// scoreboard stats: it is an estimate, Stage 3 only, and covers only the weeks in its meta.
+const HP=STAGE.key==='s3'?window.OWCS_HERO_PLAYTIME_S3:null;
+const HP_ROLE_NAME={T:['탱커','Tank'],D:['딜러','DPS'],S:['힐러','Support']};
+const HP_MIN_SHARE=3; // % of a player's time: heroes below this are not labelled inside the pool bar
+const HP_OTHER_SHARE=0.5; // % of a player's time (per position): below this a hero is shown only as "Other" (likely misreads)
+const HP_OTHER='__other';
+function heroPlaytimePage(){
+  const isKo=state.lang==='ko', m=HP.meta;
+  // entries under HP_OTHER_SHARE of the player's time (per position) are folded into "Other"
+  const ptot={};HP.rows.forEach(r=>{const k=r.player+'|'+r.position;ptot[k]=(ptot[k]||0)+r.seconds;});
+  const isOther=r=>r.seconds/ptot[r.player+'|'+r.position]*100<HP_OTHER_SHARE;
+  const rows=HP.rows.map(r=>isOther(r)?{...r,hero:HP_OTHER}:r);
+  const otherSec=rows.filter(r=>r.hero===HP_OTHER).reduce((t,r)=>t+r.seconds,0);
+  const otherSet=new Set(HP.rows.filter(isOther).map(r=>r.player+'|'+r.position+'|'+r.hero));
+  const heroLabel=h=>h===HP_OTHER?(isKo?'기타':'Other'):h;
+  const role=state.hpRole||'ALL', team=state.hpTeam||'ALL', view=state.hpView||'player';
+  const mins=s=>Math.round(s/60*10)/10;
+  // hero totals
+  const byHero={};
+  rows.filter(r=>r.hero!==HP_OTHER).forEach(r=>{const h=byHero[r.hero]??={hero:r.hero,role:r.role,sec:0,players:{}};h.sec+=r.seconds;h.players[r.player]=(h.players[r.player]||0)+r.seconds;});
+  const roleTotal={};Object.values(byHero).forEach(h=>roleTotal[h.role]=(roleTotal[h.role]||0)+h.sec);
+  const heroes=Object.values(byHero).filter(h=>role==='ALL'||h.role===role).sort((a,b)=>b.sec-a.sec);
+  const maxSec=heroes[0]?.sec||1;
+  const roleChips=['ALL','T','D','S'].map(k=>`<button class="chip ${role===k?'active':''}" data-hp-role="${k}">${k==='ALL'?(isKo?'전체':'All'):HP_ROLE_NAME[k][isKo?0:1]}</button>`).join('');
+  const heroRow=(h,i)=>{const top=Object.entries(h.players).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    return `<tr><td class="rank">${i+1}</td><td><span class="hp-hero">${heroIcon(h.hero,'ban-hero-icon')}<b>${h.hero}</b></span></td><td>${HP_ROLE_NAME[h.role][isKo?0:1]}</td>
+      <td><div class="tf-bar"><div class="tf-bar-track"><div class="tf-bar-fill hp-fill" style="width:${h.sec/maxSec*100}%"></div></div><b>${fmt(mins(h.sec))}</b></div></td>
+      <td>${fmt(Math.round(h.sec/roleTotal[h.role]*1000)/10)}%</td><td>${Object.keys(h.players).length}</td>
+      <td class="tf-wrap-cell"><div class="tf-teams">${top.map(([p,s])=>`<span class="tf-team-chip"><small>${p} ${fmt(mins(s))}${isKo?'분':'m'}</small></span>`).join('')}</div></td></tr>`;};
+  // player pools (player x map-level position)
+  const pool={};
+  rows.filter(r=>team==='ALL'||r.team===team).forEach(r=>{const k=r.player+'|'+r.position;const p=pool[k]??={player:r.player,team:r.team,pos:r.position,sec:0,maps:0,heroes:{}};p.sec+=r.seconds;p.maps=r.player_maps;p.heroes[r.hero]=(p.heroes[r.hero]||0)+r.seconds;});
+  const posOrder={TANK:0,DPS:1,SPT:2};
+  const players=Object.values(pool).sort((a,b)=>a.team.localeCompare(b.team)||posOrder[a.pos]-posOrder[b.pos]||b.sec-a.sec);
+  const poolBar=p=>{const hs=Object.entries(p.heroes).filter(([h])=>h!==HP_OTHER).sort((a,b)=>b[1]-a[1]);const main=hs.filter(([,s])=>s/p.sec*100>=HP_MIN_SHARE);const other=p.sec-main.reduce((t,[,s])=>t+s,0);
+    return `<div class="hp-pool">${main.map(([h,s],i)=>`<span class="hp-seg hp-seg-${i%6}" style="width:${s/p.sec*100}%" title="${h} ${fmt(mins(s))}${isKo?'분':'m'} (${Math.round(s/p.sec*100)}%)">${s/p.sec>=.12?`${heroIcon(h,'hp-seg-icon')}<small>${Math.round(s/p.sec*100)}%</small>`:''}</span>`).join('')}${other>0?`<span class="hp-seg hp-seg-other" style="width:${other/p.sec*100}%" title="${isKo?'기타':'Other'} ${fmt(mins(other))}${isKo?'분':'m'}"></span>`:''}</div>
+      <div class="hp-pool-legend">${main.map(([h,s])=>`<span>${h} ${Math.round(s/p.sec*100)}%</span>`).join('')}</div>`;};
+  const teamChips=['ALL',...standings.map(x=>x.team).filter(x=>rows.some(r=>r.team===x))].map(tm=>`<button class="chip s3-filter-chip ${team===tm?'active':''}" data-hp-team="${tm}">${tm!=='ALL'?teamLogo(tm,'s3-chip-logo'):''}<span>${tm==='ALL'?(isKo?'전체 팀':'All Teams'):(teamNames[tm]||tm)}</span></button>`).join('');
+  const heroView=`
+  <div class="section"><div class="section-heading"><div><span class="eyebrow">HEROES</span><h2>${isKo?'영웅별 플레이타임':'Playtime by Hero'}</h2></div><div class="hp-role-chips">${roleChips}</div></div>
+  <div class="table-wrap"><table><thead><tr><th>#</th><th>${isKo?'영웅':'Hero'}</th><th>${isKo?'역할':'Role'}</th><th>${isKo?'플레이타임 (분)':'Playtime (min)'}</th><th>${isKo?'역할 내 비중':'Share of Role'}</th><th>${isKo?'선수 수':'Players'}</th><th>${isKo?'주요 선수':'Top Players'}</th></tr></thead>
+  <tbody>${heroes.map(heroRow).join('')}</tbody></table></div>
+  <p class="tf-footnote">${isKo?`선수 개인 시간의 ${HP_OTHER_SHARE}% 미만인 영웅 기록(오인식 가능성)은 '기타'로 묶어 이 표에서 제외했습니다: 총 ${fmt(mins(otherSec))}분.`:`Hero entries under ${HP_OTHER_SHARE}% of a player's time (possible misreads) are grouped as Other and left out of this table: ${fmt(mins(otherSec))} min in total.`}</p></div>
+`;
+  // Per Player: one table per map-level position; click a player for the full breakdown
+  const posName={TANK:isKo?'탱커':'Tank',DPS:isKo?'딜러':'DPS',SPT:isKo?'힐러':'Support'};
+  const top3=p=>Object.entries(p.heroes).filter(([h])=>h!==HP_OTHER).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([h,s_])=>`<span class="hp-top">${heroIcon(h,'ban-hero-icon')}<span><b>${h}</b><small>${Math.round(s_/p.sec*100)}% · ${fmt(mins(s_))}${isKo?'분':'m'}</small></span></span>`).join('');
+  const breakdown=p=>{
+    const hs=Object.entries(p.heroes).sort((a,b)=>(a[0]===HP_OTHER)-(b[0]===HP_OTHER)||b[1]-a[1]);
+    const maps=(HP.mapRows||[]).filter(r=>r.player===p.player&&r.position===p.pos);
+    const byMap=[...new Map(maps.map(r=>[r.match_id,{...r,heroes:maps.filter(x=>x.match_id===r.match_id)}])).values()];
+    return `<div class="hp-breakdown">${poolBar(p)}
+      <div class="hp-breakdown-grid">
+        <table class="hp-mini"><thead><tr><th>${isKo?'영웅':'Hero'}</th><th>${isKo?'분':'Min'}</th><th>%</th><th>${isKo?'맵':'Maps'}</th></tr></thead>
+        <tbody>${hs.map(([h,s_])=>`<tr><td><span class="hp-hero">${h===HP_OTHER?'':heroIcon(h,'ban-hero-icon')}${heroLabel(h)}</span></td><td>${fmt(mins(s_))}</td><td>${Math.round(s_/p.sec*1000)/10}%</td><td>${h===HP_OTHER?'—':(rows.find(r=>r.player===p.player&&r.position===p.pos&&r.hero===h)?.maps??'')}</td></tr>`).join('')}</tbody></table>
+        <table class="hp-mini"><thead><tr><th>${isKo?'날짜':'Date'}</th><th>${isKo?'상대':'Opp'}</th><th>${isKo?'맵':'Map'}</th><th>${isKo?'영웅 (분)':'Heroes (min)'}</th></tr></thead>
+        <tbody>${byMap.map(r=>`<tr><td>${r.date}</td><td>${r.opponent}</td><td>${mapDisplayName(r.map)}</td><td class="hp-map-heroes">${(()=>{const main=r.heroes.filter(x=>!otherSet.has(p.player+'|'+p.pos+'|'+x.hero)),oth=r.heroes.filter(x=>otherSet.has(p.player+'|'+p.pos+'|'+x.hero)).reduce((t,x)=>t+x.seconds,0);return main.map(x=>`${x.hero} ${fmt(mins(x.seconds))}`).concat(oth>0?[`${isKo?'기타':'Other'} ${fmt(mins(oth))}`]:[]).join(' · ');})()}</td></tr>`).join('')}</tbody></table>
+      </div></div>`;};
+  const posTable=pos=>{const list=players.filter(p=>p.pos===pos);if(!list.length)return '';
+    return `<div class="section"><div class="section-heading"><div><span class="eyebrow">${pos}</span><h2>${posName[pos]}</h2></div><span class="muted">${list.length}${isKo?'명':' players'}</span></div>
+    <div class="table-wrap"><table class="hp-pool-table"><thead><tr><th>${isKo?'선수':'Player'}</th><th>${isKo?'팀':'Team'}</th><th>${isKo?'맵':'Maps'}</th><th>${isKo?'플레이타임 (분)':'Playtime (min)'}</th><th class="hp-pool-col">${isKo?'주요 영웅 Top 3':'Top 3 Heroes'}</th></tr></thead>
+    <tbody>${list.map(p=>{const k=p.player+'|'+p.pos, open=state.hpPlayer===k;
+      return `<tr class="hp-player-row ${open?'open':''}" data-hp-player="${k}"><td><b class="player-link">${open?'▾':'▸'} ${p.player}</b></td><td>${teamLogo(p.team,'s3-chip-logo')} ${p.team}</td><td>${p.maps}</td><td>${fmt(mins(p.sec))}</td><td class="hp-pool-col"><div class="hp-top3">${top3(p)}</div></td></tr>
+      ${open?`<tr class="hp-breakdown-row"><td colspan="5">${breakdown(p)}</td></tr>`:''}`;}).join('')}</tbody></table></div></div>`;};
+  const playerView=`
+  <div class="section"><div class="section-heading"><div><span class="eyebrow">PLAYERS</span><h2>${isKo?'선수별 영웅 플레이타임':'Hero Playtime by Player'}</h2></div>
+    <span class="muted">${isKo?'포지션은 맵별 기록 기준 · 선수를 누르면 영웅/맵별 상세':'Position as recorded per map · click a player for the breakdown'}</span></div>
+  <div class="s3-map-filters-bar tf-filter-bar">${teamChips}</div></div>
+  ${['TANK','DPS','SPT'].map(posTable).join('')}`;
+  return `${pageHeader(isKo?'영웅 플레이타임':'Hero Playtime',isKo?`중계 화면의 HUD 초상화로 영웅을 판별해 추정한 영웅별 플레이 시간입니다. 범위: Week ${m.weeks.join(', ')} · ${m.maps}개 맵.`:`Per-hero playtime estimated from the broadcast HUD portraits. Coverage: Week ${m.weeks.join(', ')} · ${m.maps} maps.`)}
+  <div class="ranking-note"><span style="font-size:14px;flex-shrink:0">ℹ️</span><span>${isKo
+    ?`공식 영웅별 기록이 아니라 VOD 추정치입니다. 공격/수비 준비 시간(셋업)은 빼고, 3초 이상 유지된 교체만 반영하며, 30초 이하의 화면 공백은 직전 영웅으로 채웁니다. 선수별 맵 합계는 공식 플레이타임과 비교해 ${m.playerMaps}개 선수-맵 중 ${m.within10}%가 ±10% 이내, ${m.within5}%가 ±5% 이내입니다(중앙 오차 ${m.medianAbsErrorSec}초). 한타 분석·Per 10 지표와는 별개로 보세요.`
+    :`A VOD estimate, not official per-hero stats. Setup time is excluded, swaps count only if held for 3s+, and HUD gaps of 30s or less are filled with the previous hero. Against official playtime, ${m.within10}% of ${m.playerMaps} player-maps are within ±10% and ${m.within5}% within ±5% (median error ${m.medianAbsErrorSec}s). Keep it separate from teamfight and Per-10 stats.`}</span></div>
+
+  <div class="tabs hp-tabs">${[['player',isKo?'선수별':'Per Player'],['hero',isKo?'영웅별':'Per Hero']].map(([k,l])=>`<button class="tabbtn ${view===k?'active':''}" data-hp-view="${k}">${l}</button>`).join('')}</div>
+  ${view==='hero'?heroView:playerView}`;
 }
 
 function render(){
@@ -5217,12 +5322,17 @@ function render(){
   else if (state.page === 'matches') app.innerHTML = matchesPage();
   else if (state.page === 'info') app.innerHTML = infoPage();
   else if (state.page === 'teamfights' && (D.teamfights||[]).length) app.innerHTML = teamfightsPage();
+  else if (state.page === 'heroplay' && HP) app.innerHTML = heroPlaytimePage();
   else app.innerHTML = stage2PreviewPage();
   bind();
 }
 
 function bind(){
   document.querySelectorAll('[data-tf-team]').forEach(b=>b.onclick=()=>{state.tfTeam=b.dataset.tfTeam;render();});
+  document.querySelectorAll('[data-hp-player]').forEach(r=>r.onclick=()=>{state.hpPlayer=state.hpPlayer===r.dataset.hpPlayer?null:r.dataset.hpPlayer;render();});
+  document.querySelectorAll('[data-hp-view]').forEach(b=>b.onclick=()=>{state.hpView=b.dataset.hpView;render();});
+  document.querySelectorAll('[data-hp-role]').forEach(b=>b.onclick=()=>{state.hpRole=b.dataset.hpRole;render();});
+  document.querySelectorAll('[data-hp-team]').forEach(b=>b.onclick=()=>{state.hpTeam=b.dataset.hpTeam;render();});
   document.querySelectorAll('[data-tf-showall]').forEach(b=>b.onclick=()=>{state.tfShowAll=!state.tfShowAll;render();});
   document.querySelectorAll('[data-tf-goto-team]').forEach(b=>b.onclick=()=>{
     state.page='teams'; state.team=b.dataset.tfGotoTeam; state.player=null;
