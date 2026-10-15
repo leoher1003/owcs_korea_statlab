@@ -10,10 +10,14 @@ Map name / map type for player rows always come from MATCH INFO via MATCH_ID.
 """
 import datetime as dt
 import json
+import os
 import sys
 from collections import Counter, defaultdict
 
 import openpyxl
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from names import canonical_map  # noqa: E402
 
 WEEK_SHEETS = [f"MATCH_W{i}" for i in range(1, 7)]
 STAT_KEYS = ["Elim", "Death", "Assists", "Damage", "Heal", "Mitigated"]
@@ -117,6 +121,13 @@ def main(xlsx, out_path, var_name):
             if not m:
                 problems.append(f"{sheet}: MATCH_ID {r['MATCH_ID']} not in MATCH INFO")
                 continue
+            # week sheets spell maps as extracted ('ROUTE 66', 'ESPERANÇA'); compare canonical names only
+            week_map = canonical_map(r.get("Map"))
+            if week_map is None:
+                problems.append(f"{sheet}: {r['MATCH_ID']} {r['Player']}: unknown map '{r.get('Map')}'")
+            elif week_map != canonical_map(m["MAP"]):
+                problems.append(f"{sheet}: {r['MATCH_ID']} {r['Player']}: map '{r.get('Map')}' "
+                                f"!= MATCH INFO '{m['MAP']}'")
             sec = int(round(r["Playtime(Seconds)"]))
             raw.append({
                 "Team": r["Team"], "Player": key(r["Player"], r["Position"]), "Position": r["Position"],
