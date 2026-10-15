@@ -135,3 +135,26 @@ This document describes the eight public CSV files for **2026 OWCS Korea Stage 2
 | `player_id` | Canonical player identifier receiving POTM. |
 | `position` | Position recorded with the POTM entry. |
 
+
+## `stage3/vod_hero_playtime.csv` (draft, not yet published)
+
+VOD-estimated playtime per player, map-level position and hero. Produced by
+`pipeline/vod/export_hero_playtime.py` from HUD portrait classification of the broadcast VODs.
+An estimate, not official per-hero statistics; keep it separate from scoreboard, Per-10 and
+teamfight data. Coverage: Stage 3 Week 1 (30 maps).
+
+**Rows:** 238
+
+| Field | Description |
+|---|---|
+| `team` | Canonical team identifier (TEAM INFO). |
+| `player` | Canonical player identifier; slot-to-player from the HUD name plates, checked against MATCH_W1. |
+| `position` | Map-level position from MATCH_W* (`TANK`/`DPS`/`SPT`); a player who changed role has one row set per position. |
+| `hero` | Hero name as in `pipeline/vod/heroes_2026_10.json`. |
+| `role` | Hero role (`T`/`D`/`S`); Sombra is `D` for matches before 2026-10-06 and `S` from then on. |
+| `seconds` | Estimated seconds on the hero over the covered maps (setup phases excluded, swaps held >= 3 s, HUD gaps <= 30 s filled with the previous hero). |
+| `maps` | Maps on which the player showed this hero. |
+| `player_maps` | Maps the player played in this position (covered maps only). |
+
+Accuracy check: per player-map totals vs official `Playtime(Seconds)` — 300/300 within ±10%,
+96% within ±5%, median absolute error 6.5 s.

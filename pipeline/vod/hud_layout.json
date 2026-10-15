@@ -1,0 +1,8 @@
+{
+  "frame_size": [1280, 720],
+  "portraits": {
+    "team1": [[64, 73, 34, 31], [133, 73, 34, 31], [202, 73, 34, 31], [271, 73, 34, 31], [340, 73, 34, 31]],
+    "team2": [[935, 73, 35, 31], [1004, 73, 35, 31], [1074, 73, 35, 31], [1143, 73, 35, 31], [1213, 73, 35, 31]]
+  },
+  "notes": "Calibrated on 2026 S3W1D1 (OW_ESPORTS_JP I0r_Q0xEVbo, map 1 CB vs PF, t=2750..3550s). Each player tile = ult % (left) + hero portrait (right, the boxed area) + player-name plate below (y~105-117). Team1 tiles are light blue, team2 tiles pink/red. DEAD: the name plate turns solid black and the portrait gets a dark red tint (sometimes faded/washed out); alive name plates are team-colored. Ult-ready shows a white circle-check in place of the % (not death). Between rounds/after fights all ults reset to 0% and heroes can change. HUD is absent on booth/camera cuts (e.g. t=3600) and on transitions (t=2910, 3270). Result screen (t=3900): dark full-screen panel, red 'GAME DATA' title top-left at about x170-390,y65-100, 'MATCH n GAME n' at top-right, two 5-row stat tables (team1 blue on top ~y130-370, team2 red below ~y400-640, x~170-1130) with E/A/D/DMG/H/MIT columns; no in-game HUD bar."
+}
