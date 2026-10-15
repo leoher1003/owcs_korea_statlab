@@ -66,6 +66,8 @@ X=OWCS_STAT_LAB_26_KR_STAGE3.xlsx; R=tmp/vod; S="$R/261002_scan.npz $R/261003_sc
 python pipeline/vod/scan_vod.py <vod or stream> $R/261002_scan.npz            # once per broadcast day
 python pipeline/vod/classify_heroes.py <labelled cluster folders, comma-separated> $S
 python pipeline/vod/validate_vs_teamfight.py $X $S
+python pipeline/vod/setup_grab.py $X $R/setup/banner.npz 261002=<stream url file> ...   # banner crops around map/round starts
+python pipeline/vod/setup_phases.py $R/setup/banner.npz pipeline/vod/setup_templates.npz $R/setup/exclude_frames.npz
 python pipeline/vod/hero_playtime.py $X $R/s3w1_hero_playtime_nosetup.csv $S --exclude $R/setup/exclude_frames.npz
 python pipeline/vod/player_playtime.py $X $R/plates/plate_readings.csv $R/s3w1_hero_playtime_nosetup.csv $R/s3w1_player_hero_playtime_nosetup.csv
 python pipeline/vod/export_hero_playtime.py $X $R/s3w1_player_hero_playtime_nosetup.csv data/stage3/vod_hero_playtime.csv site/data/hero_playtime_s3.js
