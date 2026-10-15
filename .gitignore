@@ -9,6 +9,19 @@
 tmp/
 temp/
 
+# Raw / private data (not redistributed; see docs/REPRODUCIBILITY.md)
+result_screen_*/
+output/
+*.xlsx
+.env
+.env.*
+
+# Claude Code personal settings
+.claude/settings.local.json
+
 # IDE
 .vscode/
 .idea/
+
+# Python bytecode
+__pycache__/
