@@ -110,7 +110,7 @@ Stage 3 result screens go through the same deterministic validation, with two ad
 
 Map results can also be compared against Liquipedia (`pipeline/fetch_liquipedia.py --compare`), which reports any difference rather than correcting it.
 
-The Stage 2 final-dataset QA and manual source-screen audit above have not yet been repeated for Stage 3.
+The Stage 3 scoreboard data has been checked by the author (2026-10-15).
 
 ### Teamfight records
 
@@ -124,7 +124,7 @@ Before export, every teamfight row is checked:
 
 Failures are reported with the map and fight number; rows are never silently fixed or dropped.
 
-These checks confirm structure, not judgment: they cannot show that a fight's winner or boundaries were called correctly. As a cross-check in the other direction, the VOD hero classifier (below) found 392 of the 395 heroes recorded in the Week 1 teamfight log (99.2%). A manual re-watch audit of a sample of teamfights has not been documented yet.
+These checks confirm structure, not judgment: they cannot show that a fight's winner or boundaries were called correctly. As a cross-check in the other direction, the VOD hero classifier (below) found 392 of the 395 heroes recorded in the Week 1 teamfight log (99.2%). A manual re-watch audit of a sample of teamfights has not been done yet.
 
 ### Hero playtime (VOD estimate)
 

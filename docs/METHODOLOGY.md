@@ -118,7 +118,7 @@ Teamfights are recorded **manually** by one annotator watching the broadcast VOD
 
 - Team teamfight win rate = fights won / fights recorded, always shown with n. There is no minimum sample.
 - Compositions are grouped by the unordered set of five heroes per side.
-- Composition win rates are ranked only for compositions with **10 or more teamfights**. In a mirror fight (both teams on the same composition), the fight is excluded from that composition's win/loss across all teams and counted separately as a mirror; a single team's record includes its mirror fights.
+- Composition win rates are ranked only for compositions that appear in **10 or more teamfights, mirror fights included**. In a mirror fight (both teams on the same composition), the fight counts once toward that threshold but is excluded from the composition's win/loss across all teams and shown separately as a mirror; a single team's record includes its mirror fights.
 - Teamfight metrics are kept separate from scoreboard and Per-10 statistics and are never combined into one rating.
 
 ## Hero Playtime (Stage 3, VOD estimate)

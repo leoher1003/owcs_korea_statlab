@@ -5062,9 +5062,9 @@ function stageUpcomingPlaceholderPage(tourneyKey){
 // ==============================================================================
 // Hero roles (T/D/S) come from the exporter (HERO_ROLES in pipeline/export_site_data.py).
 const HERO_ROLES=D.heroRoles||{};
-const TF_COMP_MIN=10;
+const TF_COMP_MIN=10; // comps need this many teamfights, mirrors included, to be ranked (Leo, 2026-10-15)
 // Five hero icons with names; 'wrap' lets them wrap inside narrow cards.
-const tfComp=(heroes,mode='')=>`<div class="tf-comp ${mode}">${heroes.map(h=>`<span class="tf-hero" title="${h}">${heroIcon(h,'ban-hero-icon')}<small>${h}</small></span>`).join('')}</div>`; // comps need at least this many (non-mirror) teamfights to be ranked
+const tfComp=(heroes,mode='')=>`<div class="tf-comp ${mode}">${heroes.map(h=>`<span class="tf-hero" title="${h}">${heroIcon(h,'ban-hero-icon')}<small>${h}</small></span>`).join('')}</div>`;
 const compKey=comp=>[...comp].sort((a,b)=>('TDS'.indexOf(HERO_ROLES[a]??'Z')-'TDS'.indexOf(HERO_ROLES[b]??'Z'))||a.localeCompare(b)).join(' / ');
 
 // One team's teamfight record and the comps it played (mirrors included: it is the team's own record).
@@ -5143,11 +5143,11 @@ function teamfightsPage(){
   });
   // share: fights featuring the comp (a mirror counts once) / all fights — or, with a team filter, / that team's fights
   const shareBase=team==='ALL'?tfs.length:(teamRec[team]?.w||0)+(teamRec[team]?.l||0);
-  const compsAll=Object.values(compRec).map(r=>({...r,mirror:r.mirror/2,n:r.w+r.l,rate:pct(r.w,r.w+r.l),
+  const compsAll=Object.values(compRec).map(r=>({...r,mirror:r.mirror/2,n:r.w+r.l,fights:r.w+r.l+r.mirror/2,rate:pct(r.w,r.w+r.l),
     share:shareBase?Math.round((r.w+r.l+r.mirror/2)/shareBase*1000)/10:null}));
   const compGet={comp:r=>r.key, freq:r=>r.freq, share:r=>r.share, record:r=>r.w, rate:r=>r.rate, n:r=>r.n, teams:r=>Object.keys(r.teams).length, mirror:r=>r.mirror};
-  const ranked=sortRows(compsAll.filter(r=>r.n>=TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
-  const unranked=sortRows(compsAll.filter(r=>r.n<TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
+  const ranked=sortRows(compsAll.filter(r=>r.fights>=TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
+  const unranked=sortRows(compsAll.filter(r=>r.fights<TF_COMP_MIN),state.tfCompSort,state.tfCompDir,compGet);
 
   const teamChips=['ALL',...standings.map(x=>x.team).filter(x=>teamRec[x])].map(tm=>`<button class="chip s3-filter-chip ${team===tm?'active':''}" data-tf-team="${tm}">${tm!=='ALL'?teamLogo(tm,'s3-chip-logo'):''}<span>${tm==='ALL'?(isKo?'전체 팀':'All Teams'):(teamNames[tm]||tm)}</span></button>`).join('');
   const compCell=r=>tfComp(r.heroes);
